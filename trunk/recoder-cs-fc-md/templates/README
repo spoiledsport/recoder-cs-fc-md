@@ -1,0 +1,11 @@
+
+
+This directory contains the JavaCC parser for Recoder C#.
+The *.java and *.html patterns are included in the .cvsignore file.
+There is a genparser rule in the build.xml file, which builds the parser
+and copies the resulting files to src/recoder/parser.
+You have to set the javacc.bin property to point to your javacc executable.
+
+
+
+

@@ -1,0 +1,137 @@
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" size="668,6637" id="kastaniekisrecodercs0" metadata="nsuml-1.4" initialized="true" showWireOptions="15">
+  <children xsi:type="editmodel:ClassEditModel" location="468,427" size="146,85" id="kastaniekisrecodercs31" runTimeClassModel="kastaniekisrecodercs34;kastaniekisrecodercs32">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="109,36" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs34"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs32"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" location="671,50" size="184,139" id="kastaniekisrecodercs38" runTimeClassModel="kastaniekisrecodercs41;kastaniekisrecodercs49;kastaniekisrecodercs43;kastaniekisrecodercs46;kastaniekisrecodercs39">
+    <children xsi:type="editmodel:CompartmentEditModel" size="107,18" viewSorter="Name">
+      <children xsi:type="editmodel:AttributeEditModel" id="kastaniekisrecodercs39"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="131,72" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs43"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs41"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs46"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs49"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" location="668,430" size="144,85" id="kastaniekisrecodercs1182" runTimeClassModel="kastaniekisrecodercs1185;kastaniekisrecodercs1183">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="105,36" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs1185"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs1183"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" location="465,50" size="133,81" targetConnections="//@children.4/@sourceConnections.0" id="kastaniekisrecodercs2" runTimeClassModel="kastaniekisrecodercs4">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="67,18" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs4"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" location="443,181" size="178,160" id="kastaniekisrecodercs7" runTimeClassModel="kastaniekisrecodercs19;kastaniekisrecodercs9;kastaniekisrecodercs14">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="72,18" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs14"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="125,69" viewSorter="Name">
+      <children xsi:type="editmodel:ClassEditModel" size="125,67" id="kastaniekisrecodercs19" runTimeClassModel="kastaniekisrecodercs25;kastaniekisrecodercs21">
+        <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="95,18" viewSorter="Name">
+          <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs25"/>
+        </children>
+        <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+      </children>
+    </children>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" connectionRouterKind="Manual" source="//@children.4" target="//@children.3" targetEnd="//@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.4/@sourceConnections.0/@children.0">
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" location="0,37" size="176,211" targetConnections="//@children.8/@sourceConnections.1 //@children.7/@sourceConnections.0" id="kastaniekisrecodercs52" runTimeClassModel="kastaniekisrecodercs79;kastaniekisrecodercs89;kastaniekisrecodercs93;kastaniekisrecodercs59;kastaniekisrecodercs105;kastaniekisrecodercs71;kastaniekisrecodercs81;kastaniekisrecodercs111;kastaniekisrecodercs103;kastaniekisrecodercs91;kastaniekisrecodercs77;kastaniekisrecodercs87;kastaniekisrecodercs74;kastaniekisrecodercs99;kastaniekisrecodercs101;kastaniekisrecodercs68;kastaniekisrecodercs53;kastaniekisrecodercs97;kastaniekisrecodercs109;kastaniekisrecodercs65;kastaniekisrecodercs95;kastaniekisrecodercs62;kastaniekisrecodercs56;kastaniekisrecodercs85;kastaniekisrecodercs107;kastaniekisrecodercs113;kastaniekisrecodercs83">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="148,162" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs77"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs87"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs97"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs93"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs95"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs85"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs83"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs89"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs91"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="kastaniekisrecodercs56" connectionRouterKind="Manhattan" source="//@children.5" target="//@children.9" targetEnd="//@children.5/@sourceConnections.0/@children.0" sourceEnd="//@children.5/@sourceConnections.0/@children.1">
+      <children xsi:type="editmodel:AssociationEndEditModel" id="kastaniekisrecodercs56" navigable="true" flags="4" multiplicityLabel="//@children.5/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.5/@sourceConnections.0/@children.0/@children.0">
+        <children xsi:type="editmodel:LabelEditModel" size="86,14" fontInfo="Arial-8-0"/>
+        <children xsi:type="editmodel:LabelEditModel" size="18,14" fontInfo="Arial-8-0"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" location="143,388" size="275,85" id="kastaniekisrecodercs136" runTimeClassModel="kastaniekisrecodercs140;kastaniekisrecodercs142;kastaniekisrecodercs148;kastaniekisrecodercs144;kastaniekisrecodercs146;kastaniekisrecodercs137">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="211,36" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs140"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs146"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" connectionRouterKind="Manual" source="//@children.6" target="//@children.7" targetEnd="//@children.6/@sourceConnections.0/@children.1" sourceEnd="//@children.6/@sourceConnections.0/@children.0">
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" location="173,279" size="221,67" targetConnections="//@children.6/@sourceConnections.0" id="kastaniekisrecodercs116" runTimeClassModel="kastaniekisrecodercs121;kastaniekisrecodercs117;kastaniekisrecodercs125;kastaniekisrecodercs123;kastaniekisrecodercs127;kastaniekisrecodercs133;kastaniekisrecodercs119;kastaniekisrecodercs129;kastaniekisrecodercs131">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="165,18" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs117"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" connectionRouterKind="Manual" source="//@children.7" target="//@children.5" targetEnd="//@children.7/@sourceConnections.0/@children.1" sourceEnd="//@children.7/@sourceConnections.0/@children.0">
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="88,105"/>
+    </sourceConnections>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" location="248,702" size="169,85" id="kastaniekisrecodercs159" runTimeClassModel="kastaniekisrecodercs169;kastaniekisrecodercs161;kastaniekisrecodercs166;kastaniekisrecodercs163;kastaniekisrecodercs160">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="146,36" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs169"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs166"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" connectionRouterKind="Manual" source="//@children.8" target="//@children.9/@sourceConnections.0" targetEnd="//@children.8/@sourceConnections.0/@children.1" sourceEnd="//@children.8/@sourceConnections.0/@children.0">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="84,0" anchorKind="FixedAtEdge"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="kastaniekisrecodercs160" connectionRouterKind="Manhattan" source="//@children.8" target="//@children.5" targetEnd="//@children.8/@sourceConnections.1/@children.0" sourceEnd="//@children.8/@sourceConnections.1/@children.1">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="88,105" id="kastaniekisrecodercs160" navigable="true" flags="4" multiplicityLabel="//@children.8/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.8/@sourceConnections.1/@children.0/@children.0">
+        <children xsi:type="editmodel:LabelEditModel" size="109,14" fontInfo="Arial-8-0"/>
+        <children xsi:type="editmodel:LabelEditModel" size="18,14" fontInfo="Arial-8-0"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" location="17,701" size="144,43" targetConnections="//@children.5/@sourceConnections.0" id="kastaniekisrecodercs57" packageIndication="1" runTimeClassModel="kastaniekisrecodercs906;kastaniekisrecodercs1174;kastaniekisrecodercs903;kastaniekisrecodercs802;kastaniekisrecodercs225;kastaniekisrecodercs518;kastaniekisrecodercs449;kastaniekisrecodercs829;kastaniekisrecodercs729;kastaniekisrecodercs1130;kastaniekisrecodercs572;kastaniekisrecodercs1024;kastaniekisrecodercs587;kastaniekisrecodercs645;kastaniekisrecodercs269;kastaniekisrecodercs575;kastaniekisrecodercs638;kastaniekisrecodercs973;kastaniekisrecodercs581;kastaniekisrecodercs197;kastaniekisrecodercs466;kastaniekisrecodercs523;kastaniekisrecodercs292;kastaniekisrecodercs927;kastaniekisrecodercs551;kastaniekisrecodercs352;kastaniekisrecodercs764;kastaniekisrecodercs1057;kastaniekisrecodercs819;kastaniekisrecodercs1160;kastaniekisrecodercs324;kastaniekisrecodercs315;kastaniekisrecodercs468;kastaniekisrecodercs955;kastaniekisrecodercs805;kastaniekisrecodercs569;kastaniekisrecodercs529;kastaniekisrecodercs272;kastaniekisrecodercs1115;kastaniekisrecodercs255;kastaniekisrecodercs378;kastaniekisrecodercs717;kastaniekisrecodercs1164;kastaniekisrecodercs205;kastaniekisrecodercs757;kastaniekisrecodercs760;kastaniekisrecodercs959;kastaniekisrecodercs739;kastaniekisrecodercs710;kastaniekisrecodercs414;kastaniekisrecodercs918;kastaniekisrecodercs952;kastaniekisrecodercs584;kastaniekisrecodercs1121;kastaniekisrecodercs554;kastaniekisrecodercs799;kastaniekisrecodercs1087;kastaniekisrecodercs781;kastaniekisrecodercs1136;kastaniekisrecodercs497;kastaniekisrecodercs934;kastaniekisrecodercs345;kastaniekisrecodercs201;kastaniekisrecodercs876;kastaniekisrecodercs988;kastaniekisrecodercs687;kastaniekisrecodercs607;kastaniekisrecodercs867;kastaniekisrecodercs900;kastaniekisrecodercs240;kastaniekisrecodercs1054;kastaniekisrecodercs994;kastaniekisrecodercs545;kastaniekisrecodercs590;kastaniekisrecodercs792;kastaniekisrecodercs785;kastaniekisrecodercs566;kastaniekisrecodercs924;kastaniekisrecodercs362;kastaniekisrecodercs504;kastaniekisrecodercs746;kastaniekisrecodercs771;kastaniekisrecodercs1097;kastaniekisrecodercs833;kastaniekisrecodercs836;kastaniekisrecodercs619;kastaniekisrecodercs660;kastaniekisrecodercs714;kastaniekisrecodercs1113;kastaniekisrecodercs778;kastaniekisrecodercs1014;kastaniekisrecodercs736;kastaniekisrecodercs266;kastaniekisrecodercs1021;kastaniekisrecodercs215;kastaniekisrecodercs237;kastaniekisrecodercs392;kastaniekisrecodercs563;kastaniekisrecodercs642;kastaniekisrecodercs446;kastaniekisrecodercs298;kastaniekisrecodercs542;kastaniekisrecodercs788;kastaniekisrecodercs188;kastaniekisrecodercs1103;kastaniekisrecodercs192;kastaniekisrecodercs301;kastaniekisrecodercs1133;kastaniekisrecodercs962;kastaniekisrecodercs1148;kastaniekisrecodercs421;kastaniekisrecodercs808;kastaniekisrecodercs172;kastaniekisrecodercs289;kastaniekisrecodercs437;kastaniekisrecodercs666;kastaniekisrecodercs423;kastaniekisrecodercs750;kastaniekisrecodercs979;kastaniekisrecodercs1030;kastaniekisrecodercs610;kastaniekisrecodercs690;kastaniekisrecodercs560;kastaniekisrecodercs359;kastaniekisrecodercs683;kastaniekisrecodercs669;kastaniekisrecodercs985;kastaniekisrecodercs1033;kastaniekisrecodercs578;kastaniekisrecodercs635;kastaniekisrecodercs774;kastaniekisrecodercs453;kastaniekisrecodercs651;kastaniekisrecodercs854;kastaniekisrecodercs1018;kastaniekisrecodercs234;kastaniekisrecodercs210;kastaniekisrecodercs318;kastaniekisrecodercs258;kastaniekisrecodercs991;kastaniekisrecodercs514;kastaniekisrecodercs1071;kastaniekisrecodercs295;kastaniekisrecodercs261;kastaniekisrecodercs997;kastaniekisrecodercs548;kastaniekisrecodercs732;kastaniekisrecodercs179;kastaniekisrecodercs724;kastaniekisrecodercs894;kastaniekisrecodercs500;kastaniekisrecodercs485;kastaniekisrecodercs1082;kastaniekisrecodercs627;kastaniekisrecodercs948;kastaniekisrecodercs873;kastaniekisrecodercs921;kastaniekisrecodercs1151;kastaniekisrecodercs657;kastaniekisrecodercs1100;kastaniekisrecodercs849;kastaniekisrecodercs380;kastaniekisrecodercs680;kastaniekisrecodercs483;kastaniekisrecodercs743;kastaniekisrecodercs304;kastaniekisrecodercs663;kastaniekisrecodercs593;kastaniekisrecodercs753;kastaniekisrecodercs440;kastaniekisrecodercs1078;kastaniekisrecodercs890;kastaniekisrecodercs843;kastaniekisrecodercs536;kastaniekisrecodercs1157;kastaniekisrecodercs1045;kastaniekisrecodercs693;kastaniekisrecodercs426;kastaniekisrecodercs721;kastaniekisrecodercs931;kastaniekisrecodercs249;kastaniekisrecodercs1124;kastaniekisrecodercs1048;kastaniekisrecodercs507;kastaniekisrecodercs1007;kastaniekisrecodercs408;kastaniekisrecodercs1075;kastaniekisrecodercs276;kastaniekisrecodercs909;kastaniekisrecodercs616;kastaniekisrecodercs533;kastaniekisrecodercs321;kastaniekisrecodercs767;kastaniekisrecodercs1110;kastaniekisrecodercs840;kastaniekisrecodercs1167;kastaniekisrecodercs654;kastaniekisrecodercs1092;kastaniekisrecodercs335;kastaniekisrecodercs846;kastaniekisrecodercs976;kastaniekisrecodercs355;kastaniekisrecodercs897;kastaniekisrecodercs822;kastaniekisrecodercs329;kastaniekisrecodercs1027;kastaniekisrecodercs434;kastaniekisrecodercs1001;kastaniekisrecodercs397;kastaniekisrecodercs342;kastaniekisrecodercs982;kastaniekisrecodercs1039;kastaniekisrecodercs312;kastaniekisrecodercs795;kastaniekisrecodercs815;kastaniekisrecodercs1065;kastaniekisrecodercs1068;kastaniekisrecodercs1107;kastaniekisrecodercs812;kastaniekisrecodercs526;kastaniekisrecodercs1004;kastaniekisrecodercs394;kastaniekisrecodercs278;kastaniekisrecodercs676;kastaniekisrecodercs703;kastaniekisrecodercs632;kastaniekisrecodercs603;kastaniekisrecodercs539;kastaniekisrecodercs1011;kastaniekisrecodercs431;kastaniekisrecodercs863;kastaniekisrecodercs860;kastaniekisrecodercs1170;kastaniekisrecodercs613;kastaniekisrecodercs966;kastaniekisrecodercs1118;kastaniekisrecodercs243;kastaniekisrecodercs945;kastaniekisrecodercs887;kastaniekisrecodercs489;kastaniekisrecodercs707;kastaniekisrecodercs880;kastaniekisrecodercs1051;kastaniekisrecodercs326;kastaniekisrecodercs494;kastaniekisrecodercs700;kastaniekisrecodercs672;kastaniekisrecodercs557;kastaniekisrecodercs915;kastaniekisrecodercs696;kastaniekisrecodercs228;kastaniekisrecodercs349;kastaniekisrecodercs1154;kastaniekisrecodercs510;kastaniekisrecodercs308;kastaniekisrecodercs623;kastaniekisrecodercs648;kastaniekisrecodercs340;kastaniekisrecodercs597;kastaniekisrecodercs883;kastaniekisrecodercs402;kastaniekisrecodercs429;kastaniekisrecodercs826;kastaniekisrecodercs941;kastaniekisrecodercs1145;kastaniekisrecodercs969;kastaniekisrecodercs246;kastaniekisrecodercs252;kastaniekisrecodercs460;kastaniekisrecodercs375;kastaniekisrecodercs1178;kastaniekisrecodercs600;kastaniekisrecodercs938;kastaniekisrecodercs912;kastaniekisrecodercs184;kastaniekisrecodercs404;kastaniekisrecodercs475;kastaniekisrecodercs1140;kastaniekisrecodercs221;kastaniekisrecodercs1042;kastaniekisrecodercs1143">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="202,5058" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.8/@sourceConnections.0" connectionRouterKind="GeneralizationManhattan" source="//@children.9" target="//@children.10" targetEnd="//@children.9/@sourceConnections.0/@children.1" sourceEnd="//@children.9/@sourceConnections.0/@children.0">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="72,0" anchorKind="FixedAtEdge"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="84,99" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" location="104,525" size="169,99" targetConnections="//@children.9/@sourceConnections.0" id="kastaniekisrecodercs151" runTimeClassModel="kastaniekisrecodercs156;kastaniekisrecodercs153">
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="146,36" viewSorter="Name">
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs156"/>
+      <children xsi:type="editmodel:MethodEditModel" id="kastaniekisrecodercs153"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" viewSorter="Name"/>
+  </children>
+</editmodel:ClassDiagramEditModel>
