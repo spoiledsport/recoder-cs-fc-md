@@ -2,12 +2,12 @@ package examples.fcMdExamples;
 
 import java.io.IOException;
 
-
 import recoder.CrossReferenceServiceConfiguration;
 import recoder.ParserException;
 import recoder.abstraction.ClassType;
 import recoder.abstraction.Field;
 import recoder.abstraction.Method;
+import recoder.abstraction.Property;
 import recoder.convenience.TreeWalker;
 import recoder.csharp.CSharpSourceElement;
 import recoder.csharp.CompilationUnit;
@@ -32,9 +32,11 @@ import recoder.csharp.declaration.MethodDeclaration;
 import recoder.csharp.statement.Then;
 import recoder.list.ClassTypeList;
 import recoder.list.CompilationUnitList;
+import recoder.list.FieldList;
 import recoder.list.MemberReferenceList;
 import recoder.list.MethodList;
 import recoder.service.CrossReferenceSourceInfo;
+import recoder.util.Debug;
 import simpleExp.PlainAnalysisErrorHandler;
 import simpleExp.RecoderProgram;
 import simpleExp.SimplePrinter;
@@ -99,9 +101,9 @@ public class ReferenceTests {
 				} else if (e instanceof MethodReference) {
 					// this.methodRefFound(e);
 				} else if (e instanceof ClassType) {
-					// this.classFound(e);
+					this.classFound(e);
 				} else if (e instanceof Method) {
-					this.methodFound(e);
+					// this.methodFound(e);
 				}
 			}
 
@@ -118,165 +120,162 @@ public class ReferenceTests {
 		// getOveriddenSupTMethodos(e);
 		// System.out.println("changing classes: ");
 		// this.changingClass(e);
-		//System.out.println("max nesting for method: ");
-		//System.out.println(this.calculateMaxLevel((Method)e));
+		// System.out.println("max nesting for method: ");
+		// System.out.println(this.calculateMaxLevel((Method)e));
 		System.out.println("added service? " + this.addedService(e));
-		
+
 	}
-	
+
 	// is a method an edded service
 	public boolean addedService(ProgramElement e) {
 		Method m = (Method) e;
-		
-		for(int i=1 ;i < m.getContainingClassType().getAllSupertypes().size() ;i++)
-		{
-			// allParentMethods are all methods of the parentclass from measured class
-			MethodList allParentMethods = m.getContainingClassType().getAllSupertypes().getClassType(i).getMethods();
-			
+
+		for (int i = 1; i < m.getContainingClassType().getAllSupertypes()
+				.size(); i++) {
+			// allParentMethods are all methods of the parentclass from measured
+			// class
+			MethodList allParentMethods = m.getContainingClassType()
+					.getAllSupertypes().getClassType(i).getMethods();
+
 			// check if method overrides something in super type
 			for (int j = 0; j < allParentMethods.size(); j++) {
-				if (this.checkParameter(m, allParentMethods.getMethod(j))) return false;
+				if (this.checkParameter(m, allParentMethods.getMethod(j)))
+					return false;
 			}
 		}
 		return true;
 	}
-	
+
 	// determin max nesting lvl for a method
-	private int calculateMaxLevel(Method m) 
-	{
-		TreeWalker walkerMethod = new TreeWalker((ProgramElement)m);
-		int cnt=0;
-		int maxnesting=0;
-		while(walkerMethod.next()) 
-		{
+	private int calculateMaxLevel(Method m) {
+		TreeWalker walkerMethod = new TreeWalker((ProgramElement) m);
+		int cnt = 0;
+		int maxnesting = 0;
+		while (walkerMethod.next()) {
 			ProgramElement pe = walkerMethod.getProgramElement();
-			if(isLoop(pe)&& !(pe instanceof StatementBlock)&& !(pe instanceof MethodDeclaration) && !(pe instanceof Then))
-			{ 
-				TreeWalker	walkerLoop= new TreeWalker((ProgramElement)pe);
-				while(walkerLoop.next())
-				{ 
-					try{
-						
-						
-						ProgramElement peLoop= walkerLoop.getProgramElement();
-					
-						if(isLoop(peLoop)&& !(peLoop instanceof MethodDeclaration) && !(peLoop instanceof Then)&& !(peLoop instanceof StatementBlock))
-						{   	
-							if(!inLoop(peLoop))
-							{  
+			if (isLoop(pe) && !(pe instanceof StatementBlock)
+					&& !(pe instanceof MethodDeclaration)
+					&& !(pe instanceof Then)) {
+				TreeWalker walkerLoop = new TreeWalker((ProgramElement) pe);
+				while (walkerLoop.next()) {
+					try {
+
+						ProgramElement peLoop = walkerLoop.getProgramElement();
+
+						if (isLoop(peLoop)
+								&& !(peLoop instanceof MethodDeclaration)
+								&& !(peLoop instanceof Then)
+								&& !(peLoop instanceof StatementBlock)) {
+							if (!inLoop(peLoop)) {
 								cnt++;
-						     	walkerLoop=new TreeWalker((ProgramElement)peLoop);
+								walkerLoop = new TreeWalker(
+										(ProgramElement) peLoop);
 								walkerLoop.next();
-							}
-							else
-							{	cnt++;
-								walkerLoop=new TreeWalker((ProgramElement)peLoop);
+							} else {
+								cnt++;
+								walkerLoop = new TreeWalker(
+										(ProgramElement) peLoop);
 								walkerLoop.next();
 							}
 						}
-					}catch(NullPointerException e){
-						System.out.println("Warning - MAXNESTING - NullPointer - continue");
+					} catch (NullPointerException e) {
+						System.out
+								.println("Warning - MAXNESTING - NullPointer - continue");
 						continue;
 					}
-					
+
 				}
-				if(maxnesting<cnt){
-					maxnesting= cnt;
+				if (maxnesting < cnt) {
+					maxnesting = cnt;
 				}
-				cnt=0;
+				cnt = 0;
 			}
 		}
 		return maxnesting;
-	}		
+	}
 
-	
-	// helper for max nesting 
+	// helper for max nesting
 	// are we still in the loop
-	public boolean inLoop(ProgramElement pe)
-	{
-		TreeWalker wa=new TreeWalker((ProgramElement)pe);
-		TreeWalker puf=wa;
-		
-		while(wa.next()){
-			try{
+	public boolean inLoop(ProgramElement pe) {
+		TreeWalker wa = new TreeWalker((ProgramElement) pe);
+		TreeWalker puf = wa;
+
+		while (wa.next()) {
+			try {
 				puf.next();
 				ProgramElement loop = (ProgramElement) puf.getProgramElement();
-				
-				if(isLoop(loop)&& !(loop instanceof StatementBlock)&& !(loop instanceof MethodDeclaration) && !(loop instanceof Then)){
+
+				if (isLoop(loop) && !(loop instanceof StatementBlock)
+						&& !(loop instanceof MethodDeclaration)
+						&& !(loop instanceof Then)) {
 					return true;
 				}
-			}catch(NullPointerException e){
-				System.out.println("Warning - MAXNESTING - NullPointer - continue");
+			} catch (NullPointerException e) {
+				System.out
+						.println("Warning - MAXNESTING - NullPointer - continue");
 				continue;
 			}
 		}
 		return false;
 	}
-	
+
 	// helper for max nesting
 	// are we gettin ginto a loop
-	private boolean isLoop(ProgramElement pe)
-	{
-			if(pe instanceof For) 
-			{
-				return true;
-			}
-			else if(pe instanceof While) 
-			{	return true;
-			} 
-			else if(pe instanceof Do) 
-			{
-				return true;
-			} 
-			else if(pe instanceof If) 
-			{
-				return true;
-			}
-			else if(pe instanceof Switch) 
-			{
-				return true;
-			}else if(pe instanceof Conditional){
-				return true;
-			}
-		
+	private boolean isLoop(ProgramElement pe) {
+		if (pe instanceof For) {
+			return true;
+		} else if (pe instanceof While) {
+			return true;
+		} else if (pe instanceof Do) {
+			return true;
+		} else if (pe instanceof If) {
+			return true;
+		} else if (pe instanceof Switch) {
+			return true;
+		} else if (pe instanceof Conditional) {
+			return true;
+		}
+
 		return false;
 	}
 
-
-	
 	// for a method determin the classes it is called from
 	public void changingClass(ProgramElement e) {
 		Method m = (Method) e;
-		
+
 		// get memeber references
 		MemberReferenceList ml = this.si.getReferences(m);
-		
+
 		// interate over all memeber references
 		for (int i = 0; i < ml.size(); i++) {
 			MemberReference mr = ml.getMemberReference(i);
 			System.out.println("found memeber reference: " + mr.toSource());
-			
+
 			// determin parent class
-			TypeDeclaration parentClass = this.getParentClassDeclaration((ProgramElement)mr);
-			
-			System.out.println("Calling from class: " + parentClass.getFullName());
-			
+			TypeDeclaration parentClass = this
+					.getParentClassDeclaration((ProgramElement) mr);
+
+			System.out.println("Calling from class: "
+					+ parentClass.getFullName());
+
 		}
-		
+
 	}
-	
+
 	/**
 	 * Get the parent class declaration from a MemberReference
+	 * 
 	 * @param mthdref
 	 * @return TypeDeclaration
 	 */
 	public TypeDeclaration getParentClassDeclaration(ProgramElement e) {
 		do {
-		    e = e.getASTParent();
-			
-		    if (e instanceof ClassType || e instanceof EnumDeclaration || e instanceof ClassDeclaration) {
-		    	return (TypeDeclaration) e;
-		    }
+			e = e.getASTParent();
+
+			if (e instanceof ClassType || e instanceof EnumDeclaration
+					|| e instanceof ClassDeclaration) {
+				return (TypeDeclaration) e;
+			}
 		} while (e != null);
 		return null;
 	}
@@ -416,11 +415,39 @@ public class ReferenceTests {
 
 	private void classFound(ProgramElement e) {
 		ClassType clazz = (ClassType) e;
-		System.out.println("found class : " + clazz.getName());
+		System.out.println("\nfound class : " + clazz.getName());
 		System.out.println("interface: " + clazz.isInterface());
 		System.out.println("class has supertypes: ");
 		this.classSupertypes(e);
+		System.out.println("fields in the class");
+		this.getClassFields(e);
 
+	}
+
+	// print all fields of a class
+	private void getClassFields(ProgramElement e) {
+		ClassType clazz = (ClassType) e;
+		FieldList fields = this.si.getAllFields(clazz);
+
+//		// walk tree and look for properties
+//		TreeWalker propertywalker = new TreeWalker(e);
+//
+//		while (propertywalker.next()) {
+//			try {
+//				ProgramElement pe = propertywalker.getProgramElement();
+//				if (pe instanceof Property) {
+//					Property pro = (Property) e;
+//					System.out.println("property: " + pro.getName());
+//				}
+//			} catch (NullPointerException ex) {
+//				System.out
+//						.println("Warning - Util(3) - NullPointer - continue");
+//				continue;
+//			}
+//		}
+		for (int i = 0; i < fields.size(); i++) {
+			System.out.println("field: " + fields.getField(i).getName());
+		}
 	}
 
 	// print out super types for a class
@@ -435,6 +462,7 @@ public class ReferenceTests {
 
 	}
 
+	// this is run, when a method reference is found
 	private void methodRefFound(ProgramElement e) {
 		MethodReference mr = (MethodReference) e;
 		System.out.println("found methRef: " + mr.getName());
