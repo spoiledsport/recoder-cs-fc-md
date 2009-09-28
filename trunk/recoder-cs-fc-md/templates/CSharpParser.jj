@@ -1,7 +1,7 @@
 options {
     JAVA_UNICODE_ESCAPE = true; // costs approx. 7%
     STATIC = true; // if true, the parser may be initialized only once
-    OPTIMIZE_TOKEN_MANAGER = true;
+    //OPTIMIZE_TOKEN_MANAGER = true;
 }
 
 PARSER_BEGIN(CSharpParser)
@@ -433,6 +433,7 @@ TOKEN :
 | < OUT: "out" >
 | < OVERRIDE: "override" >
 | < PARAMS: "params">
+| < PARTIAL: "partial">
 | < PRIVATE: "private" >
 | < PROTECTED: "protected" >
 | < PUBLIC: "public" >
@@ -462,6 +463,7 @@ TOKEN :
 | < VIRTUAL: "virtual" >
 | < VOID: "void" >
 | < VOLATILE : "volatile" >
+| < WHERE: "where" > 
 | < WHILE: "while" >
 // These are not keywords, but used in the language.
 | < GET: "get" >
@@ -1274,6 +1276,8 @@ ClassDeclaration UnmodifiedClassDeclaration() :
   
 }
 {
+  // read over partial
+  ("partial")?  {  }
   "class"  {
       result = factory.createClassDeclaration();
       setPrefixInfo(result);
@@ -1285,6 +1289,8 @@ ClassDeclaration UnmodifiedClassDeclaration() :
 	  setPostfixInfo(id);
 	  result.setIdentifier(id);
       }
+  // read over generic parameters
+  (TypeParameterList())?
   [ ":"
       {
 	  ex = factory.createExtends();
@@ -5370,6 +5376,96 @@ StatementMutableList GeneralizedStatements() :
   {
       return result;
   }
+}
+
+/**
+   My Additions
+ */
+
+/*******************/
+/* A.2.13 Generics */
+/*******************/
+
+void TypeParameterList():
+{}
+{
+  "<" TypeParameters() ">"
+}
+
+void TypeParameters():
+{}
+{
+  (LOOKAHEAD(2) (AttributeSection())? TypeParameter() ",")* (AttributeSection())? TypeParameter()
+}
+
+void TypeParameter():
+{}
+{
+  <IDENTIFIER>
+}
+
+void TypeArgumentList():
+{}
+{
+  "<" TypeArguments() ">"
+}
+
+void TypeArguments():
+{}
+{
+  (LOOKAHEAD(2) TypeArgument() ",")* TypeArgument()
+}
+
+void TypeArgument():
+{}
+{
+  Type()
+}
+
+void TypeParameterConstraintsClauses():
+{}
+{
+  (TypeParameterConstraintsClause())+
+}
+
+void TypeParameterConstraintsClause():
+{}
+{
+  "where" TypeParameter() ":" TypeParameterConstraints()
+}
+
+void TypeParameterConstraints():
+{}
+{
+  LOOKAHEAD(3) PrimaryConstraint() |
+  LOOKAHEAD(3) SecondaryConstraints() |
+  LOOKAHEAD(3) ConstructorConstraint() |
+  LOOKAHEAD(3) PrimaryConstraint() "," SecondaryConstraints() |
+  LOOKAHEAD(3) PrimaryConstraint() "," ConstructorConstraint() |
+  LOOKAHEAD(3) SecondaryConstraints() "," ConstructorConstraint() |
+  PrimaryConstraint() "," SecondaryConstraints() "," ConstructorConstraint()
+}
+
+void PrimaryConstraint():
+{}
+{
+  ClassDeclaration() |
+  // should already be in ClassDecleration
+  //"class" |
+  "struct" 
+}
+
+void SecondaryConstraints():
+{}
+{
+  (LOOKAHEAD(2) (LOOKAHEAD(2) InterfaceDeclaration() | TypeParameter()) ",")* 
+    (LOOKAHEAD(2) InterfaceDeclaration() | TypeParameter())
+}
+
+void ConstructorConstraint():
+{}
+{
+  "new" "(" ")"
 }
 
 
