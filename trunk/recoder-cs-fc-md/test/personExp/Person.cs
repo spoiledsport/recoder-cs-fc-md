@@ -9,7 +9,7 @@ namespace Cars
 	{
 		public String name;
 		
-        //public int roleId { get { return roleId; } set { roleId = value; } }
+        public int roleId { get { return roleId; } set { roleId = value; } }
         //public int OwnerId { get { return ownerId; } set { ownerId = value; } }
         //public String DocumentTitle { get { return _title; } set { _title = value; } }
         //public String FileName { get { return _filename; } set { _filename = value; } }
