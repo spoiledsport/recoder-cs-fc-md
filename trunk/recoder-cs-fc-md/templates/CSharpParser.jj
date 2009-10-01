@@ -1,7 +1,8 @@
 options {
     JAVA_UNICODE_ESCAPE = true; // costs approx. 7%
     STATIC = true; // if true, the parser may be initialized only once
-    //OPTIMIZE_TOKEN_MANAGER = true;
+    DEBUG_PARSER = true;
+    DEBUG_TOKEN_MANAGER = true;
 }
 
 PARSER_BEGIN(CSharpParser)
@@ -433,7 +434,7 @@ TOKEN :
 | < OUT: "out" >
 | < OVERRIDE: "override" >
 | < PARAMS: "params">
-| < PARTIAL: "partial">
+| < PARTIAL: "partial" >
 | < PRIVATE: "private" >
 | < PROTECTED: "protected" >
 | < PUBLIC: "public" >
@@ -979,6 +980,11 @@ UncollatedReferenceQualifier Name() :
       setPostfixInfo(result);
     }
   )*
+  //
+  // ADDITION!
+	// a name can be followed by typeargumentlIst
+  //
+  (LOOKAHEAD(2) TypeArgumentList())?
   {
     return result;
   }
@@ -1214,7 +1220,7 @@ TypeDeclaration TypeDeclaration() :
 }
 {
   (
-	LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" | "abstract" | "sealed" )* "class" ) 
+	LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" | "abstract" | "sealed"  | "partial")* "class" ) 
     result = ClassDeclaration()
   | LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" )* "interface" ) 
     result = InterfaceDeclaration()
@@ -1258,6 +1264,13 @@ ClassDeclaration ClassDeclaration() :
 	ml.add(m); 
     }
   )*
+
+  //
+  // ADDITION!
+  // read over partial classes
+  //
+	("partial")*
+  
   result = UnmodifiedClassDeclaration()
   {
     result.setModifiers(ml);
@@ -1276,8 +1289,6 @@ ClassDeclaration UnmodifiedClassDeclaration() :
   
 }
 {
-  // read over partial
-  ("partial")?  {  }
   "class"  {
       result = factory.createClassDeclaration();
       setPrefixInfo(result);
@@ -1289,7 +1300,10 @@ ClassDeclaration UnmodifiedClassDeclaration() :
 	  setPostfixInfo(id);
 	  result.setIdentifier(id);
       }
-  // read over generic parameters
+  //
+  // ADDITION!
+  // generic types for classes
+  //
   (TypeParameterList())?
   [ ":"
       {
@@ -1309,6 +1323,11 @@ ClassDeclaration UnmodifiedClassDeclaration() :
 	  result.setExtendedTypes(ex);
       }
   ]
+	//
+	// ADDITION!
+	// type parameter constraints in class decleration
+	//
+  (TypeParameterConstraintsClauses())?
   mdl = ClassBody() 
   {
     result.setMembers(mdl);
@@ -1369,6 +1388,11 @@ StructDeclaration UnmodifiedStructDeclaration() :
 	  setPostfixInfo(id);
 	  result.setIdentifier(id);
       }
+  //
+  // ADDITION!
+  // generic types for structs
+  //
+  (TypeParameterList())?
   [ ":"
       {
 	  ex = factory.createExtends();
@@ -1451,6 +1475,11 @@ InterfaceDeclaration UnmodifiedInterfaceDeclaration() :
       setPostfixInfo(id);
       result.setIdentifier(id);
   }
+  //
+  // ADDITION!
+  // generic types for methods
+  //
+  (TypeParameterList())?
   [ ":"
       {
 	  ex = factory.createExtends();
@@ -1665,6 +1694,12 @@ DelegateDeclaration DelegateDeclaration() :
       setPrefixInfo(id); 
       setPostfixInfo(id); 
   }
+
+  //
+  // ADDITION!
+  // generic types for methods
+  //
+  (TypeParameterList())?
   
   pdl = FormalParameters()
   
@@ -2075,6 +2110,12 @@ MethodDeclaration MethodDeclarator(TypeReference tr) :
 {
 
   ifr = Name()  
+
+  //
+  // ADDITION!
+  // generic types for methods
+  //
+  (TypeParameterList())?
   
   pdl = FormalParameters()
   
@@ -4736,6 +4777,9 @@ PrimaryPrefixReturnValue PrimaryPrefix() :
       prefix.type = prefix.QUALIFIED_NAME;
       prefix.name = qn;
   }
+//| 
+//	DefaultValueExpression()
+  
 )
   {
       return prefix;
@@ -5378,9 +5422,10 @@ StatementMutableList GeneralizedStatements() :
   }
 }
 
-/**
-   My Additions
- */
+//
+// ADDITION!
+// all the generics stuff
+//
 
 /*******************/
 /* A.2.13 Generics */
@@ -5468,4 +5513,12 @@ void ConstructorConstraint():
   "new" "(" ")"
 }
 
+/*******************/
+/* default value expression  */
+/*******************/
+void DefaultValueExpression():
+{}
+{
+  "default" "(" Type() ")"
+}
 

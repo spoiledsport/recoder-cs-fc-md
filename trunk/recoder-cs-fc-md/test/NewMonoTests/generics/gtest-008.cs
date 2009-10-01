@@ -4,7 +4,7 @@ interface I
 }
 
 class Stack<T>
-	where T : I, new ()
+	where T : new ()
 {
 }
 

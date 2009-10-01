@@ -24,17 +24,17 @@ import fcMDtests.util.FileSlurper;
  * @see #GenericsTest(String name)
  */
 @RunWith(value = Parameterized.class)
-public class GenericsTest extends ParserTestCase {
+public class PartialClassesTest extends ParserTestCase {
 
 	// configuration options
 	static String testDir = "test" + System.getProperty("file.separator")
 			+ "NewMonoTests" + System.getProperty("file.separator")
-			+ "generics";
+			+ "partial";
 	static String regex = ".*cs$";;
 	String testFile;
 	static int testNumber = 0;
 
-	public GenericsTest(String testFile) {
+	public PartialClassesTest(String testFile) {
 		this.testFile = testFile;
 	}
 
