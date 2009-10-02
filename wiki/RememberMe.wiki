@@ -10,3 +10,5 @@
   
  * csharpor.jj
   * right now ignoring all TypeParameterList() in void PrimaryNoArrayCreationExpression() line 744
+ * DefaultSourceInfo.java
+  * 1540 check for type != null
