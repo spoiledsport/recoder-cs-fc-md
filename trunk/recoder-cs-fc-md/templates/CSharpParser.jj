@@ -1,8 +1,8 @@
 options {
     JAVA_UNICODE_ESCAPE = true; // costs approx. 7%
     STATIC = true; // if true, the parser may be initialized only once
-    DEBUG_PARSER = true;
-    DEBUG_TOKEN_MANAGER = true;
+    //DEBUG_PARSER = true;
+    //DEBUG_TOKEN_MANAGER = true;
 }
 
 PARSER_BEGIN(CSharpParser)
@@ -466,6 +466,7 @@ TOKEN :
 | < VOLATILE : "volatile" >
 | < WHERE: "where" > 
 | < WHILE: "while" >
+| < YIELD: "yield" >
 // These are not keywords, but used in the language.
 | < GET: "get" >
 | < SET: "set" >
@@ -1220,11 +1221,16 @@ TypeDeclaration TypeDeclaration() :
 }
 {
   (
-	LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" | "abstract" | "sealed"  | "partial")* "class" ) 
+  //
+  // ADDITION!
+  // lookahead for partial,c classes, structs
+  // included ststic in class lookahead
+  //
+	LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" | "abstract" | "sealed" | "static")* ("partial")? "class" ) 
     result = ClassDeclaration()
-  | LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" )* "interface" ) 
+  | LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" )* ("partial")? "interface" ) 
     result = InterfaceDeclaration()
-  | LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" )* "struct" ) 
+  | LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" )* ("partial")? "struct" ) 
     result = StructDeclaration()
   | LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" )* "enum" ) 
     result = EnumDeclaration()
@@ -1257,6 +1263,11 @@ ClassDeclaration ClassDeclaration() :
     |  ( "private" { m = factory.createPrivate(); } )
     |  ( "abstract" { m = factory.createAbstract(); } )
     |  ( "sealed" { m = factory.createSealed(); } )
+  //
+  // ADDITION!
+  // classes can be static
+  //
+    |	 ( "static"{ m =  factory.createStatic(); })
     )
     { 
 	setPrefixInfo(m);
@@ -1359,6 +1370,13 @@ StructDeclaration StructDeclaration() :
 	ml.add(m); 
     }
   )*
+
+    //
+  // ADDITION!
+  // read over partial structs
+  //
+	("partial")*
+	
   result = UnmodifiedStructDeclaration()
   {
     result.setModifiers(ml);
@@ -1445,6 +1463,12 @@ InterfaceDeclaration InterfaceDeclaration() :
 	ml.add(m);
     }
   )*
+  //
+  // ADDITION!
+  // read over partial interfaces
+  //
+	("partial")*
+  
   result = UnmodifiedInterfaceDeclaration()
   {
     result.setModifiers(ml);
@@ -3064,9 +3088,9 @@ LOOKAHEAD(2) result = LabeledStatement()
 | result = DoStatement()
 | result = ForStatement()
 | result = ForeachStatement()
-| result = BreakStatement()
+| LOOKAHEAD(6) result =  BreakStatement()
 | result = ContinueStatement()
-| result = ReturnStatement()
+| LOOKAHEAD(6) result =  ReturnStatement()
 | result = ThrowStatement()
 | result = GotoStatement()
 | result = LockStatement()
@@ -3485,6 +3509,11 @@ Break BreakStatement() :
     Break result;
 }
 {
+//
+// ADDITION!
+// yield style breaks for iterators
+//
+	("yield")*
   "break" 
   { 
       result = factory.createBreak(); 
@@ -3525,6 +3554,11 @@ Return ReturnStatement() :
     Return result;
 }
 {
+//
+// ADDITION!
+// yielding return statements for iterators
+//
+  ("yield")*
   "return" 
   {
       result = factory.createReturn();
@@ -5522,3 +5556,12 @@ void DefaultValueExpression():
   "default" "(" Type() ")"
 }
 
+/*******************/
+/* yield statement1  */
+/*******************/
+void YieldStatement():
+{}
+{
+  LOOKAHEAD(2) "yield" "return" Expression() ";" |
+  "yield" "break"
+}
