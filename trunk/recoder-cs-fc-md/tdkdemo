@@ -1,7 +1,0 @@
-#!/bin/bash
-
-./demo1 2>&1 | less
-./demo2 2>&1 | less
-less test/testdata/delegate.cs
-./demo3 2>&1 | less
-./demo4

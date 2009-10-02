@@ -1,1 +1,0 @@
-java -cp build:lib/bsh-1.2b6.jar -Dinput.path=test/minicorlib:test/testdata/delegate.cs TransformationTest SayHello
