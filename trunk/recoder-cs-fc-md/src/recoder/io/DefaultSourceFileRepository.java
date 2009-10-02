@@ -382,6 +382,13 @@ public class DefaultSourceFileRepository
             return name.endsWith(".cs");
         }
     };
+    
+    public final static FilenameFilter CSHARP_FILENAME_FILTER_NEW =
+        new FilenameFilter() {
+        public boolean accept(File dir, String name) {
+            return name.endsWith(".cs_new");
+        }
+    };
 
     public CompilationUnitList getAllCompilationUnitsFromPath()
         throws ParserException {
