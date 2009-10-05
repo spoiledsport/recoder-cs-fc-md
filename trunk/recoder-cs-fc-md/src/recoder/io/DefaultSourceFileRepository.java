@@ -379,7 +379,7 @@ public class DefaultSourceFileRepository
     public final static FilenameFilter CSHARP_FILENAME_FILTER =
         new FilenameFilter() {
         public boolean accept(File dir, String name) {
-            return name.endsWith(".cs");
+            return name.endsWith("_new.cs");
         }
     };
     
