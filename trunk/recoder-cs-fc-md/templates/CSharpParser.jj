@@ -268,6 +268,8 @@ SKIP :
 | "\n"
 | "\r"
 | "\f"
+|  < REGION: "#region" (" private" | " public")* (" bind")* (( " members") | ( " methods"))* >
+|  < ENDREGION: "#endregion" >
 }
 
 /* COMMENTS */
@@ -4812,7 +4814,8 @@ PrimaryPrefixReturnValue PrimaryPrefix() :
       prefix.name = qn;
   }
 //| 
-//	DefaultValueExpression()
+//	DefaultValueExpression()
+
   
 )
   {
