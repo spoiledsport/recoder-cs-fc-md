@@ -54,7 +54,6 @@
     	</fileset>
     </copy>
   	<!-- refresh parser dir -->
-  	<eclipse.refreshLocal resource="${parser.target.dir}" depth="infinite"/>
   </target>
   
  
