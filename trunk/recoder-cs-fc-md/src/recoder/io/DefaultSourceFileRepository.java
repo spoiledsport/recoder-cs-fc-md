@@ -389,6 +389,8 @@ public class DefaultSourceFileRepository
             return name.endsWith(".cs_new");
         }
     };
+    
+    
 
     public CompilationUnitList getAllCompilationUnitsFromPath()
         throws ParserException {
