@@ -1,8 +1,8 @@
 options {
     JAVA_UNICODE_ESCAPE = true; // costs approx. 7%
     STATIC = true; // if true, the parser may be initialized only once
-    //DEBUG_PARSER = true;
-    //DEBUG_TOKEN_MANAGER = true;
+    DEBUG_PARSER = true;
+    DEBUG_TOKEN_MANAGER = true;
 }
 
 PARSER_BEGIN(CSharpParser)
@@ -987,7 +987,7 @@ UncollatedReferenceQualifier Name() :
   // ADDITION!
 	// a name can be followed by typeargumentlIst
   //
-  (LOOKAHEAD(2) TypeArgumentList())?
+  (LOOKAHEAD(3) TypeArgumentList())?
   {
     return result;
   }
