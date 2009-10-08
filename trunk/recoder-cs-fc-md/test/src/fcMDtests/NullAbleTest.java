@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import org.junit.Test;
@@ -13,14 +12,10 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import recoder.ParserException;
-import recoder.io.DefaultSourceFileRepository;
-import recoder.list.StringArrayList;
-import recoder.list.StringMutableList;
-import recoder.util.FileCollector;
 import fcMDtests.util.FileSlurper;
 
 /**
- * This unit test tests the acceptance rate for keymind projects. <br>
+ * This unit test tests the generics related features of the parser. <br>
  * The test is parametrized. In the method {@link #getTestFiles()} a
  * {@link FileSlurper} to get an array of Files that match a certain regex. <br>
  * The test is run with method {@link #test}.
@@ -29,14 +24,17 @@ import fcMDtests.util.FileSlurper;
  * @see #GenericsTest(String name)
  */
 @RunWith(value = Parameterized.class)
-public class KeymindAcceptanceTest extends ParserTestCase {
+public class NullAbleTest extends ParserTestCase {
 
 	// configuration options
-	static String testDir = "/Users/janschumacher/Dropbox/WORK/fc-md/wsp/keymind/src";
+	static String testDir = "test" + System.getProperty("file.separator")
+			+ "NewMonoTests" + System.getProperty("file.separator")
+			+ "nullable";
+	static String regex = ".*cs$";;
 	String testFile;
 	static int testNumber = 0;
 
-	public KeymindAcceptanceTest(String testFile) {
+	public NullAbleTest(String testFile) {
 		this.testFile = testFile;
 	}
 
@@ -57,28 +55,19 @@ public class KeymindAcceptanceTest extends ParserTestCase {
 	 * with the file to be tested.
 	 */
 	@Parameters
-	public static LinkedList<String[]> getTestFiles() {
-		
-		
-		FileCollector col = new FileCollector(testDir);
-		ArrayList<String> list = new ArrayList<String>();
-		LinkedList<String[]> params = new LinkedList<String[]>();
-
-		
-		while (col.next(DefaultSourceFileRepository.CSHARP_FILENAME_FILTER)) {
-			String path;
-			try {
-				path = col.getFile().getCanonicalPath();
-			} catch (IOException ioe) {
-				path = col.getFile().getAbsolutePath();
+	public static LinkedList getTestFiles() {
+		File[] testFiles = null;
+		LinkedList params = new LinkedList();
+		try {
+			// get list of files matching regEx
+			testFiles = new FileSlurper(testDir, regex).slurp();
+			for (File f : testFiles) {
+				// add files to the list used for the parametrized test
+				params.add(new String[] { f.getPath() });
 			}
-			list.add(path);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
-		
-		for (String f : list) {
-			params.add(new String[] { f });
-		}
-
 		return params;
 	}
 
