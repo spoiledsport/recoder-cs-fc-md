@@ -1,8 +1,8 @@
 options {
     JAVA_UNICODE_ESCAPE = true; // costs approx. 7%
     STATIC = true; // if true, the parser may be initialized only once
-    DEBUG_PARSER = true;
-    DEBUG_TOKEN_MANAGER = true;
+    //DEBUG_PARSER = true;
+    //DEBUG_TOKEN_MANAGER = true;
 }
 
 PARSER_BEGIN(CSharpParser)
@@ -740,20 +740,36 @@ TypeReference IntegralType():
     TypeReference result;
 }
 {
+  //
+  // ADDITION!
+  // nullable primitive types
+  //
   (
-    "bool"
+    "bool?"
+  | "bool"  
   | "char"
+  | "char?"
   | "sbyte"
+  | "sbyte?"
   | "byte"
+  | "byte?"
   | "short"
+  | "short?"
   | "ushort"
+  | "ushort?"
   | "int"
+  | "int?"
   | "uint"
+  | "uint?"
   | "long"
+  | "long?"
   | "ulong"
+  | "ulong?"
   )
   {
-    Identifier id = factory.createIdentifier(token.image);
+	String myToken = token.image;
+	myToken = myToken.replace("?","");
+    Identifier id = factory.createIdentifier(myToken);
     setPrefixInfo(id);
     setPostfixInfo(id);
     result = factory.createTypeReference(id);
@@ -770,14 +786,22 @@ TypeReference PrimitiveType() :
 {
     TypeReference result;}
 {
+  
   result = IntegralType() {
      return result;
   }
   |
+  //
+  // ADDITION!
+  // nullable primitive types
+  //
   (
     "float"
+  | "float?"    
   | "double"
+  | "double?"
   | "decimal"
+  | "decimal?"
   )
   {
     Identifier id = factory.createIdentifier(token.image);
@@ -1373,7 +1397,7 @@ StructDeclaration StructDeclaration() :
     }
   )*
 
-    //
+  //
   // ADDITION!
   // read over partial structs
   //
@@ -1413,6 +1437,7 @@ StructDeclaration UnmodifiedStructDeclaration() :
   // generic types for structs
   //
   (TypeParameterList())?
+  ("?")?
   [ ":"
       {
 	  ex = factory.createExtends();

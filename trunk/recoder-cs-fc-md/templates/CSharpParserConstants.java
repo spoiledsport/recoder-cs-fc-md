@@ -517,6 +517,19 @@ public interface CSharpParserConstants {
     "\"<<=\"",
     "\">>=\"",
     "\"->\"",
+    "\"bool?\"",
+    "\"char?\"",
+    "\"sbyte?\"",
+    "\"byte?\"",
+    "\"short?\"",
+    "\"ushort?\"",
+    "\"int?\"",
+    "\"uint?\"",
+    "\"long?\"",
+    "\"ulong?\"",
+    "\"float?\"",
+    "\"double?\"",
+    "\"decimal?\"",
   };
 
 }
