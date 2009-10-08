@@ -261,6 +261,11 @@ PARSER_END(CSharpParser)
 
 /* WHITE SPACE */
 
+//
+// ADDITION!
+// in addition to the ususal stuff, we are skiiping over #region and
+// pre-processor decalaratioins
+//
 SKIP :
 {
   " "
@@ -268,8 +273,7 @@ SKIP :
 | "\n"
 | "\r"
 | "\f"
-|  < REGION: "#region" (" private" | " public")* (" bind")* (( " members") | ( " methods"))* >
-|  < ENDREGION: "#endregion" >
+|  < PPDECLA: "#" (~["\n"])* "\n">
 }
 
 /* COMMENTS */
