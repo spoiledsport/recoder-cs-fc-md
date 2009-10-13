@@ -53,7 +53,7 @@
     		<include name="TokenMgrError.java"/>    		
     	</fileset>
     </copy>
-  	<!-- refresh parser dir -->
+  	
   </target>
   
  

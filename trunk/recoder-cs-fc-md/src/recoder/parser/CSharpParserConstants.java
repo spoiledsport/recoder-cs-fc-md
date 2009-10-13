@@ -527,6 +527,7 @@ public interface CSharpParserConstants {
     "\"float?\"",
     "\"double?\"",
     "\"decimal?\"",
+    "\"::\"",
   };
 
 }

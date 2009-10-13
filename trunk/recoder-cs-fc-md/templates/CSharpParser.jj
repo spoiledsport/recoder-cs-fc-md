@@ -1,8 +1,8 @@
 options {
     JAVA_UNICODE_ESCAPE = true; // costs approx. 7%
     STATIC = true; // if true, the parser may be initialized only once
-    //DEBUG_PARSER = true;
-    //DEBUG_TOKEN_MANAGER = true;
+    //DEBUG_PARSER = true; //DEBUG_TOKEN_MANAGER = true; DEBUG_LOOKAHEAD = true;
+    //UNICODE_INPUT = true;
 }
 
 PARSER_BEGIN(CSharpParser)
@@ -263,7 +263,7 @@ PARSER_END(CSharpParser)
 
 //
 // ADDITION!
-// in addition to the ususal stuff, we are skiiping over #region and
+// in addition to the ususal stuff, we are skiiping over region and
 // pre-processor decalaratioins
 //
 SKIP :
@@ -273,7 +273,7 @@ SKIP :
 | "\n"
 | "\r"
 | "\f"
-|  < PPDECLA: "#" (~["\n"])* "\n">
+|  <PPDECLA: "#" (~["\n"])* "\n">
 }
 
 /* COMMENTS */
@@ -704,7 +704,7 @@ TypeReference Type() :
   int[] dimensions = null;
 }
 {
-
+//(LOOKAHEAD(CSIdentifier()"::")CSIdentifier()"::")*
   result = NonArrayType()
 
   dimensions = RankSpecifiers(null)
@@ -732,6 +732,7 @@ TypeReference NonArrayType() :
     )
 
   )
+ // (LOOKAHEAD(TypeArgumentList())TypeArgumentList())*
   {
       return result;
   }
@@ -988,6 +989,11 @@ UncollatedReferenceQualifier Name() :
   Identifier id;
 }
 {
+  //
+  // ADDITION!
+  // support for The namespace alias qualifier operator: ::
+  //
+  (LOOKAHEAD(CSIdentifier()"::")CSIdentifier()"::")*
   CSIdentifier()
   {
     id = factory.createIdentifier(token.image);    
@@ -1013,9 +1019,9 @@ UncollatedReferenceQualifier Name() :
   )*
   //
   // ADDITION!
-	// a name can be followed by typeargumentlIst
+  // a name can be followed by typeargumentlIst
   //
-  (LOOKAHEAD(3) TypeArgumentList())?
+  (LOOKAHEAD(TypeArgumentList())TypeArgumentList())*
   {
     return result;
   }
@@ -1253,7 +1259,7 @@ TypeDeclaration TypeDeclaration() :
   (
   //
   // ADDITION!
-  // lookahead for partial,c classes, structs
+  // lookahead for partial, classes, structs
   // included ststic in class lookahead
   //
 	LOOKAHEAD( ( "new" | "public" | "protected" | "internal" | "private" | "abstract" | "sealed" | "static")* ("partial")? "class" ) 

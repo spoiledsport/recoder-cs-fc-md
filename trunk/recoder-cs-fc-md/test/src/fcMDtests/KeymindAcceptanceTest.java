@@ -32,7 +32,8 @@ import fcMDtests.util.FileSlurper;
 public class KeymindAcceptanceTest extends ParserTestCase {
 
 	// configuration options
-	static String testDir = "/Users/janschumacher/Dropbox/WORK/fc-md/wsp/keymind/src";
+	//static String testDir = "/Users/janschumacher/Dropbox/WORK/fc-md/wsp/keymind/src";
+	static String testDir = "test/NewMonoTests/failingTests";
 	String testFile;
 	static int testNumber = 0;
 
@@ -59,12 +60,10 @@ public class KeymindAcceptanceTest extends ParserTestCase {
 	@Parameters
 	public static LinkedList<String[]> getTestFiles() {
 		
-		
 		FileCollector col = new FileCollector(testDir);
 		ArrayList<String> list = new ArrayList<String>();
 		LinkedList<String[]> params = new LinkedList<String[]>();
 
-		
 		while (col.next(DefaultSourceFileRepository.CSHARP_FILENAME_FILTER)) {
 			String path;
 			try {
@@ -95,7 +94,8 @@ public class KeymindAcceptanceTest extends ParserTestCase {
 			parse(testFile);
 		} catch (ParserException e) {
 			System.err.println("parser exception!");
-			throw e;
+			//if (e.toString().contains("Encountered \">\""))
+				throw e;
 		}
 
 	}
