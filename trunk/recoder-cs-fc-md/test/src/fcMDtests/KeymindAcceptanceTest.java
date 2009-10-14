@@ -32,8 +32,8 @@ import fcMDtests.util.FileSlurper;
 public class KeymindAcceptanceTest extends ParserTestCase {
 
 	// configuration options
-	//static String testDir = "/Users/janschumacher/Dropbox/WORK/fc-md/wsp/keymind/src";
-	static String testDir = "test/NewMonoTests/failingTests";
+	static String testDir = "/Users/janschumacher/Dropbox/WORK/fc-md/wsp/keymind";
+//	static String testDir = "test/NewMonoTests/failingTests";
 	String testFile;
 	static int testNumber = 0;
 
