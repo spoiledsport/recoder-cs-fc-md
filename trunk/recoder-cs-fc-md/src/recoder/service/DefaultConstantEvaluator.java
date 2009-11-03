@@ -613,12 +613,18 @@ public class DefaultConstantEvaluator
 				String v = ((FloatLiteral) expr).getValue();
 				res.setFloat(Float.valueOf(v).floatValue());
 				return true;
+			} else if (expr instanceof PreDefinedTypeLiteral) {
+				Identifier i = ((UncollatedReferenceQualifier)expr.getASTParent()).getIdentifier();
+				if (i.getText() == "Empty") {
+					res.setString("");
+					return true;
+				}
 			} else if (expr instanceof DoubleLiteral) {
 				String v = ((DoubleLiteral) expr).getValue();
 				res.setDouble(Double.valueOf(v).doubleValue());
 				return true;
 			}
-			throw new ModelException("Unknown literal type");
+			throw new ModelException("Unknown literal type: " + expr.toSource() + " of type: " + expr.getClass());
 		}
 		if (expr instanceof Operator) {
 			if (expr instanceof Assignment) {
