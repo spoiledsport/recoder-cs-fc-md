@@ -24,6 +24,7 @@ import recoder.csharp.reference.MethodReference;
 import recoder.csharp.statement.Catch;
 import recoder.csharp.statement.Do;
 import recoder.csharp.statement.For;
+import recoder.csharp.statement.Foreach;
 import recoder.csharp.statement.If;
 import recoder.csharp.statement.Switch;
 import recoder.csharp.statement.Try;
@@ -52,7 +53,7 @@ public class KeymindTest {
 	CompilationUnitList units;
 
 	protected KeymindTest(String[] args) {
-		System.getProperties().put("input.path","/Users/janschumacher/Dropbox/WORK/fc-md/wsp/keymind/src/FMCSA.Core/Models:/Users/janschumacher/Downloads/web/mono-1.1.7.4/mcs/class/corlib");
+		System.getProperties().put("input.path","test/minicorlib:/Users/janschumacher/Dropbox/WORK/fc-md/wsp/keymind/ana");
 		//System.getProperties().put("input.path","test/NewMonoTests/failingTests:test/minicorlib");
 
 
@@ -63,7 +64,7 @@ public class KeymindTest {
 
 		// set custom error handler
 		this.cs.getProjectSettings().setErrorHandler(
-				new PlainAnalysisErrorHandler());
+				new PlainAnalysisErrorHandler(3));
 
 		// run recoder program
 		RecoderProgram.setup(cs, KeymindTest.class, args);
@@ -99,13 +100,13 @@ public class KeymindTest {
 				ProgramElement e = johnnieWalker.getProgramElement();
 
 				if (e instanceof FieldReference) {
-					// this.fieldRefFound(e);
+					//this.fieldRefFound(e);
 				} else if (e instanceof MethodReference) {
-					// this.methodRefFound(e);
+					//this.methodRefFound(e);
 				} else if (e instanceof ClassType) {
 					this.classFound(e);
 				} else if (e instanceof Method) {
-					// this.methodFound(e);
+					this.methodFound(e);
 				}
 			}
 
@@ -116,14 +117,14 @@ public class KeymindTest {
 	private void methodFound(ProgramElement e) {
 		Method m = (Method) e;
 		System.out.println("found method: " + m.getFullName());
-		// System.out.println("LOC: " + this.methodLoc(e));
-		// System.out.println("CYCLO: " + this.cycloMethod(e));
-		// System.out.println("overriding method is class: ");
-		// getOveriddenSupTMethodos(e);
-		// System.out.println("changing classes: ");
-		// this.changingClass(e);
-		// System.out.println("max nesting for method: ");
-		// System.out.println(this.calculateMaxLevel((Method)e));
+		 System.out.println("LOC: " + this.methodLoc(e));
+		 System.out.println("CYCLO: " + this.cycloMethod(e));
+		 System.out.println("overriding method is class: ");
+		 getOveriddenSupTMethodos(e);
+		 System.out.println("changing classes: ");
+		 this.changingClass(e);
+		 System.out.println("max nesting for method: ");
+		 System.out.println(this.calculateMaxLevel((Method)e));
 		System.out.println("added service? " + this.addedService(e));
 
 	}
@@ -377,6 +378,8 @@ public class KeymindTest {
 				ProgramElement pe = methodwalker.getProgramElement();
 				if (pe instanceof For) {
 					cyclo++;
+				} else if (pe instanceof Foreach) {
+					cyclo++;
 				} else if (pe instanceof While) {
 					cyclo++;
 				} else if (pe instanceof Do) {
@@ -472,15 +475,15 @@ public class KeymindTest {
 		System.out.println("getter/setter? ... "
 				+ isMethodReferesGetterSetter(mr));
 
-		// System.out.println("method is private? "
-		// + si.getMethod((MethodReference) e).isPrivate());
-		// System.out.println("method is public? "
-		// + si.getMethod((MethodReference) e).isPublic());
-		// System.out.println("method is static? "
-		// + si.getMethod((MethodReference) e).isStatic());
-		// // this does not work
-		// ProgramElement parent = e.getASTParent();
-		// System.out.println("this method belongs to class: " + e.toSource());
+		 System.out.println("method is private? "
+		 + si.getMethod((MethodReference) e).isPrivate());
+		 System.out.println("method is public? "
+		 + si.getMethod((MethodReference) e).isPublic());
+		 System.out.println("method is static? "
+		 + si.getMethod((MethodReference) e).isStatic());
+		 // this does not work
+		 ProgramElement parent = e.getASTParent();
+		 System.out.println("this method belongs to class: " + e.toSource());
 	}
 
 	public void fieldRefFound(ProgramElement e) {

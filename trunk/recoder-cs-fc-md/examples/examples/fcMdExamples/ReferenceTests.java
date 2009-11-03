@@ -7,14 +7,15 @@ import recoder.ParserException;
 import recoder.abstraction.ClassType;
 import recoder.abstraction.Field;
 import recoder.abstraction.Method;
-import recoder.abstraction.Property;
 import recoder.convenience.TreeWalker;
 import recoder.csharp.CSharpSourceElement;
 import recoder.csharp.CompilationUnit;
 import recoder.csharp.ProgramElement;
+import recoder.csharp.StatementBlock;
 import recoder.csharp.SourceElement.Position;
 import recoder.csharp.declaration.ClassDeclaration;
 import recoder.csharp.declaration.EnumDeclaration;
+import recoder.csharp.declaration.MethodDeclaration;
 import recoder.csharp.declaration.TypeDeclaration;
 import recoder.csharp.expression.operator.Conditional;
 import recoder.csharp.reference.FieldReference;
@@ -25,21 +26,17 @@ import recoder.csharp.statement.Do;
 import recoder.csharp.statement.For;
 import recoder.csharp.statement.If;
 import recoder.csharp.statement.Switch;
+import recoder.csharp.statement.Then;
 import recoder.csharp.statement.Try;
 import recoder.csharp.statement.While;
-import recoder.csharp.StatementBlock;
-import recoder.csharp.declaration.MethodDeclaration;
-import recoder.csharp.statement.Then;
 import recoder.list.ClassTypeList;
 import recoder.list.CompilationUnitList;
 import recoder.list.FieldList;
 import recoder.list.MemberReferenceList;
 import recoder.list.MethodList;
 import recoder.service.CrossReferenceSourceInfo;
-import recoder.util.Debug;
 import simpleExp.PlainAnalysisErrorHandler;
 import simpleExp.RecoderProgram;
-import simpleExp.SimplePrinter;
 
 /**
  * @author AL
@@ -64,7 +61,7 @@ public class ReferenceTests {
 				new PlainAnalysisErrorHandler());
 
 		// run recoder program
-		RecoderProgram.setup(cs, SimplePrinter.class, args);
+		RecoderProgram.setup(cs, ReferenceTests.class, args);
 
 		// get compilation units
 		this.units = cs.getSourceFileRepository().getCompilationUnits();
@@ -84,12 +81,6 @@ public class ReferenceTests {
 
 			// tree walker to walk the AST of cu
 			TreeWalker johnnieWalker = new TreeWalker(cu);
-
-			// we want to get class type of current cu
-			// first we need to get all types of cu
-			// TODO: this does noc work
-			// TypeDeclarationList typeDecs = cu.getDeclarations();
-			// System.out.println("number of typeDecs: " + typeDecs.size());
 
 			// let tree walker walt the AST of cu
 			while (johnnieWalker.next()) {
