@@ -1412,27 +1412,32 @@ public class DefaultSourceInfo
 		if (res != null) {
 			return res;
 		}
-		MethodList mlist = getMethods(mr);
-		if (mlist == null || mlist.isEmpty()) {
-			getErrorHandler().reportError(
+		getErrorHandler().reportError(
 				new UnresolvedReferenceException(
 					Format.toString("Could not resolve " + ELEMENT_LONG + " (02)", mr),
 					mr));
 			return getNameInfo().getUnknownMethod();
-		} else if (mlist.size() > 1) {
-			getErrorHandler().reportError(
-				new AmbiguousReferenceException(
-					Format.toString(
-						ELEMENT_LONG + " is ambiguous - it could be one of ",
-						mr)
-						+ Format.toString("%N", mlist),
-					mr,
-					mlist));
-			// if we have to resume, use the first for the time being
-		}
-		res = mlist.getMethod(0);
-		reference2element.put(mr, res);
-		return res;
+//		MethodList mlist = getMethods(mr);
+//		if (mlist == null || mlist.isEmpty()) {
+//			getErrorHandler().reportError(
+//				new UnresolvedReferenceException(
+//					Format.toString("Could not resolve " + ELEMENT_LONG + " (02)", mr),
+//					mr));
+//			return getNameInfo().getUnknownMethod();
+//		} else if (mlist.size() > 1) {
+//			getErrorHandler().reportError(
+//				new AmbiguousReferenceException(
+//					Format.toString(
+//						ELEMENT_LONG + " is ambiguous - it could be one of ",
+//						mr)
+//						+ Format.toString("%N", mlist),
+//					mr,
+//					mlist));
+//			// if we have to resume, use the first for the time being
+//		}
+//		res = mlist.getMethod(0);
+//		reference2element.put(mr, res);
+//		return res;
 	}
 
 	public MethodList getMethods(MethodReference mr) {
@@ -1491,27 +1496,32 @@ public class DefaultSourceInfo
 		if (res != null) {
 			return res;
 		}
-		ConstructorList clist = getConstructors(cr);
-		if (clist == null || clist.isEmpty()) {
-			getErrorHandler().reportError(
+		getErrorHandler().reportError(
 				new UnresolvedReferenceException(
 					Format.toString("Could not resolve " + ELEMENT_LONG + " (05)", cr),
 					cr));
 			return getNameInfo().getUnknownConstructor();
-		} else if (clist.size() > 1) {
-			getErrorHandler().reportError(
-				new AmbiguousReferenceException(
-					Format.toString(
-						ELEMENT_LONG + " is ambiguous - it could be one of ",
-						cr)
-						+ Format.toString("%N", clist),
-					cr,
-					clist));
-			// use the first, if we do have to continue
-		}
-		res = clist.getConstructor(0);
-		reference2element.put(cr, res);
-		return res;
+//		ConstructorList clist = getConstructors(cr);
+//		if (clist == null || clist.isEmpty()) {
+//			getErrorHandler().reportError(
+//				new UnresolvedReferenceException(
+//					Format.toString("Could not resolve " + ELEMENT_LONG + " (05)", cr),
+//					cr));
+//			return getNameInfo().getUnknownConstructor();
+//		} else if (clist.size() > 1) {
+//			getErrorHandler().reportError(
+//				new AmbiguousReferenceException(
+//					Format.toString(
+//						ELEMENT_LONG + " is ambiguous - it could be one of ",
+//						cr)
+//						+ Format.toString("%N", clist),
+//					cr,
+//					clist));
+//			// use the first, if we do have to continue
+//		}
+//		res = clist.getConstructor(0);
+//		reference2element.put(cr, res);
+//		return res;
 	}
 
 	public ConstructorList getConstructors(ConstructorReference cr) {
