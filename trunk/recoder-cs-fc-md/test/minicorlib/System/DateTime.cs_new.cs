@@ -17,6 +17,12 @@ using System.Runtime.CompilerServices;
 
 namespace System {
     [Serializable]
-    public sealed class String {
+    
+
+	
+	public sealed class DateTime {
+			public static DateTime MinValue = null;
     }
 }
+
+

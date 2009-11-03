@@ -17,10 +17,8 @@ using System.Runtime.CompilerServices;
 
 namespace System {
     [Serializable]
-    
-
-	
-	public sealed class DateTime {
-			public static DateTime MinValue = null;
+    public sealed class DataTable {
     }
 }
+
+
