@@ -704,7 +704,6 @@ TypeReference Type() :
   int[] dimensions = null;
 }
 {
-//(LOOKAHEAD(CSIdentifier()"::")CSIdentifier()"::")*
   result = NonArrayType()
 
   dimensions = RankSpecifiers(null)
@@ -809,6 +808,8 @@ TypeReference PrimitiveType() :
   | "decimal?"
   )
   {
+    String myToken = token.image;
+	myToken = myToken.replace("?","");
     Identifier id = factory.createIdentifier(token.image);
     setPrefixInfo(id);
     setPostfixInfo(id);
@@ -821,7 +822,8 @@ TypeReference PrimitiveType() :
 
 TypeReference ReferenceType() :
 {
-    TypeReference result;}
+    TypeReference result;
+}
 {
   (
     "object"
@@ -3853,6 +3855,7 @@ Goto GotoStatement() :
 Foreach ForeachStatement() :
 {
     Foreach result;
+    LocalVariableDeclaration varDecl = null;
     Expression container = null;
     Identifier id = null;
     Statement body;
@@ -3865,9 +3868,10 @@ Foreach ForeachStatement() :
       setPrefixInfo(result);
   }
    "(" 
-       tr = Type()
-       
-       CSIdentifier()
+	//LOOKAHEAD( Type() CSIdentifier() )
+  	varDecl = LocalVariableDeclaration()
+       //tr = Type()  
+       //CSIdentifier()
         { 
           id = factory.createIdentifier(token.image);
           setPrefixInfo(id);
@@ -3879,9 +3883,10 @@ Foreach ForeachStatement() :
    ")"
       body = Statement()
   {
-      result.setIdentifier(id);
+	  result.setLvd(varDecl);
+      //result.setIdentifier(id);
       result.setExpression(container);
-      result.setTypeReference(tr);
+      //result.setTypeReference(tr);
       result.setBody(body);
       setPostfixInfo(result);
       return result;
