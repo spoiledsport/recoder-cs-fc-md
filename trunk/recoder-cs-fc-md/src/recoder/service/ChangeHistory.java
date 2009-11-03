@@ -35,7 +35,7 @@ import java.util.Enumeration;
 public class ChangeHistory extends AbstractService {
 
 	// set to false ignore the warnings for property style getters/setters
-	private final static boolean DEBUG = false;
+	private final static boolean DEBUG = true;
 
 	/**
 	   Creates a new change history for the given configuration.
