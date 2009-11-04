@@ -1,15 +1,10 @@
 package recoder.service;
 
-import recoder.*;
-import recoder.abstraction.*;
-import recoder.csharp.*;
-import recoder.csharp.declaration.*;
-import recoder.csharp.reference.*;
-import recoder.util.*;
-import recoder.list.*;
-
-import java.io.*;
 import java.util.EventObject;
+
+import recoder.ModelElement;
+import recoder.ModelException;
+import recoder.csharp.ProgramElement;
 
 public class DefaultErrorHandler implements ErrorHandler {
 
