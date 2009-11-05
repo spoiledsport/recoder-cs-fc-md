@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 namespace System {
     [Serializable]
     public sealed class DBNull {
-		//public static readonly String Value = "";
+		public static readonly String Value = "";
     }
 }
 

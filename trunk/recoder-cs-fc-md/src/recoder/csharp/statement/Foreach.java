@@ -4,9 +4,13 @@ package recoder.csharp.statement;
 
 import recoder.*;
 import recoder.csharp.*;
+import recoder.csharp.declaration.LocalVariableDeclaration;
+import recoder.csharp.declaration.VariableSpecification;
+import recoder.csharp.expression.ExpressionStatement;
 import recoder.csharp.reference.TypeReference;
 import recoder.csharp.reference.TypeReferenceContainer;
 import recoder.list.*;
+import recoder.util.Debug;
 
 /**
  Synchronized block.
@@ -15,17 +19,39 @@ import recoder.list.*;
 
 public class Foreach extends CSharpStatement 
                       implements StatementContainer, ExpressionContainer,
-                      			  TypeReferenceContainer, NamedProgramElement
+                      			   VariableScope, ProgramElement
                        {
 
 	/** The identifier */
+	@Deprecated
 	protected Identifier identifier;
 
 	/** The type reference */
+	@Deprecated
 	protected TypeReference reference;
 	
-
     /**
+    Inits.
+    */
+	protected LocalVariableDeclaration lvd;
+
+//	public TypeReference getReference() {
+//		return reference;
+//	}
+//
+//	public void setReference(TypeReference reference) {
+//		this.reference = reference;
+//	}
+
+	public LocalVariableDeclaration getLvd() {
+		return lvd;
+	}
+
+	public void setLvd(LocalVariableDeclaration lvd) {
+		this.lvd = lvd;
+	}
+
+	/**
      Expression.
      */
 
@@ -78,12 +104,15 @@ public class Foreach extends CSharpStatement
         if (proto.body != null) {
             body = (Statement)proto.body.deepClone();
         }
-        if (proto.reference != null) {
-            reference= (TypeReference)proto.reference.deepClone();
+        if (proto.lvd != null) {
+        	lvd = (LocalVariableDeclaration)proto.lvd.deepClone();
         }
-        if (proto.identifier != null) {
-            identifier= (Identifier)proto.identifier.deepClone();
-        }
+//        if (proto.reference != null) {
+//            reference= (TypeReference)proto.reference.deepClone();
+//        }
+//        if (proto.identifier != null) {
+//            identifier= (Identifier)proto.identifier.deepClone();
+//        }
         
         makeParentRoleValid();
     }
@@ -109,12 +138,15 @@ public class Foreach extends CSharpStatement
         if (expression != null) {
             expression.setExpressionContainer(this);
         }
-        if (identifier != null) {
-            identifier.setParent(this);
+        if (lvd != null) {
+        	lvd.setStatementContainer(this);
         }
-        if (reference != null) {
-            reference.setParent(this);
-        }
+//        if (identifier != null) {
+//            identifier.setParent(this);
+//        }
+//        if (reference != null) {
+//            reference.setParent(this);
+//        }
         
         
     }
@@ -153,19 +185,27 @@ public class Foreach extends CSharpStatement
             }
             return true;
         }
-        if (reference == p) {
-            TypeReference r = (TypeReference)q;
-            reference = r;
-            if (r != null) {
-                r.setParent(this);
-            }
-            return true;
-        }
-        if (identifier == p) {
-            Identifier r = (Identifier)q;
-            identifier = r;
-            if (r != null) {
-                r.setParent(this);
+//        if (reference == p) {
+//            TypeReference r = (TypeReference)q;
+//            reference = r;
+//            if (r != null) {
+//                r.setParent(this);
+//            }
+//            return true;
+//        }
+//        if (identifier == p) {
+//            Identifier r = (Identifier)q;
+//            identifier = r;
+//            if (r != null) {
+//                r.setParent(this);
+//            }
+//            return true;
+//        }
+        if (lvd == p) {
+            LocalVariableDeclaration r = (LocalVariableDeclaration)q;
+            lvd = r;
+            if (lvd != null) {
+            	r.setStatementContainer(this);
             }
             return true;
         }
@@ -225,8 +265,9 @@ public class Foreach extends CSharpStatement
         int result = 0;
         if (expression != null) result++;
         if (body       != null) result++;
-        if (identifier != null) result++;
-        if (reference  != null) result++;
+//        if (identifier != null) result++;
+//        if (reference  != null) result++;
+        if (lvd != null)  result++;
         return result;
     }
 
@@ -248,14 +289,18 @@ public class Foreach extends CSharpStatement
             if (index == 0) return body;
             index--;
         }
-        if (reference != null) {
-            if (index == 0) return reference;
+        if (lvd != null) {
+            if (index == 0) return lvd;
             index--;
         }
-        if (identifier != null) {
-            if (index == 0) return identifier;
-            index--;
-        }
+//        if (reference != null) {
+//            if (index == 0) return reference;
+//            index--;
+//        }
+//        if (identifier != null) {
+//            if (index == 0) return identifier;
+//            index--;
+//        }
         throw new ArrayIndexOutOfBoundsException();
     }
 
@@ -268,12 +313,15 @@ public class Foreach extends CSharpStatement
         if (body == child) {
             return 1;
         }
-        if (body == reference) {
-            return 2;
+        if (lvd == child) {
+        	return 2;
         }
-        if (body == identifier) {
-            return 3;
-        }
+//        if (body == reference) {
+//            return 2;
+//        }
+//        if (body == identifier) {
+//            return 3;
+//        }
         return -1;
     }
 
@@ -324,28 +372,29 @@ public class Foreach extends CSharpStatement
         v.visitForeach(this);
     }
     
-	/**
-	 * Returns the identifier.
-	 * @return Identifier
-	 */
-	public Identifier getIdentifier() {
-		return identifier;
-	}
-
-	/**
-	 * Sets the identifier.
-	 * @param identifier The identifier to set
-	 */
-	public void setIdentifier(Identifier identifier) {
-		this.identifier = identifier;
-	}
+//	/**
+//	 * Returns the identifier.
+//	 * @return Identifier
+//	 */
+//	public Identifier getIdentifier() {
+//		return identifier;
+//	}
+//
+//	/**
+//	 * Sets the identifier.
+//	 * @param identifier The identifier to set
+//	 */
+//	public void setIdentifier(Identifier identifier) {
+//		this.identifier = identifier;
+//	}
 
 	/**
 	 * Returns the identifier.
 	 * @return Identifier
 	 */
 	public String getName() {
-		return getIdentifier().getText();
+		VariableSpecificationList vsal = getLvd().getVariables();
+		return vsal.getVariableSpecification(0).getName();
 	}
 
 //	/**
@@ -365,22 +414,58 @@ public class Foreach extends CSharpStatement
       of bounds.
     */
 
-    public TypeReference getTypeReferenceAt(int index) {
-    	if (index == 0 && reference != null) return reference;
-    	throw new ArrayIndexOutOfBoundsException(); 
-    }
-    
-    public int getTypeReferenceCount() {
-    	return reference != null ? 1 : 0;
-    }
+//    public TypeReference getTypeReferenceAt(int index) {
+//    	if (index == 0 && reference != null) return reference;
+//    	throw new ArrayIndexOutOfBoundsException(); 
+//    }
+//    
+//    public int getTypeReferenceCount() {
+//    	return reference != null ? 1 : 0;
+//    }
+//
+//	
+//	/**
+//	 * Sets the reference.
+//	 * @param reference The reference to set
+//	 */
+//	public void setTypeReference(TypeReference reference) {
+//		this.reference = reference;
+//	}
 
-	
-	/**
-	 * Sets the reference.
-	 * @param reference The reference to set
-	 */
-	public void setTypeReference(TypeReference reference) {
-		this.reference = reference;
+	public void addVariableToScope(VariableSpecification var) {
+		Debug.asserta(var);		
 	}
+
+	public VariableSpecification getVariableInScope(String name) {
+		VariableSpecificationList vars =
+            ((LocalVariableDeclaration)lvd).getVariables();
+        for (int i = 0, s = vars.size(); i < s; i += 1) {
+            VariableSpecification v = vars.getVariableSpecification(i);
+            if (name.equals(v.getName())) {
+                return v;
+            }
+        }
+        return null;
+
+	}
+
+	public VariableSpecificationList getVariablesInScope() {
+		System.out.println("getting variables from foreach");
+		if (lvd != null) {
+			VariableSpecificationMutableList vsal = lvd.getVariableSpecifications();
+			return vsal;
+	    }
+	    return VariableSpecificationList.EMPTY_LIST;
+	}
+
+	public void removeVariableFromScope(String name) {
+	    Debug.asserta(name);		
+	}
+
+	public boolean isDefinedScope() {
+	    return true;
+	}
+
+	public void setDefinedScope(boolean defined) {}
 
 }

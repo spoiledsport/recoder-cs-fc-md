@@ -3040,9 +3040,12 @@ public class PrettyPrinter extends SourceVisitor implements PropertyNames {
 		if (!glueExprParentheses) {
 			print(' ');
 		}
-		printElement(x.getTypeReferenceAt(0));
+		VariableSpecificationList vars =
+            ((LocalVariableDeclaration)x.getLvd()).getVariables();
+		printElement((SourceElement) vars.getVariable(0).getType());
 		print(' ');
-		printElement(1, x.getIdentifier());
+		
+		printElement(1, (SourceElement) vars.getVariable(0));
 
 		print(" in ");
 		printElement(x.getExpression());
