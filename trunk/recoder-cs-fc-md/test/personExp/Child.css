@@ -7,13 +7,26 @@ namespace Cars
 	
 	public class Child<T>
 	{
-		public String name;
 		
 		
-		public Person(String name)
+		
+		
+		// comment
+		int i;
+		
+		
+		
+		
+		
+		
+		public Child(String name)
 		{
 			this.name = name;
 		}
+		
+		public String name;
+		
+	
 		
 		public String getName() {
 			for (int i = 0; i<10;i++);
@@ -23,6 +36,8 @@ namespace Cars
 		public String toString() {
 			return this.name;
 		}
+		
+		
 	}
 	
 }

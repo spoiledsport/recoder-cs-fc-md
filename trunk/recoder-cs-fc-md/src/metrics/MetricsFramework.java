@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 import metrics.metrics.LOCC;
+import metrics.metrics.LOCM;
 import metrics.util.MetricUtils;
 import metricsdata.AbstractMetricAttribute;
 import recoder.CrossReferenceServiceConfiguration;
@@ -28,6 +31,12 @@ public class MetricsFramework {
 	
 	// metrics
 	LOCC locc = new LOCC();
+	LOCM locm = new LOCM();
+	
+	/**
+	 * the log4j logger
+	 */
+	static Logger log = Logger.getLogger(MetricsFramework.class);
 
 	protected MetricsFramework(String[] args) {
 		System
@@ -87,39 +96,45 @@ public class MetricsFramework {
     		// put metric results for current CU in resultSet
     		resultSet.put(cu.getName(), cuRes);
 		}
-		debugOutput(resultSet);
+		log.debug(debugOutput(resultSet));
 	}
 	
 	private void getMetricsResult(HashMap<String, AbstractMetricAttribute> cuRes) {
 		cuRes.put(locc.getShortcut(), locc.getResult());
+		cuRes.put(locm.getShortcut(), locm.getResult());
 		
 	}
 
 	private void calculateMetrics() {
 		locc.calculate();
+		locm.calculate();
 		
 	}
 
 	private void setMetricCu(ArrayList<ProgramElement> cuTypes) {
 		locc.setTypes(cuTypes);
+		locm.setTypes(cuTypes);
 		
 	}
 
 	private void createMatrics(CrossReferenceSourceInfo si2) {
 		this.locc.setSi(si2);
+		this.locm.setSi(si2);
 		
 	}
 
 	/**
 	 * Debug and Test Output of the metric results (mainly for stand-alone usage) 
 	 */    
-    public void debugOutput(HashMap<String, HashMap<String, AbstractMetricAttribute>> metricResults) {
+    public String debugOutput(HashMap<String, HashMap<String, AbstractMetricAttribute>> metricResults) {
+    	String result = "";
     	for(String cuName : metricResults.keySet()) {
-    		System.out.println("\nCalculated results for class: "+cuName);
+    		result += "\nCalculated results for class: " + cuName + "\n";
     		for(String metricName : metricResults.get(cuName).keySet()) {
-    			System.out.println(metricName +": "+ metricResults.get(cuName).get(metricName));
+    			result += metricName +": "+ metricResults.get(cuName).get(metricName) + "\n";
     		}
     	}
+    	return result;
     }
 
 }
