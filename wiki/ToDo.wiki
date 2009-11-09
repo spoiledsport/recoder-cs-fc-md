@@ -1,0 +1,11 @@
+#summary The projects ToDo list with stuff, that is not directly related to an issue
+
+= ToDo =
+ * --logging system--
+ * modularize the stuff from RecoderProgram.java
+ * test suite for metrics
+ * configuration system
+ * input path
+ * xml / cvs output
+ * other input then fileSystem input
+ * handle parser exceptions gracefully, just ignore CU
