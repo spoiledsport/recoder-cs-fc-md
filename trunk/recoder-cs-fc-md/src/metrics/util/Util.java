@@ -1,7 +1,10 @@
 package metrics.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import metricsdata.AbstractMetricAttribute;
 import recoder.abstraction.ClassType;
 import recoder.abstraction.Field;
 import recoder.abstraction.Method;
@@ -66,6 +69,20 @@ public final class Util
 		}					
 		return res;
 	}
+	
+	/**
+	 * Debug and Test Output of the metric results (mainly for stand-alone usage) 
+	 */    
+    public static String debugOutput(HashMap<String, HashMap<String, AbstractMetricAttribute>> metricResults) {
+    	String result = "";
+    	for(String cuName : metricResults.keySet()) {
+    		result += "\nCalculated results for class: " + cuName + "\n";
+    		for(String metricName : metricResults.get(cuName).keySet()) {
+    			result += metricName +": "+ metricResults.get(cuName).get(metricName) + "\n";
+    		}
+    	}
+    	return result;
+    }
 	
 	/**
 	 * Check, if the Methods are overriden in the parentclasses

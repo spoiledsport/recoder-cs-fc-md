@@ -2,6 +2,8 @@ package metrics.metrics;
 
 import java.util.ArrayList;
 
+import metricsdata.AbstractMetricAttribute;
+
 import recoder.csharp.ProgramElement;
 import recoder.service.CrossReferenceSourceInfo;
 import recoder.service.SourceInfo;
@@ -13,8 +15,17 @@ public abstract class DSMetricCalculator {
 	protected String shortcut;
 	protected String fullName;
 	protected String description;
+	protected AbstractMetricAttribute result;
 
 	
+	public AbstractMetricAttribute getResult() {
+		return result;
+	}
+
+	public void setResult(AbstractMetricAttribute result) {
+		this.result = result;
+	}
+
 	public String getShortcut() {
 		return shortcut;
 	}

@@ -2,29 +2,32 @@ package metrics.metrics;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
-
 import metrics.util.Filters;
 import metricsdata.IntegerArrayValueMetric;
+
+import org.apache.log4j.Logger;
+
 import recoder.abstraction.ClassType;
 import recoder.abstraction.Constructor;
 import recoder.abstraction.Method;
 import recoder.convenience.TreeWalker;
-import recoder.csharp.CSharpSourceElement;
 import recoder.csharp.ProgramElement;
 import recoder.csharp.SourceElement;
 import recoder.csharp.StatementBlock;
 import recoder.service.CrossReferenceSourceInfo;
 
+/**
+ * A metric that calculates the lines of code per class.
+ */
 public class LOCC extends DSMetricCalculator {
 
-	private IntegerArrayValueMetric result;
+	//private IntegerArrayValueMetric result;
 	
 	/**
 	 * Constructur
 	 * 
-	 * @param cu
-	 * @param si
+	 * @param types an ArrayList of CompilationUnits to calculate
+	 * @param si the CrossReferenceSourceInfo
 	 */
 	public LOCC(ArrayList<ProgramElement> types, CrossReferenceSourceInfo si) {
 		this.si = si;
@@ -38,19 +41,20 @@ public class LOCC extends DSMetricCalculator {
 	static Logger log = Logger.getLogger(LOCC.class);
 
 
+	/**
+	 * constructor
+	 * automatically sets the information for metric:
+	 * shortcut, fullName, description
+	 */
 	public LOCC() {
 		setInfo();
 	}
 
-	/**
-	 * Return the result of this Metric
-	 * 
-	 * @return IntegerArrayValueMetric
-	 */
-	public IntegerArrayValueMetric getResult() {
-		return result;
-	}
 
+	/**
+	 * sets the information for metric:
+	 * shortcut, fullName, description
+	 */
 	private void setInfo() {
 		this.shortcut = "DS_LOCC";
 		this.fullName = "Lines of Code (Class)";
@@ -58,7 +62,7 @@ public class LOCC extends DSMetricCalculator {
 	}
 	
 	/**
-	 * Main calculation for this metric.
+	 * calculate metric result
 	 */
 	public void calculate() {
 		ArrayList<Integer> res = new ArrayList<Integer>();
@@ -129,7 +133,7 @@ public class LOCC extends DSMetricCalculator {
 			}
 			res.add(cnt);
 		}
-
+		// set result of metric
 		this.result = new IntegerArrayValueMetric(res, this.shortcut, this.fullName, this.description);
 
 	}

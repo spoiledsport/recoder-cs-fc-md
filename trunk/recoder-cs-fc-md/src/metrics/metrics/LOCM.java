@@ -15,15 +15,17 @@ import recoder.csharp.SourceElement;
 import recoder.csharp.StatementBlock;
 import recoder.service.CrossReferenceSourceInfo;
 
+/**
+ * A metric that calculates the lines of code per method of a class
+ */
 public class LOCM extends DSMetricCalculator {
 
-	private IntegerArray2ValueMetric result;
 
 	/**
 	 * Constructur
 	 * 
-	 * @param cu
-	 * @param si
+	 * @param types an ArrayList of CompilationUnits to calculate
+	 * @param si the CrossReferenceSourceInfo
 	 */
 	public LOCM(ArrayList<ProgramElement> types, CrossReferenceSourceInfo si) {
 		this.si = si;
@@ -36,19 +38,19 @@ public class LOCM extends DSMetricCalculator {
 	 */
 	static Logger log = Logger.getLogger(LOCM.class);
 	
+	/**
+	 * constructor
+	 * automatically sets the information for metric:
+	 * shortcut, fullName, description
+	 */
 	public LOCM() {
 		setInfo();
 	}
 
 	/**
-	 * Return the result of this Metric
-	 * 
-	 * @return IntegerArrayValueMetric
+	 * sets the information for metric:
+	 * shortcut, fullName, description
 	 */
-	public IntegerArray2ValueMetric getResult() {
-		return result;
-	}
-
 	private void setInfo() {
 		this.shortcut = "DS_LOCM";
 		this.fullName = "Lines of Code (Method)";
@@ -105,8 +107,7 @@ public class LOCM extends DSMetricCalculator {
 							cnt = line + cnt;
 							typeRes.add(cnt);
 
-// TODO: Logging
-							System.out.println("CONSTRUCTOR! TYPE: "
+							log.debug("CONSTRUCTOR! TYPE: "
 									+ ((ClassType) clazz).getName()
 									+ " :: METHOD: " + ((Method) pe).getName()
 									+ " :: LOCM: " + cnt + " :: START: "
@@ -125,17 +126,18 @@ public class LOCM extends DSMetricCalculator {
 					line = (end.getLine() - start.getLine()) + 1;
 					cnt = line + cnt;
 					typeRes.add(cnt);
-// TODO: LOGGING
-//					System.out.println("TYPE: " + ((ClassType) clazz).getName()
-//							+ " :: METHOD: " + ((Method) pe).getName()
-//							+ " :: LOCM: " + cnt + " :: START: "
-//							+ start.getLine() + " :: END: " + end.getLine());
+					
+					log.debug("TYPE: " + ((ClassType) clazz).getName()
+							+ " :: METHOD: " + ((Method) pe).getName()
+							+ " :: LOCM: " + cnt + " :: START: "
+							+ start.getLine() + " :: END: " + end.getLine());
 					cnt = 0;
 				}
 				
 			}
 			res.add(typeRes);
 		}
+		// set result for metric
 		this.result = new IntegerArray2ValueMetric(res, shortcut, fullName,
 				description);
 
