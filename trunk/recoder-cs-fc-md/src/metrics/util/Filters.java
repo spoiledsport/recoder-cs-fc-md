@@ -1,15 +1,21 @@
 package metrics.util;
 
-import java.io.File;
-import java.io.FilenameFilter;
-
 import recoder.ModelElement;
 import recoder.abstraction.ClassType;
 import recoder.abstraction.Method;
 import recoder.convenience.ModelElementFilter;
 
+/**
+ * This class holds a variety of filters, that are used when walking a tree of
+ * ProgramElemnts
+ * 
+ * @author Jan Schumacher, jansch@gmail.com
+ */
 public class Filters {
 
+	/**
+	 * returns true, if ModelElement is a Method
+	 */
 	public final static ModelElementFilter METHOD_FILTER = new ModelElementFilter() {
 		public boolean accept(ModelElement e) {
 			if (e instanceof Method)
@@ -19,6 +25,9 @@ public class Filters {
 		}
 	};
 
+	/**
+	 * returns true, if ModelElement is a Method, that is not abstract
+	 */
 	public final static ModelElementFilter METHOD_FILTER_EXCL_ABSTRACT = new ModelElementFilter() {
 		public boolean accept(ModelElement e) {
 			if (e instanceof Method) {
@@ -30,7 +39,11 @@ public class Filters {
 			return false;
 		}
 	};
-	
+
+	/**
+	 * returns true, if ModelElement is a ClassType that is not abstract nore an
+	 * Interface
+	 */
 	public final static ModelElementFilter CLASS_FILTER_EXCL_ABSTRACT_INTERFACE = new ModelElementFilter() {
 		public boolean accept(ModelElement e) {
 			if (e instanceof ClassType) {
@@ -42,7 +55,7 @@ public class Filters {
 			return false;
 		}
 	};
-	
+
 	public final static ModelElementFilter CLASS_FILTER_EXCL_INTERFACE = new ModelElementFilter() {
 		public boolean accept(ModelElement e) {
 			if (e instanceof ClassType) {

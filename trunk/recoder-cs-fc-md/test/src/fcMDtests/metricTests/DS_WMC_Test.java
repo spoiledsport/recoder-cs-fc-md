@@ -13,8 +13,7 @@ import java.util.Set;
 
 import metrics.MetricsFramework;
 import metrics.metrics.DSMetricCalculator;
-import metrics.metrics.LOCC;
-import metrics.metrics.LOCM;
+import metrics.metrics.WMC;
 import metricsdata.AbstractMetricAttribute;
 
 import org.apache.log4j.Logger;
@@ -28,25 +27,25 @@ import recoder.ParserException;
 import fcMDtests.util.FileSlurper;
 
 /**
- * unit test for metric LOOC
+ * unit test for metric WMC
  */
 @RunWith(value = Parameterized.class)
-public class DS_LOCC_Test extends MetricsTest {
+public class DS_WMC_Test extends MetricsTest {
 
 	private MetricsFramework mf;
 
 	/**
 	 * the log4j logger
 	 */
-	static Logger log = Logger.getLogger(DS_LOCC_Test.class);
+	static Logger log = Logger.getLogger(DS_WMC_Test.class);
 
 	// configuration options
 	static String testDir = "test" + System.getProperty("file.separator")
 			+ "metricsTestData" + System.getProperty("file.separator")
-			+ "DS_LOCC";
+			+ "DS_WMC";
 	static String regex = ".*cs$";;
 
-	public DS_LOCC_Test(String testFile) {
+	public DS_WMC_Test(String testFile) {
 		this.testFile = testFile;
 	}
 
@@ -75,8 +74,7 @@ public class DS_LOCC_Test extends MetricsTest {
 	@Before
 	public void initRecoder() {
 		ArrayList<DSMetricCalculator> metrics = new ArrayList<DSMetricCalculator>();
-		metrics.add(new LOCC());
-		metrics.add(new LOCM());
+		metrics.add(new WMC());
 		this.mf = new MetricsFramework(metrics, new String[] { testDir });
 		resultSet = mf.applyMetric();
 	}

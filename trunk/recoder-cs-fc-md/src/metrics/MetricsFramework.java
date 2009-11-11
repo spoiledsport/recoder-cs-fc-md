@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import metrics.metrics.DSMetricCalculator;
 import metrics.metrics.LOCC;
 import metrics.metrics.LOCM;
+import metrics.metrics.WMC;
 import metrics.util.MetricUtils;
 import metricsdata.AbstractMetricAttribute;
 import recoder.CrossReferenceServiceConfiguration;
@@ -82,6 +83,7 @@ public class MetricsFramework {
 		// create metrics to be calculated
 		myMetrics.add(new LOCC());
 		myMetrics.add(new LOCM());
+		myMetrics.add(new WMC());
 
 		MetricsFramework rt = new MetricsFramework(myMetrics, myArgs);
 		rt.applyMetric();
@@ -115,7 +117,7 @@ public class MetricsFramework {
 			// put metric results for current CU in resultSet
 			resultSet.put(cu.getName(), cuRes);
 		}
-		log.debug(metrics.util.Util.debugOutput(resultSet));
+		log.debug(metrics.util.MetricUtils.debugOutput(resultSet));
 		return resultSet;
 	}
 

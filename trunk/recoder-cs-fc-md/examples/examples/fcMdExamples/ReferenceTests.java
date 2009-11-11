@@ -90,7 +90,7 @@ public class ReferenceTests {
 				if (e instanceof FieldReference) {
 					// this.fieldRefFound(e);
 				} else if (e instanceof MethodReference) {
-					// this.methodRefFound(e);
+					this.methodRefFound(e);
 				} else if (e instanceof ClassType) {
 					this.classFound(e);
 				} else if (e instanceof Method) {
@@ -106,7 +106,7 @@ public class ReferenceTests {
 		Method m = (Method) e;
 		System.out.println("found method: " + m.getFullName());
 		// System.out.println("LOC: " + this.methodLoc(e));
-		// System.out.println("CYCLO: " + this.cycloMethod(e));
+		System.out.println("CYCLO: " + this.cycloMethod(e));
 		// System.out.println("overriding method is class: ");
 		// getOveriddenSupTMethodos(e);
 		// System.out.println("changing classes: ");

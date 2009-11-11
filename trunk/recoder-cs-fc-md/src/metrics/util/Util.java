@@ -43,6 +43,7 @@ import recoder.service.CrossReferenceSourceInfo;
 /**
  * Util methods for DS Framework calculators.
  */
+@Deprecated
 public final class Util
 { 
 	

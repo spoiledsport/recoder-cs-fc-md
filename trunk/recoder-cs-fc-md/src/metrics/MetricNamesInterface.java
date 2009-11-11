@@ -9,6 +9,7 @@ import java.util.LinkedList;
  * static attribute of the class. Whenever other classes are using metrics these
  * attributes should be used to set or determine the type of the metric.
  */
+@Deprecated
 public abstract class MetricNamesInterface {
 
 	/**
