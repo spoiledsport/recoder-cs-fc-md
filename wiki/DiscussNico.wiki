@@ -5,3 +5,11 @@
 
  * WMC, how should we wight stuff? LOC?
   * currently nothing is wweighted.
+
+ * really, what classes do we consider, when calculating metrics?
+
+{{{
+if(!typeDeclaration.isOrdinaryClass() && !typeDeclaration.isAbstract()) {
+				res.add(null);
+				continue;
+}}}
