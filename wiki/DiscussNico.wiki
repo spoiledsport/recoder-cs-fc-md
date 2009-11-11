@@ -1,0 +1,4 @@
+ * how should wmc be defined
+  * i followed the definition of it in the code wizard testcase for it
+  * do we count the cases/default in a switch or just the switch
+  * adapt test case?
