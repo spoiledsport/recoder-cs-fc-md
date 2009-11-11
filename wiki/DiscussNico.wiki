@@ -7,7 +7,8 @@
   * currently nothing is wweighted.
 
  * really, what classes do we consider, when calculating metrics?
- * if the measured entity is method, do i consider abstract classes?
+  * if the measured entity is method, do i consider abstract classes?
+  * I always filter out interfaces, now matter what.
 
 {{{
 if(!typeDeclaration.isOrdinaryClass() && !typeDeclaration.isAbstract()) {
