@@ -4,6 +4,9 @@ import recoder.ModelElement;
 import recoder.abstraction.ClassType;
 import recoder.abstraction.Method;
 import recoder.convenience.ModelElementFilter;
+import recoder.csharp.reference.FieldReference;
+import recoder.csharp.reference.MethodReference;
+import metrics.util.MetricUtils;
 
 /**
  * This class holds a variety of filters, that are used when walking a tree of
@@ -39,6 +42,35 @@ public class Filters {
 			return false;
 		}
 	};
+	
+	/**
+	 * returns true, if ModelElement is a FieldReference, that is not abstract
+	 */
+	public final static ModelElementFilter FIELDREFERENCE_FILTER = new ModelElementFilter() {
+		public boolean accept(ModelElement e) {
+			if (e instanceof FieldReference) {
+				return true;
+			}
+			return false;
+		}
+	};
+
+	/**
+	 * returns true, if ModelElement is a FieldReference, or a Methodreference
+	 */
+	public final static ModelElementFilter FIELDREFERENCE_GETTERSETTER_FILTER = new ModelElementFilter() {
+		public boolean accept(ModelElement e) {
+			// a FieldReference
+			if (e instanceof FieldReference) {
+				return true;
+				// a MethodReference
+			} else if (e instanceof MethodReference) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	};
 
 	/**
 	 * returns true, if ModelElement is a ClassType that is not abstract nore an
@@ -60,7 +92,7 @@ public class Filters {
 		public boolean accept(ModelElement e) {
 			if (e instanceof ClassType) {
 				ClassType clazz = (ClassType) e;
-				if (!clazz.isAbstract()) {
+				if (!clazz.isInterface()) {
 					return true;
 				}
 			}

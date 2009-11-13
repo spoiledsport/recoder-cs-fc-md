@@ -65,6 +65,8 @@ public class LOCC extends DSMetricCalculator {
 	 * calculate metric result
 	 */
 	public void calculate() {
+		log.debug("Calculating metric: LOCC!");
+		
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		int line = 0;
 		int cnt = 0;

@@ -12,7 +12,9 @@ import fcMDtests.metricTests.*;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	DS_LOCC_Test.class,
-	DS_WMC_Test.class
+	DS_WMC_Test.class,
+	DS_ATFD_Test.class,
+	DS_TCC_Test.class
 })
 public class MetricsTestSuite {
     // why on earth I need this class, I have no idea! 

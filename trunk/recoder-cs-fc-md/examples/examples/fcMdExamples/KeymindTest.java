@@ -102,11 +102,11 @@ public class KeymindTest {
 				if (e instanceof FieldReference) {
 					//this.fieldRefFound(e);
 				} else if (e instanceof MethodReference) {
-					//this.methodRefFound(e);
+					this.methodRefFound(e);
 				} else if (e instanceof ClassType) {
-					this.classFound(e);
+					//this.classFound(e);
 				} else if (e instanceof Method) {
-					this.methodFound(e);
+					//this.methodFound(e);
 				}
 			}
 

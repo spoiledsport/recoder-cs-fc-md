@@ -6,9 +6,11 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
+import metrics.metrics.ATFD;
 import metrics.metrics.DSMetricCalculator;
 import metrics.metrics.LOCC;
 import metrics.metrics.LOCM;
+import metrics.metrics.TCC;
 import metrics.metrics.WMC;
 import metrics.util.MetricUtils;
 import metricsdata.AbstractMetricAttribute;
@@ -81,9 +83,11 @@ public class MetricsFramework {
 		ArrayList<DSMetricCalculator> myMetrics = new ArrayList<DSMetricCalculator>();
 
 		// create metrics to be calculated
-		myMetrics.add(new LOCC());
-		myMetrics.add(new LOCM());
-		myMetrics.add(new WMC());
+		//myMetrics.add(new LOCC());
+		//myMetrics.add(new LOCM());
+		//myMetrics.add(new WMC());
+		//myMetrics.add(new ATFD());
+		myMetrics.add(new TCC());
 
 		MetricsFramework rt = new MetricsFramework(myMetrics, myArgs);
 		rt.applyMetric();

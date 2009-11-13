@@ -92,7 +92,7 @@ public class ReferenceTests {
 				} else if (e instanceof MethodReference) {
 					this.methodRefFound(e);
 				} else if (e instanceof ClassType) {
-					this.classFound(e);
+					//this.classFound(e);
 				} else if (e instanceof Method) {
 					// this.methodFound(e);
 				}
@@ -460,15 +460,15 @@ public class ReferenceTests {
 		System.out.println("getter/setter? ... "
 				+ isMethodReferesGetterSetter(mr));
 
-		// System.out.println("method is private? "
-		// + si.getMethod((MethodReference) e).isPrivate());
-		// System.out.println("method is public? "
-		// + si.getMethod((MethodReference) e).isPublic());
-		// System.out.println("method is static? "
-		// + si.getMethod((MethodReference) e).isStatic());
-		// // this does not work
-		// ProgramElement parent = e.getASTParent();
-		// System.out.println("this method belongs to class: " + e.toSource());
+		 System.out.println("method is private? "
+		 + si.getMethod((MethodReference) e).isPrivate());
+		 System.out.println("method is public? "
+		 + si.getMethod((MethodReference) e).isPublic());
+		 System.out.println("method is static? "
+		 + si.getMethod((MethodReference) e).isStatic());
+		 // this does not work
+		 ProgramElement parent = e.getASTParent();
+		 System.out.println("this method belongs to class: " + si.getMethod((MethodReference) e).getContainingClassType().getFullName());
 	}
 
 	public void fieldRefFound(ProgramElement e) {

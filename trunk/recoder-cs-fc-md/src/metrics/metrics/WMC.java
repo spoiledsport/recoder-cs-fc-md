@@ -61,36 +61,42 @@ public class WMC extends DSMetricCalculator {
 	public void calculate() {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
-		
-		
 		// loop over all classes in current CU
 		for (ProgramElement clazz : types) {
-			int wmc =0;
-			
-			assert clazz instanceof ClassType;
-			TreeWalker luke = new TreeWalker(clazz);
+			int wmc = 0;
 
-			// walk all PEs in CU that are non-abstract methods
-			while (luke.next(Filters.METHOD_FILTER_EXCL_ABSTRACT)) {
-				ProgramElement pe = luke.getProgramElement();
-				assert pe instanceof Method;
-				
-				// if method is not a DefaultConstructor, calculate CYCLO for it
-				if (!(pe instanceof DefaultConstructor)){
-					wmc += metrics.util.MetricUtils.cycloMethod(pe);
+			assert clazz instanceof ClassType;
+			ClassType myClazz = (ClassType) clazz;
+
+			// we are only interested in non-abstract classes
+			if (myClazz.isAbstract()) {
+				res.add(null);
+				continue;
+			} else {
+				TreeWalker luke = new TreeWalker(clazz);
+
+				// walk all PEs in CU that are non-abstract methods
+				while (luke.next(Filters.METHOD_FILTER_EXCL_ABSTRACT)) {
+					ProgramElement pe = luke.getProgramElement();
+					assert pe instanceof Method;
+
+					// if method is not a DefaultConstructor, calculate CYCLO
+					// for it
+					if (!(pe instanceof DefaultConstructor)) {
+						wmc += metrics.util.MetricUtils.cycloMethod(pe);
+					}
 				}
+				res.add(wmc);
 			}
-			res.add(wmc);
 		}
-		
-		if(res.size() == 0) {
+
+		if (res.size() == 0) {
 			res.add(0);
 		}
-		
+
 		// set result for metric
 		this.result = new IntegerArrayValueMetric(res, shortcut, fullName,
 				description);
-		
 
 	}
 

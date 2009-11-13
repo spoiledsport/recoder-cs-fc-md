@@ -1,6 +1,6 @@
 /*
 <EXPECTED_METRICS>
-DS_WMC:[14]
+DS_WMC:[14,null]
 </EXPECTED_METRICS>
  */
 using System;

@@ -61,6 +61,8 @@ public class LOCM extends DSMetricCalculator {
 	 * Main calculation for this metric.
 	 */
 	public void calculate() {
+		log.debug("Calculating metric: LOCM!");
+		
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 		int line = 0;
 		int cnt = 0;
@@ -135,7 +137,9 @@ public class LOCM extends DSMetricCalculator {
 				}
 				
 			}
+			if (typeRes.size() == 0) typeRes.add(0); 
 			res.add(typeRes);
+
 		}
 		// set result for metric
 		this.result = new IntegerArray2ValueMetric(res, shortcut, fullName,

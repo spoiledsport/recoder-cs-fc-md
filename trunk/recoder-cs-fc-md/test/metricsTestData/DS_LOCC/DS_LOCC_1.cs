@@ -1,14 +1,16 @@
 /*
 <EXPECTED_METRICS>
-DS_LOCM:[[6,9,11,5,1,6,3,5]]
-DS_LOCC:[46]
+DS_LOCM:[[0],[6,9,11,5,1,6,3,5]]
+DS_LOCC:[0,46]
 </EXPECTED_METRICS>
  */
 using System;
 
 namespace metricTests
 {
-	
+	public class DS_LOCC_0 {
+		private int x = 1;
+	}
 	
 	public class DS_LOCC_1
 	{
