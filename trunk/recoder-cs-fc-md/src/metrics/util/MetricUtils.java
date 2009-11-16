@@ -13,6 +13,7 @@ import recoder.abstraction.Method;
 import recoder.convenience.TreeWalker;
 import recoder.csharp.CompilationUnit;
 import recoder.csharp.ProgramElement;
+import recoder.csharp.Reference;
 import recoder.csharp.declaration.EnumDeclaration;
 import recoder.csharp.declaration.TypeDeclaration;
 import recoder.csharp.expression.operator.Conditional;
@@ -26,6 +27,9 @@ import recoder.csharp.statement.If;
 import recoder.csharp.statement.Switch;
 import recoder.csharp.statement.Try;
 import recoder.csharp.statement.While;
+import recoder.csharp.declaration.MemberDeclaration;
+import recoder.csharp.declaration.MethodDeclaration;
+import recoder.csharp.expression.operator.New;
 import recoder.list.FieldList;
 import recoder.service.CrossReferenceSourceInfo;
 import fcMDtests.metricTests.DS_WMC_Test;
@@ -247,5 +251,22 @@ public final class MetricUtils {
 		}
 		log.debug("CYCLO for method: " + method + " is " + cyclo);
 		return cyclo + 1;
+	}
+	
+	/**
+	 * Get the parent member declaration from a Method Reference
+	 * @param mthdref
+	 * @return MemberDeclaration
+	 */
+	public static MemberDeclaration getParentMemberDeclaration(Reference mthdref) {
+		ProgramElement p = (ProgramElement) mthdref;
+		do {
+		    p = p.getASTParent();
+		    if (p instanceof MethodDeclaration) {
+		    	return (MemberDeclaration) p;
+		    }
+		} while (p != null);
+		
+		return null;
 	}
 }
