@@ -88,13 +88,13 @@ public class ReferenceTests {
 				ProgramElement e = johnnieWalker.getProgramElement();
 
 				if (e instanceof FieldReference) {
-					// this.fieldRefFound(e);
+					this.fieldRefFound(e);
 				} else if (e instanceof MethodReference) {
 					this.methodRefFound(e);
 				} else if (e instanceof ClassType) {
-					//this.classFound(e);
+					this.classFound(e);
 				} else if (e instanceof Method) {
-					// this.methodFound(e);
+					this.methodFound(e);
 				}
 			}
 

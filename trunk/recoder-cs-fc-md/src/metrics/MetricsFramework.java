@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import metrics.metrics.ATFD;
+import metrics.metrics.CC;
 import metrics.metrics.DSMetricCalculator;
 import metrics.metrics.LOCC;
 import metrics.metrics.LOCM;
@@ -50,7 +51,7 @@ public class MetricsFramework {
 			if (inputPath.equals(""))
 				inputPath = inputPath + arg;
 			else
-				inputPath = ":" + inputPath + arg;
+				inputPath = inputPath + ":"  + arg;
 		}
 
 		// make sure input-path is not empty
@@ -78,16 +79,17 @@ public class MetricsFramework {
 			Exception {
 
 		String[] myArgs = new String[] { "test/minicorlib",
-				"/Users/janschumacher/Dropbox/WORK/fc-md/wsp/recoder-cs-fc-md/test/personExp" };
+				"test/personExp" };
 
 		ArrayList<DSMetricCalculator> myMetrics = new ArrayList<DSMetricCalculator>();
 
 		// create metrics to be calculated
-		//myMetrics.add(new LOCC());
-		//myMetrics.add(new LOCM());
-		//myMetrics.add(new WMC());
-		//myMetrics.add(new ATFD());
+		myMetrics.add(new LOCC());
+		myMetrics.add(new LOCM());
+		myMetrics.add(new WMC());
+		myMetrics.add(new ATFD());
 		myMetrics.add(new TCC());
+		myMetrics.add(new CC());
 
 		MetricsFramework rt = new MetricsFramework(myMetrics, myArgs);
 		rt.applyMetric();

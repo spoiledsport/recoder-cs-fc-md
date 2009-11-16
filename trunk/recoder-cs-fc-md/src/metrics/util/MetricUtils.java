@@ -2,13 +2,10 @@ package metrics.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
-import fcMDtests.metricTests.DS_WMC_Test;
 
 import metricsdata.AbstractMetricAttribute;
+
+import org.apache.log4j.Logger;
 
 import recoder.abstraction.ClassType;
 import recoder.abstraction.Field;
@@ -16,12 +13,12 @@ import recoder.abstraction.Method;
 import recoder.convenience.TreeWalker;
 import recoder.csharp.CompilationUnit;
 import recoder.csharp.ProgramElement;
-import recoder.csharp.declaration.FieldSpecification;
+import recoder.csharp.declaration.EnumDeclaration;
+import recoder.csharp.declaration.TypeDeclaration;
 import recoder.csharp.expression.operator.Conditional;
+import recoder.csharp.reference.MemberReference;
 import recoder.csharp.reference.MethodReference;
-import recoder.csharp.statement.Case;
 import recoder.csharp.statement.Catch;
-import recoder.csharp.statement.Default;
 import recoder.csharp.statement.Do;
 import recoder.csharp.statement.For;
 import recoder.csharp.statement.Foreach;
@@ -30,8 +27,8 @@ import recoder.csharp.statement.Switch;
 import recoder.csharp.statement.Try;
 import recoder.csharp.statement.While;
 import recoder.list.FieldList;
-import recoder.list.FieldSpecificationList;
 import recoder.service.CrossReferenceSourceInfo;
+import fcMDtests.metricTests.DS_WMC_Test;
 
 /**
  * This class holds methods that are commonly used throughout metrics framework
@@ -175,6 +172,24 @@ public final class MetricUtils {
 			}
 		}
 		return puffer;
+	}
+	
+	/**
+	 * Get the parent class declaration from a Method Reference
+	 * @param mthdref
+	 * @return TypeDeclaration
+	 */
+	public static TypeDeclaration getParentClassDeclaration(MemberReference mthdref) {
+		ProgramElement p = (ProgramElement) mthdref;
+	
+		do {
+		    p = p.getASTParent();
+			
+		    if (p instanceof ClassType || p instanceof EnumDeclaration) {
+		    	return (TypeDeclaration) p;
+		    }
+		} while (p != null);
+		return null;
 	}
 
 	/**
