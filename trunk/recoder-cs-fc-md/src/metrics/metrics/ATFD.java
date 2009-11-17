@@ -15,7 +15,6 @@ import recoder.convenience.TreeWalker;
 import recoder.csharp.ProgramElement;
 import recoder.csharp.reference.FieldReference;
 import recoder.csharp.reference.MethodReference;
-import recoder.list.ClassTypeList;
 import recoder.service.CrossReferenceSourceInfo;
 
 /**

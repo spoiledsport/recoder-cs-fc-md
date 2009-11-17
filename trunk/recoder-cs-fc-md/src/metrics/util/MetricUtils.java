@@ -14,22 +14,26 @@ import recoder.convenience.TreeWalker;
 import recoder.csharp.CompilationUnit;
 import recoder.csharp.ProgramElement;
 import recoder.csharp.Reference;
+import recoder.csharp.StatementBlock;
 import recoder.csharp.declaration.EnumDeclaration;
+import recoder.csharp.declaration.MemberDeclaration;
+import recoder.csharp.declaration.MethodDeclaration;
 import recoder.csharp.declaration.TypeDeclaration;
 import recoder.csharp.expression.operator.Conditional;
+import recoder.csharp.reference.FieldReference;
 import recoder.csharp.reference.MemberReference;
 import recoder.csharp.reference.MethodReference;
+import recoder.csharp.reference.ThisReference;
+import recoder.csharp.reference.VariableReference;
 import recoder.csharp.statement.Catch;
 import recoder.csharp.statement.Do;
 import recoder.csharp.statement.For;
 import recoder.csharp.statement.Foreach;
 import recoder.csharp.statement.If;
+import recoder.csharp.statement.Return;
 import recoder.csharp.statement.Switch;
 import recoder.csharp.statement.Try;
 import recoder.csharp.statement.While;
-import recoder.csharp.declaration.MemberDeclaration;
-import recoder.csharp.declaration.MethodDeclaration;
-import recoder.csharp.expression.operator.New;
 import recoder.list.FieldList;
 import recoder.service.CrossReferenceSourceInfo;
 import fcMDtests.metricTests.DS_WMC_Test;
@@ -118,6 +122,258 @@ public final class MetricUtils {
 	}
 
 	/**
+	 * Checking, if the specificed method is a getter/setter only checks if
+	 * method begins with getSet, is longer then 3 chars
+	 * 
+	 * @param method
+	 * @return boolean
+	 */
+	public static boolean isGetterSetterSimple(Method method) {
+		boolean res = false;
+
+		String name = method.getName();
+
+		if (name.length() >= 3) {
+			if (name.toLowerCase().startsWith("get")) {
+				res = true;
+			} else if (name.toLowerCase().startsWith("set")) {
+				return true;
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * Checking, if the specificed method is a getter/setter
+	 * 
+	 * @param method
+	 * @return boolean
+	 */
+	public static boolean isGetterSetter(Method method) {
+		boolean res = false;
+
+		if (method.getName().length() >= 3) {
+			if (isGetter(method) || isSetter(method)) {
+				res = true;
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * It is a util method for the method isGetterSetter, check if a method is
+	 * setter
+	 * 
+	 * @param m
+	 * @return boolean
+	 */
+	public static boolean isSetter(Method m) {
+		String sub = m.getName().substring(0, 3);
+		if ((sub.equals("set")) && setterUtility1(m)) {
+
+			if (setterUtility1(m) && setterUtility2(m)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Util method for the method isSetter, check if a method is setter
+	 * 
+	 * @param m
+	 * @return boolean
+	 */
+	private static boolean setterUtility1(Method m) {
+		// List<FieldSpecification> classAttributes = (List<FieldSpecification>)
+		// m.getContainingClassType().getFields();
+		FieldList classAttributes = m.getContainingClassType().getFields();
+
+		if (m.getReturnType() == null && m.getSignature().size() == 1) {
+
+			TreeWalker walker = new TreeWalker((ProgramElement) m);
+			walker.next();
+
+			while (walker.next()) {
+				try {
+					ProgramElement pe = walker.getProgramElement();
+
+					if (pe instanceof FieldReference) {
+
+						for (int i = 0; i < classAttributes.size(); i++) {
+							Field fsp = classAttributes.getField(i);
+
+							if (fsp.getName().equals(
+									((FieldReference) pe).getName())) {
+
+								if (fsp.getType() == m.getSignature()
+										.getType(0)) {
+									return true;
+								}
+							}
+						}
+					}
+				} catch (NullPointerException e) {
+					System.out
+							.println("Warning - Util(7) - NullPointer - continue");
+					continue;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Util method for the method isSetter, check if a method is setter
+	 * 
+	 * @param m
+	 * @return boolean
+	 */
+	private static boolean setterUtility2(Method m) {
+
+		TreeWalker walker = new TreeWalker((ProgramElement) m);
+		walker.next();
+
+		while (walker.next()) {
+			try {
+				ProgramElement pe = walker.getProgramElement();
+
+				if (pe instanceof StatementBlock) {
+					walker.next();
+					walker.next();
+					pe = walker.getProgramElement();
+
+					if (pe instanceof FieldReference) {
+
+						walker.next();
+						pe = walker.getProgramElement();
+
+						if (pe instanceof ThisReference) {
+							walker.next();
+							walker.next();
+							pe = walker.getProgramElement();
+
+							if (pe instanceof VariableReference) {
+								walker.next();
+								walker.next();
+								pe = walker.getProgramElement();
+
+								if (pe == null) {
+									return true;
+								}
+							}
+
+						} else
+							walker.next();
+						pe = walker.getProgramElement();
+						if (pe instanceof VariableReference) {
+							return true;
+						}
+					}
+				}
+			} catch (NullPointerException e) {
+				System.out
+						.println("Warning - Util(8) - NullPointer - continue");
+				continue;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * It is a util method for the method isGetterSetter, check if a method is a
+	 * getter
+	 * 
+	 * @param m
+	 * @return boolean
+	 */
+	public static boolean isGetter(Method m) {
+
+		String sub = m.getName().substring(0, 3);
+
+		if ((sub.equals("get")) && m.getSignature().isEmpty()
+				&& getterUtility1(m)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Util method for the method isGetter, check if a method is getter
+	 * 
+	 * @param m
+	 * @return boolean
+	 */
+	private static boolean getterUtility1(Method m) {
+		TreeWalker walker = new TreeWalker((ProgramElement) m);
+		walker.next();
+		while (walker.next()) {
+			try {
+				ProgramElement pe = walker.getProgramElement();
+				if (pe instanceof StatementBlock) {
+					walker.next();
+					pe = walker.getProgramElement();
+					if (pe instanceof Return) {
+						if (getterUtility2(m)) {
+							walker.next();
+							pe = walker.getProgramElement();
+							if (pe instanceof FieldReference) {
+								return true;
+							}
+						}
+					}
+				}
+			} catch (NullPointerException e) {
+				System.out
+						.println("Warning - Util(4) - NullPointer - continue");
+				continue;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Util method for the method isGetter, check if a method is getter
+	 * 
+	 * @param m
+	 * @return boolean
+	 */
+	private static boolean getterUtility2(Method m) {
+
+		// List<FieldSpecification> classAttributes = (List<FieldSpecification>)
+		// m.getContainingClassType().getFields();
+		FieldList classAttributes = m.getContainingClassType().getFields();
+
+		TreeWalker walker = new TreeWalker((ProgramElement) m);
+		walker.next();
+
+		while (walker.next()) {
+			try {
+				ProgramElement pe = walker.getProgramElement();
+				if (pe instanceof FieldReference) {
+					for (int i = 0; i < classAttributes.size(); i++) {
+						Field fsp = classAttributes.getField(i);
+						if (fsp.getName().equals(
+								((FieldReference) pe).getName())) {
+
+							if (fsp.getType() == m.getReturnType()) {
+								return true;
+							}
+
+						}
+					}
+				}
+			} catch (NullPointerException e) {
+				System.out
+						.println("Warning - Util(5) - NullPointer - continue");
+				continue;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * returns the field accessed by a MethodReference that is a getter setter
 	 * 
 	 * @param method
@@ -177,21 +433,23 @@ public final class MetricUtils {
 		}
 		return puffer;
 	}
-	
+
 	/**
 	 * Get the parent class declaration from a Method Reference
+	 * 
 	 * @param mthdref
 	 * @return TypeDeclaration
 	 */
-	public static TypeDeclaration getParentClassDeclaration(MemberReference mthdref) {
+	public static TypeDeclaration getParentClassDeclaration(
+			MemberReference mthdref) {
 		ProgramElement p = (ProgramElement) mthdref;
-	
+
 		do {
-		    p = p.getASTParent();
-			
-		    if (p instanceof ClassType || p instanceof EnumDeclaration) {
-		    	return (TypeDeclaration) p;
-		    }
+			p = p.getASTParent();
+
+			if (p instanceof ClassType || p instanceof EnumDeclaration) {
+				return (TypeDeclaration) p;
+			}
 		} while (p != null);
 		return null;
 	}
@@ -252,21 +510,22 @@ public final class MetricUtils {
 		log.debug("CYCLO for method: " + method + " is " + cyclo);
 		return cyclo + 1;
 	}
-	
+
 	/**
 	 * Get the parent member declaration from a Method Reference
+	 * 
 	 * @param mthdref
 	 * @return MemberDeclaration
 	 */
 	public static MemberDeclaration getParentMemberDeclaration(Reference mthdref) {
 		ProgramElement p = (ProgramElement) mthdref;
 		do {
-		    p = p.getASTParent();
-		    if (p instanceof MethodDeclaration) {
-		    	return (MemberDeclaration) p;
-		    }
+			p = p.getASTParent();
+			if (p instanceof MethodDeclaration) {
+				return (MemberDeclaration) p;
+			}
 		} while (p != null);
-		
+
 		return null;
 	}
 }

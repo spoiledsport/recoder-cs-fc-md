@@ -4,18 +4,14 @@ import java.util.ArrayList;
 
 import metrics.util.Filters;
 import metricsdata.DoubleArrayValueMetric;
-import metricsdata.IntegerArrayValueMetric;
 
 import org.apache.log4j.Logger;
 
 import recoder.abstraction.ClassType;
-import recoder.abstraction.Constructor;
 import recoder.abstraction.Field;
 import recoder.abstraction.Method;
 import recoder.convenience.TreeWalker;
 import recoder.csharp.ProgramElement;
-import recoder.csharp.SourceElement;
-import recoder.csharp.StatementBlock;
 import recoder.csharp.reference.FieldReference;
 import recoder.list.MethodList;
 import recoder.service.CrossReferenceSourceInfo;

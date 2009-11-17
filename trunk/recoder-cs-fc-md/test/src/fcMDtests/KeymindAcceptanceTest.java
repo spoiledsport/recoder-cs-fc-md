@@ -1,7 +1,5 @@
 package fcMDtests;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,8 +12,6 @@ import org.junit.runners.Parameterized.Parameters;
 
 import recoder.ParserException;
 import recoder.io.DefaultSourceFileRepository;
-import recoder.list.StringArrayList;
-import recoder.list.StringMutableList;
 import recoder.util.FileCollector;
 import fcMDtests.util.FileSlurper;
 

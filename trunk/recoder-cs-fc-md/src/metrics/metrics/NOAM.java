@@ -8,15 +8,15 @@ import metricsdata.IntegerArrayValueMetric;
 import org.apache.log4j.Logger;
 
 import recoder.abstraction.ClassType;
-import recoder.abstraction.Field;
+import recoder.abstraction.Method;
 import recoder.convenience.TreeWalker;
 import recoder.csharp.ProgramElement;
 import recoder.service.CrossReferenceSourceInfo;
 
 /**
- * A metric that calculates the number of public attributes of a class
+ * A metric that calculates the number of accessor methods
  */
-public class NOPA extends DSMetricCalculator {
+public class NOAM extends DSMetricCalculator {
 
 	// private IntegerArrayValueMetric result;
 
@@ -28,7 +28,7 @@ public class NOPA extends DSMetricCalculator {
 	 * @param si
 	 *            the CrossReferenceSourceInfo
 	 */
-	public NOPA(ArrayList<ProgramElement> types, CrossReferenceSourceInfo si) {
+	public NOAM(ArrayList<ProgramElement> types, CrossReferenceSourceInfo si) {
 		this.si = si;
 		this.types = types;
 		setInfo();
@@ -37,13 +37,13 @@ public class NOPA extends DSMetricCalculator {
 	/**
 	 * the log4j logger
 	 */
-	static Logger log = Logger.getLogger(NOPA.class);
+	static Logger log = Logger.getLogger(NOAM.class);
 
 	/**
 	 * constructor automatically sets the information for metric: shortcut,
 	 * fullName, description
 	 */
-	public NOPA() {
+	public NOAM() {
 		setInfo();
 	}
 
@@ -51,16 +51,16 @@ public class NOPA extends DSMetricCalculator {
 	 * sets the information for metric: shortcut, fullName, description
 	 */
 	private void setInfo() {
-		this.shortcut = "DS_NOPA";
-		this.fullName = "Number of Public Attributes";
-		this.description = "The Number of Public Attributes, which are not static and constant, of a class.Don't measured for Abstract classes.";
+		this.shortcut = "DS_NOAM";
+		this.fullName = "Number of Accessor Methods";
+		this.description = "NOAM: Number of get/set methods of a class.Don't measured for Abstract classes. Here is summed the number of only public get/set methods(Constructur(-),Static(-), Abstract(-)";
 	}
 
 	/**
 	 * calculate metric result
 	 */
 	public void calculate() {
-		log.debug("Calculating metric: NOPA!");
+		log.debug("Calculating metric: NOAM!");
 
 		ArrayList<Integer> res = new ArrayList<Integer>();
 
@@ -82,17 +82,18 @@ public class NOPA extends DSMetricCalculator {
 				// walk all PEs in CU that are non-static, non-readonly public
 				// Fields
 				while (luke
-						.next(Filters.PUBLIC_FIELD_FILTER_EXCL_STATIC_CONSTANT)) {
+						.next(Filters.PUBLIC_GETTERSETTER_FILTER_EXCL_CONSTR_STATIC_ABSTR)) {
 					ProgramElement pe = luke.getProgramElement();
-					assert pe instanceof Field;
-					Field f = (Field) pe;
+					assert pe instanceof Method;
+					Method m = (Method) pe;
 
-					// new suitable FIeld found
+					// new suitable Method found
 					cnt++;
 
 					log.debug("In ClassType: " + myClass.getFullName()
-							+ "\nfound Field: " + f.getFullName()
-							+ "\ntotal Fields: " + cnt);
+							+ "\nfound getter/setter method: "
+							+ m.getFullName()
+							+ "\ntotal getter/setter method: " + cnt);
 
 				}
 				res.add(cnt);

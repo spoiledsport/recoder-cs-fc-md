@@ -2,13 +2,12 @@ package metrics.util;
 
 import recoder.ModelElement;
 import recoder.abstraction.ClassType;
+import recoder.abstraction.Constructor;
 import recoder.abstraction.Field;
 import recoder.abstraction.Method;
 import recoder.convenience.ModelElementFilter;
-import recoder.csharp.attributes.Attribute;
 import recoder.csharp.reference.FieldReference;
 import recoder.csharp.reference.MethodReference;
-import metrics.util.MetricUtils;
 
 /**
  * This class holds a variety of filters, that are used when walking a tree of
@@ -17,6 +16,24 @@ import metrics.util.MetricUtils;
  * @author Jan Schumacher, jansch@gmail.com
  */
 public class Filters {
+
+	/**
+	 * returns true, if ModelElement is a Method
+	 */
+	public final static ModelElementFilter PUBLIC_GETTERSETTER_FILTER_EXCL_CONSTR_STATIC_ABSTR = new ModelElementFilter() {
+		public boolean accept(ModelElement e) {
+			if (e instanceof Method) {
+				Method m = (Method) e;
+				if (MetricUtils.isGetterSetterSimple(m) && m.isPublic()
+						&& !(m instanceof Constructor) && !m.isStatic()
+						&& !m.isAbstract()) {
+					return true;
+				}
+				return false;
+			} else
+				return false;
+		}
+	};
 
 	/**
 	 * returns true, if ModelElement is a Method
@@ -44,7 +61,7 @@ public class Filters {
 			return false;
 		}
 	};
-	
+
 	/**
 	 * returns true, if ModelElement is a FieldReference, that is not abstract
 	 */
@@ -101,9 +118,10 @@ public class Filters {
 			return false;
 		}
 	};
-	
+
 	/**
-	 * returns true, if ModelElement is a public Field, that is not static, constant
+	 * returns true, if ModelElement is a public Field, that is not static,
+	 * constant
 	 */
 	public final static ModelElementFilter PUBLIC_FIELD_FILTER_EXCL_STATIC_CONSTANT = new ModelElementFilter() {
 		public boolean accept(ModelElement e) {

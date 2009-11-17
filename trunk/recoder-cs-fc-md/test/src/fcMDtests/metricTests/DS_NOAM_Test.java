@@ -12,8 +12,8 @@ import java.util.LinkedList;
 import java.util.Set;
 
 import metrics.MetricsFramework;
-import metrics.metrics.ATFD;
 import metrics.metrics.DSMetricCalculator;
+import metrics.metrics.NOAM;
 import metricsdata.AbstractMetricAttribute;
 
 import org.apache.log4j.Logger;
@@ -27,25 +27,25 @@ import recoder.ParserException;
 import fcMDtests.util.FileSlurper;
 
 /**
- * unit test for metric LOOC
+ * unit test for metric NOAM
  */
 @RunWith(value = Parameterized.class)
-public class DS_ATFD_Test extends MetricsTest {
+public class DS_NOAM_Test extends MetricsTest {
 
 	private MetricsFramework mf;
 
 	/**
 	 * the log4j logger
 	 */
-	static Logger log = Logger.getLogger(DS_ATFD_Test.class);
+	static Logger log = Logger.getLogger(DS_NOAM_Test.class);
 
 	// configuration options
 	static String testDir = "test" + System.getProperty("file.separator")
 			+ "metricsTestData" + System.getProperty("file.separator")
-			+ "DS_ATFD";
+			+ "DS_NOAM";
 	static String regex = ".*cs$";;
 
-	public DS_ATFD_Test(String testFile) {
+	public DS_NOAM_Test(String testFile) {
 		this.testFile = testFile;
 	}
 
@@ -74,7 +74,7 @@ public class DS_ATFD_Test extends MetricsTest {
 	@Before
 	public void initRecoder() {
 		ArrayList<DSMetricCalculator> metrics = new ArrayList<DSMetricCalculator>();
-		metrics.add(new ATFD());
+		metrics.add(new NOAM());
 		this.mf = new MetricsFramework(metrics, new String[] { testDir });
 		resultSet = mf.applyMetric();
 	}
@@ -99,15 +99,17 @@ public class DS_ATFD_Test extends MetricsTest {
 			// get hashmap with expeted results and calculated results for
 			// hashmap
 			HashMap<String, String> expectedValues = expected.get(file);
-			HashMap<String, AbstractMetricAttribute> actualResults = resultSet.get(file);
-			
+			HashMap<String, AbstractMetricAttribute> actualResults = resultSet
+					.get(file);
+
 			// iterate over expected metrics keys
 			Set<String> metricKeys = expectedValues.keySet();
 			Iterator<String> expectedValuesIts = metricKeys.iterator();
 			while (expectedValuesIts.hasNext()) {
 				String metricName = expectedValuesIts.next();
-				
-				assertEquals(expectedValues.get(metricName), actualResults.get(metricName).toString());
+
+				assertEquals(expectedValues.get(metricName), actualResults.get(
+						metricName).toString());
 			}
 		}
 	}

@@ -1,0 +1,400 @@
+/*
+<EXPECTED_METRICS>
+DS_NOAM:[2,null,null]
+</EXPECTED_METRICS>
+ */
+
+using System;
+
+namespace metricTests
+{
+	
+	
+
+
+/**
+ * Category/Partition Method:
+ * 
+ * Categories:
+ * 
+ * + marks expected attributes
+ * 
+ * Method Visibility
+ *    {+public; private; protected}
+ * Return Type
+ *    getter
+ *      {+same as member variable; not same as member variable; void}
+ *    setter
+ *      {+void; not void}
+ * Method Name
+ *    getter
+ *      {+starts with get; does not start with get}
+ *    setter
+ *      {+starts with set; does not start with set}
+ * Parameter list
+ *    getter
+ *      {+empty; not empty}
+ *    setter
+ *      {+one parameter that fits member variable type;
+ *       empty; 
+ *       one parameter that does not fit member variable type;
+ *       more than one parameter}
+ * Method Body:
+ * 	  getter
+ * 		{+one simple return statement that fits expected return type of method;
+ *       one simple return statement that does not fit expected return type of method; 
+ *       more than one statement; 
+ *       one too complex return statement}
+ *    setter
+ *      {+one simple assignment to a member variable of same type as the one parameter;
+ *       one too complex assignment to a member variable of same type as the one parameter;
+ *    	 one assignment but not to a member variable;
+ *       one assignment to a member variable of different type;
+ *       one instruction, but not an assignment;
+ *       more than one statement}
+ * class type
+ * 	  {abstract class, +class, interface} 
+ *    
+ */
+public class DSNOAMTest {
+	
+	private int member1;
+	private int  member2;
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +same as member variable
+	 *   +starts with get
+	 *   +empty
+	 *   +one simple return statement that fits expected return type of method
+	 *   +class
+	 * Expected: yes, this is a getter method.
+	 */
+	public int getFooBar(){
+		return member1;
+	}
+	
+	/**
+	 * Configuration:
+	 *   -protected
+	 *   +same as member variable
+	 *   +starts with get
+	 *   +empty
+	 *   +one simple return statement that fits expected return type of method
+	 *   +class
+	 * Expected: no, this is not a getter method.
+	 */
+	protected int getFooBar2(){
+		return member1;
+	}
+	
+	/**
+	 * Configuration:
+	 *   -private
+	 *   +same as member variable
+	 *   +starts with get
+	 *   +empty
+	 *   +one simple return statement that fits expected return type of method
+	 *   +class
+	 * Expected: no, this is not a getter method.
+	 */
+	private int getFooBar3(){
+		return member1;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +same as member variable
+	 *   -does not start with get
+	 *   +empty
+	 *   +one simple return statement that fits expected return type of method
+	 *   +class
+	 * Expected: no, this is not a getter method.
+	 */
+	public int GetFooBar(){
+		return member1;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +same as member variable
+	 *   +starts with get
+	 *   -not empty
+	 *   +one simple return statement that fits expected return type of method
+	 *   +class
+	 * Expected: no, this is not a getter method.
+	 */
+	protected int getFooBar(int i){
+		return member1;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +same as member variable
+	 *   +starts with get
+	 *   +empty
+	 *   -more than one statement
+	 *   +class
+	 * Expected: no, this is not a getter method.
+	 */
+	public int getFooBar4(){
+		int i = 0;
+		return member1;
+	}
+
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +same as member variable
+	 *   +starts with get
+	 *   +empty
+	 *   -one too complex return statement that fits expected return type of method
+	 *   +class
+	 * Expected: no, this is not a getter method.
+	 */
+	public int getFooBar5(){
+		return member1++;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   -same as member variable
+	 *   +starts with get
+	 *   +empty
+	 *   -one simple return statement that does not fit expected return type of method
+	 *   +class
+	 * Expected: no, this is not a getter method.
+	 */
+	public Object getFooBar6(){
+		return member1;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   -void
+	 *   +starts with get
+	 *   +empty
+	 *   -no return statement
+	 *   +class
+	 * Expected: no, this is not a getter method.
+	 */
+	public void getFooBar7(){
+		member1++;
+	}
+	
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +void
+	 *   +starts with set
+	 *   +one parameter that fits member variable type;
+	 *   +one simple assignment to a member variable of same type as the one parameter;
+	 *   +class
+	 * Expected: yes, this is a setter method.
+	 */
+	public void setFooBar(String s){
+		member2=s;
+	}
+	
+	/**
+	 * Configuration:
+	 *   -protected
+	 *   +void
+	 *   +starts with set
+	 *   +one parameter that fits member variable type;
+	 *   +one simple assignment to a member variable of same type as the one parameter;
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	protected void setFooBar2(String s){
+		member2=s;
+	}
+	
+	/**
+	 * Configuration:
+	 *   -private
+	 *   +void
+	 *   +starts with set
+	 *   +one parameter that fits member variable type;
+	 *   +one simple assignment to a member variable of same type as the one parameter;
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	private void setFooBar3(String s){
+		member2=s;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +not void
+	 *   +starts with set
+	 *   +one parameter that fits member variable type;
+	 *   -more than one assignment
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	public Double setFooBar4(String s){
+		member2=s;
+		return 0.0;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +void
+	 *   -does not start with set
+	 *   +one parameter that fits member variable type;
+	 *   +one simple assignment to a member variable of same type as the one parameter;
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	public void SetFooBar(String s){
+		member2=s;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +void
+	 *   +starts with set
+	 *   -empty
+	 *   +one simple assignment to a member variable of same type as the one parameter;
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	public void setFooBar(){
+		member2="Foo";
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +void
+	 *   +starts with set
+	 *   -one parameter that does not fit member variable type;
+	 *   +one simple assignment to a member variable of same type as the one parameter;
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	public void setFooBar(int i){
+		member2="" + i;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +void
+	 *   +starts with set
+	 *   -more than one parameter
+	 *   +one simple assignment to a member variable of same type as the one parameter;
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	public void setFooBar5(String s, int i){
+		member2=s;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +void
+	 *   +starts with set
+	 *   +one parameter that fits member variable type;
+	 *   -one too complex assignment to a member variable of same type as the one parameter;
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	public void setFooBar6(String s){
+		member2=s+".";
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +void
+	 *   +starts with set
+	 *   +one parameter that fits member variable type
+	 *   -one simple assignment but not to  a member variable
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	public void setFooBar7(String s){
+		s=s;
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +void
+	 *   +starts with set
+	 *   +one parameter that fits member variable type;
+	 *   -one instruction but no assignment
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	public void setFooBar8(String s){
+		//member2.length();
+	}
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +void
+	 *   +starts with set
+	 *   +one parameter that fits member variable type;
+	 *   -more than one statement
+	 *   +class
+	 * Expected: no, this is not a setter method.
+	 */
+	public void setFooBar9(String s){
+		s = s + "S";
+		member2=s;
+	}
+	
+}
+
+
+abstract class DSNOAMTest2 {
+	
+	private int member;
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +same as member variable
+	 *   +starts with get
+	 *   +empty
+	 *   +one simple return statement that fits expected return type of method
+	 *   -abstract class
+	 * Expected: no, this is not a getter method.
+	 */
+	public int getMember(){
+		return member;
+	}
+	
+}
+
+interface DSNOAMTest3 {
+	
+	/**
+	 * Configuration:
+	 *   +public
+	 *   +same as member variable
+	 *   +starts with get
+	 *   +empty
+	 *   +one simple return statement that fits expected return type of method
+	 *   -interface 
+	 * Expected: no, this is not a getter method.
+	 */
+	 int getMember();
+}
+
+}

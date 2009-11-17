@@ -55,9 +55,9 @@ public class PartialClassesTest extends ParserTestCase {
 	 * with the file to be tested.
 	 */
 	@Parameters
-	public static LinkedList getTestFiles() {
+	public static LinkedList<String[]> getTestFiles() {
 		File[] testFiles = null;
-		LinkedList params = new LinkedList();
+		LinkedList<String[]> params = new LinkedList<String[]>();
 		try {
 			// get list of files matching regEx
 			testFiles = new FileSlurper(testDir, regex).slurp();

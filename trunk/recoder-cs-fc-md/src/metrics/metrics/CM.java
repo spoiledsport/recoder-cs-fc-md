@@ -1,7 +1,6 @@
 package metrics.metrics;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import metrics.util.Filters;
 import metrics.util.MetricUtils;
