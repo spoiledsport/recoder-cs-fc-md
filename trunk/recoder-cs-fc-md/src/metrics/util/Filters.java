@@ -138,4 +138,25 @@ public class Filters {
 			return false;
 		}
 	};
+
+	/**
+	 * WOC FILTER Methods: +public, -abstract, -constructor Fields: +public,
+	 * -constant
+	 */
+	public final static ModelElementFilter WOC_FILTER = new ModelElementFilter() {
+		public boolean accept(ModelElement e) {
+			if (e instanceof Field) {
+				Field a = (Field) e;
+				if (a.isPublic() && !a.isReadOnly())
+					return true;
+			} else if (e instanceof Method) {
+				Method m = (Method) e;
+				if (!m.isAbstract() && m.isPublic()
+						&& !(m instanceof Constructor)) {
+					return true;
+				}
+			}
+			return false;
+		}
+	};
 }
