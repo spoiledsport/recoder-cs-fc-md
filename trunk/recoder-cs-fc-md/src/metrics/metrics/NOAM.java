@@ -11,6 +11,9 @@ import recoder.abstraction.ClassType;
 import recoder.abstraction.Method;
 import recoder.convenience.TreeWalker;
 import recoder.csharp.ProgramElement;
+import recoder.csharp.declaration.Accessor;
+import recoder.csharp.declaration.GetAccessor;
+import recoder.csharp.declaration.SetAccessor;
 import recoder.service.CrossReferenceSourceInfo;
 
 /**
@@ -82,18 +85,30 @@ public class NOAM extends DSMetricCalculator {
 				// walk all PEs in CU that are non-static, non-readonly public
 				// Fields
 				while (luke
-						.next(Filters.PUBLIC_GETTERSETTER_FILTER_EXCL_CONSTR_STATIC_ABSTR)) {
+						.next(Filters.ACCESSOR_PUBLIC_GETTERSETTER_FILTER_EXCL_CONSTR_STATIC_ABSTR)) {
 					ProgramElement pe = luke.getProgramElement();
-					assert pe instanceof Method;
-					Method m = (Method) pe;
+					assert pe instanceof Method || pe instanceof Accessor;
+					
+					if (pe instanceof Method) {
+						Method m = (Method) pe;
+						
+						cnt++;
 
-					// new suitable Method found
-					cnt++;
+						log.debug("In ClassType: " + myClass.getFullName()
+								+ "\nfound getter/setter method: "
+								+ m.getFullName()
+								+ "\ntotal getter/setter method: " + cnt);
+						
+					} else if (pe instanceof GetAccessor || pe instanceof SetAccessor) {
+						Accessor m = (Accessor) pe;
+						
+						cnt++;
 
-					log.debug("In ClassType: " + myClass.getFullName()
-							+ "\nfound getter/setter method: "
-							+ m.getFullName()
-							+ "\ntotal getter/setter method: " + cnt);
+						log.debug("In ClassType: " + myClass.getFullName()
+								+ "\nfound Accessor getter/setter method: "
+								+ m.toSource()
+								+ "\ntotal getter/setter method: " + cnt);
+					}
 
 				}
 				res.add(cnt);

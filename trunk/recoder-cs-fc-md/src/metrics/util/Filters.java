@@ -6,6 +6,8 @@ import recoder.abstraction.Constructor;
 import recoder.abstraction.Field;
 import recoder.abstraction.Method;
 import recoder.convenience.ModelElementFilter;
+import recoder.csharp.declaration.GetAccessor;
+import recoder.csharp.declaration.SetAccessor;
 import recoder.csharp.reference.FieldReference;
 import recoder.csharp.reference.MethodReference;
 
@@ -20,7 +22,7 @@ public class Filters {
 	/**
 	 * returns true, if ModelElement is a Method
 	 */
-	public final static ModelElementFilter PUBLIC_GETTERSETTER_FILTER_EXCL_CONSTR_STATIC_ABSTR = new ModelElementFilter() {
+	public final static ModelElementFilter ACCESSOR_PUBLIC_GETTERSETTER_FILTER_EXCL_CONSTR_STATIC_ABSTR = new ModelElementFilter() {
 		public boolean accept(ModelElement e) {
 			if (e instanceof Method) {
 				Method m = (Method) e;
@@ -30,6 +32,8 @@ public class Filters {
 					return true;
 				}
 				return false;
+			} else if (e instanceof GetAccessor || e instanceof SetAccessor) {
+				return true;
 			} else
 				return false;
 		}

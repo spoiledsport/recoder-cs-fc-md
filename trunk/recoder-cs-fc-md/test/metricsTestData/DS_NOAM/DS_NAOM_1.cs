@@ -1,6 +1,6 @@
 /*
 <EXPECTED_METRICS>
-DS_NOAM:[2]
+DS_NOAM:[6]
 </EXPECTED_METRICS>
  */
 using System;
@@ -14,6 +14,10 @@ namespace metricTests
 		
 		int theNumber;
 		
+		// property style getter setter
+		public int roleId { get { return roleId; } set { roleId = value; } }
+		public int FileSize { get { return _size; } set { _size = value; } }
+		
 		public DS_NOAM()
 		{
 		}
@@ -22,7 +26,7 @@ namespace metricTests
 			return this.theNumber;
 		}
 	
-		public void setResult(int theNumber) {
+		public void setTheNumber(int theNumber) {
 			this.theNumber = theNumber;
 		}
     
