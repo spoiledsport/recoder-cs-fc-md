@@ -2,8 +2,10 @@ package metrics.util;
 
 import recoder.ModelElement;
 import recoder.abstraction.ClassType;
+import recoder.abstraction.Field;
 import recoder.abstraction.Method;
 import recoder.convenience.ModelElementFilter;
+import recoder.csharp.attributes.Attribute;
 import recoder.csharp.reference.FieldReference;
 import recoder.csharp.reference.MethodReference;
 import metrics.util.MetricUtils;
@@ -95,6 +97,21 @@ public class Filters {
 				if (!clazz.isInterface()) {
 					return true;
 				}
+			}
+			return false;
+		}
+	};
+	
+	/**
+	 * returns true, if ModelElement is a public Field, that is not static, constant
+	 */
+	public final static ModelElementFilter PUBLIC_FIELD_FILTER_EXCL_STATIC_CONSTANT = new ModelElementFilter() {
+		public boolean accept(ModelElement e) {
+			if (e instanceof Field) {
+				Field a = (Field) e;
+				if (a.isPublic() && !a.isStatic() && !a.isReadOnly())
+					return true;
+				return false;
 			}
 			return false;
 		}
