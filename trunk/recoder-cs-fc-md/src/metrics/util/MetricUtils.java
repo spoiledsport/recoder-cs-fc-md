@@ -2,6 +2,7 @@ package metrics.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import metricsdata.AbstractMetricAttribute;
 
@@ -34,7 +35,13 @@ import recoder.csharp.statement.Return;
 import recoder.csharp.statement.Switch;
 import recoder.csharp.statement.Try;
 import recoder.csharp.statement.While;
+import recoder.csharp.expression.operator.New;
+import recoder.csharp.reference.ConstructorReference;
+import recoder.csharp.reference.SuperConstructorReference;
+import recoder.csharp.reference.ThisConstructorReference;
+import recoder.csharp.reference.TypeReference;
 import recoder.list.FieldList;
+import recoder.list.MethodList;
 import recoder.service.CrossReferenceSourceInfo;
 import fcMDtests.metricTests.DS_WMC_Test;
 
@@ -527,5 +534,110 @@ public final class MetricUtils {
 		} while (p != null);
 
 		return null;
+	}
+
+	/**
+	 * extracts all Methodrefernces from a Method. does not consider
+	 * ConstructorReferences from related classes: SuperConstructorReference,
+	 * ThisConstructorReference Used by: CDISP, CINT
+	 * 
+	 * @param Method
+	 *            method
+	 * @return List<Reference>
+	 */
+	public static ArrayList<Reference> getMethodReferences(Method method) {
+		ArrayList<Reference> disMethods = new ArrayList<Reference>();
+
+		TreeWalker walker = new TreeWalker((ProgramElement) method);
+		// dont count the methods itself
+		walker.next();
+		while (walker.next()) {
+			try {
+				ProgramElement pe = walker.getProgramElement();
+				if (pe instanceof ConstructorReference
+						&& !(pe instanceof SuperConstructorReference)
+						&& !(pe instanceof ThisConstructorReference)) {
+
+					disMethods.add((((New) pe).getTypeReference()));
+				} else if ((pe instanceof MethodReference)) {
+					disMethods.add((MethodReference) pe);
+				}
+			} catch (NullPointerException e) {
+				System.out
+						.println("Warning - Util(6) - NullPointer - continue");
+				continue;
+			}
+		}
+		return disMethods;
+	}
+
+	/**
+	 * Return all the method and constructurs referens, which are related with
+	 * the measured class or in the same hierarchy as the measured class
+	 * 
+	 * @param ArrayList
+	 *            <Reference>
+	 * @param List
+	 *            <Method>
+	 * @return ArrayList<Reference>
+	 */
+	protected static ArrayList<Reference> getRelatedMethods(
+			ArrayList<Reference> foreignmethods, List<? extends Method> list) {
+		ArrayList<Reference> puffer = new ArrayList<Reference>();
+
+		for (Reference foreign : foreignmethods) {
+
+			for (Method parentMethod : list) {
+
+				if (foreign instanceof MethodReference) {
+
+					if (parentMethod.getName().equals(
+							((MethodReference) foreign).getName())) {
+						puffer.add(foreign);
+					}
+				} else if (parentMethod.getName().equals(
+						((TypeReference) foreign).getName())) {
+
+					puffer.add(((TypeReference) foreign));
+				}
+
+			}
+		}
+		return puffer;
+	}
+
+	/**
+	 * Return all the method and constructurs referens, which are related with
+	 * the measured class or in the same hierarchy as the measured class
+	 * 
+	 * @param ArrayList
+	 *            <Reference>
+	 * @param List
+	 *            <Method>
+	 * @return ArrayList<Reference>
+	 */
+	public static ArrayList<Reference> getRelatedMethods(
+			ArrayList<Reference> foreignmethods, MethodList superTypeMethods) {
+		ArrayList<Reference> puffer = new ArrayList<Reference>();
+
+		for (Reference foreign : foreignmethods) {
+
+			for (int i = 0; i < superTypeMethods.size(); i++) {
+				Method parentMethod = superTypeMethods.getMethod(i);
+				
+				if (foreign instanceof MethodReference) {
+
+					if (parentMethod.getName().equals(
+							((MethodReference) foreign).getName())) {
+						puffer.add(foreign);
+					}
+				} else if (parentMethod.getName().equals(
+						((TypeReference) foreign).getName())) {
+
+					puffer.add(((TypeReference) foreign));
+				}
+			}
+		}
+		return puffer;
 	}
 }
