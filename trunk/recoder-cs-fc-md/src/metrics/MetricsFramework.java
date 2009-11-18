@@ -51,7 +51,7 @@ public class MetricsFramework {
 			if (inputPath.equals(""))
 				inputPath = inputPath + arg;
 			else
-				inputPath = inputPath + ":"  + arg;
+				inputPath = inputPath + System.getProperty("path.separator")  + arg;
 		}
 
 		// make sure input-path is not empty

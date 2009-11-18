@@ -11,9 +11,8 @@ import recoder.csharp.declaration.*;
 import recoder.list.*;
 import recoder.util.*;
 
+
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
    Utility class to obtain or transform Identifiers obeying a set
@@ -161,64 +160,6 @@ public abstract class Naming {
 		return new String(buf, 0, len);
 	}
 
-	//	/**
-//	   Creates the dotted path name for a reference prefix.
-//	   Returns an empty string if the prefix is not a
-//	   {@link recoder.csharp.reference.NameReference}.
-//	   Appends array brackets if the prefix is a type reference
-//	   with a dimension > 0.
-//	   @param ref a reference prefix.
-//	   @return the dotted representation of the given reference.
-//	*/
-//	public static String toPathName(ReferencePrefix ref) {
-//		if (ref instanceof UncollatedReferenceQualifier) {
-//			UncollatedReferenceQualifier ucrq = (UncollatedReferenceQualifier) ref;
-//			System.out.println();
-//		}
-//		if (ref instanceof NameReference) {
-//			int[] dim =
-//				(ref instanceof TypeReference)
-//					? ((TypeReference) ref).getDimensions()
-//					: new int[0];
-//			if (dim == null) {
-//				dim = new int[0];
-//			}
-//
-//			int length = ((NameReference) ref).getName().length();
-//			ReferencePrefix rp = ref;
-//			while (rp instanceof ReferenceSuffix) {
-//				ReferencePrefix rrp = ((ReferenceSuffix) rp).getReferencePrefix();
-//				if (rrp == null) {
-//					break;
-//				}
-//				rp = rrp;
-//				length += ((NameReference) rp).getName().length() + 1;
-//			}
-//
-//			char[] buf = new char[length];
-//			int i = 0;
-//			while (rp != ref && i < buf.length) {
-//				String name = ((NameReference) rp).getName();
-//				int len = name.length();
-//				name.getChars(0, len, buf, i);
-//				i += len;
-//				buf[i++] = '.';
-//				rp = (ReferencePrefix) rp.getReferenceSuffix();
-//			}
-//
-//			String name = ((NameReference) rp).getName();
-//
-//			int len = name.length();
-//			name.getChars(0, len, buf, i);
-//			i += len;
-//
-//			return MultidimArrayUtils.appendMultiDimensions(
-//				new String(buf, 0, length),
-//				dim);
-//		}
-//		return "";
-//	}
-
 	/**
 	   Creates the dotted path name for a reference prefix.
 	   Returns an empty string if the prefix is not a
@@ -229,11 +170,6 @@ public abstract class Naming {
 	   @return the dotted representation of the given reference.
 	*/
 	public static String toPathName(ReferencePrefix ref) {
-
-		if (ref instanceof UncollatedReferenceQualifier) {
-			UncollatedReferenceQualifier ucrq = (UncollatedReferenceQualifier) ref;
-			System.out.println();
-		}
 		if (ref instanceof NameReference) {
 			int[] dim =
 				(ref instanceof TypeReference)
@@ -243,11 +179,7 @@ public abstract class Naming {
 				dim = new int[0];
 			}
 
-			ArrayList<String> path = new ArrayList<String>();
-			
 			int length = ((NameReference) ref).getName().length();
-			path.add(((NameReference) ref).getName());
-			
 			ReferencePrefix rp = ref;
 			while (rp instanceof ReferenceSuffix) {
 				ReferencePrefix rrp = ((ReferenceSuffix) rp).getReferencePrefix();
@@ -256,23 +188,32 @@ public abstract class Naming {
 				}
 				rp = rrp;
 				length += ((NameReference) rp).getName().length() + 1;
-				path.add(((NameReference) rp).getName());
 			}
 
-			String fullPath = "";
-			
-			Iterator<String> itr = path.iterator();
-		    while (itr.hasNext()) {
-		    	fullPath = "." + itr.next() + fullPath;
-		    }
-			
-		    if (fullPath.startsWith(".")) fullPath.substring(1);
+			char[] buf = new char[length];
+			int i = 0;
+			while (rp != ref) {
+				String name = ((NameReference) rp).getName();
+				int len = name.length();
+				name.getChars(0, len, buf, i);
+				i += len;
+				buf[i++] = '.';
+				rp = (ReferencePrefix) rp.getReferenceSuffix();
+			}
 
-			return fullPath;
+			String name = ((NameReference) rp).getName();
+
+			int len = name.length();
+			name.getChars(0, len, buf, i);
+			i += len;
+
+			return MultidimArrayUtils.appendMultiDimensions(
+				new String(buf, 0, length),
+				dim);
 		}
 		return "";
 	}
-	
+
 	/**
 	   Creates the dotted path name for a reference prefix and appends
 	   a suffix string. 
