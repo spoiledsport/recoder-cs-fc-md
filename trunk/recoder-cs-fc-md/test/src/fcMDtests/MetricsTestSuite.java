@@ -18,7 +18,9 @@ import fcMDtests.metricTests.*;
 	DS_CYCLO_Test.class,
 	DS_CC_Test.class, 
 	DS_NOPA_Test.class,
-	DS_NOAM_Test.class
+	DS_NOAM_Test.class, 
+	DS_MAXNESTING_Test.class,
+	DS_WOC_Test.class
 })
 public class MetricsTestSuite {
     // why on earth I need this class, I have no idea! 
