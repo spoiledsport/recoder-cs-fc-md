@@ -60,9 +60,9 @@ public class CINT extends DSMetricCalculator {
 	 * sets the information for metric: shortcut, fullName, description
 	 */
 	private void setInfo() {
-		this.shortcut = "DS_CINT";
-		this.fullName = "Coupling Intensity";
-		this.description = "The number of distinct operations called by the measured operation.";
+		this.shortcut = "DS_CDISP";
+		this.fullName = "Coupling Dispersion";
+		this.description = "The number of classes in which the operation called from the measured operation are defined, divided by CINT";
 	}
 
 	/**
