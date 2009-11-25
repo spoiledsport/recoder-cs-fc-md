@@ -274,6 +274,7 @@ SKIP :
 | "\r"
 | "\f"
 |  <PPDECLA: "#" (~["\n"])* "\n">
+|  "unsafe"
 }
 
 /* COMMENTS */
@@ -464,7 +465,7 @@ TOKEN :
 | < UINT: "uint" >
 | < ULONG: "ulong" >
 | < UNCHECKED: "unchecked" >
-| < UNSAFE: "unsafe" >
+//| < UNSAFE: "unsafe" >
 | < USHORT: "ushort" >
 | < USING: "using" >
 | < VIRTUAL: "virtual" >

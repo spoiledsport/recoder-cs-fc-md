@@ -29,7 +29,7 @@ namespace Cars
 			if (true) return this.name;
 		}
 		
-		public string tostring() {
+		protected string tostring() {
 			return this.name;
 		}
 	}

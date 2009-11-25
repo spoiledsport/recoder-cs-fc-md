@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/bsh-1.2b6.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MetricsData"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/SuperCSV-1.52.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

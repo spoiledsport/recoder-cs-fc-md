@@ -14,7 +14,8 @@ public class Harry : Person
     }
 
 	public String toString() {
-		return this.name + " : " + this.age;
+		base.tostring();
+		//return this.name + " : " + this.age;
 	}
 	
 	public String myAddedService() {

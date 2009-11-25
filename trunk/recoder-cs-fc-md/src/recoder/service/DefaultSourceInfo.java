@@ -882,240 +882,245 @@ public class DefaultSourceInfo extends DefaultProgramModelInfo implements
 	// TODO: Implement operator overload checking
 	public Type getType(Expression expr) {
 		Type result = null;
-		if (expr instanceof Operator) { // /////////////// Operators
-			Operator op = (Operator) expr;
-			ExpressionList args = op.getArguments();
-			if (op instanceof Assignment) {
-				result = getType(args.getExpression(0));
-			} else if ((op instanceof TypeCast) || (op instanceof New)
-					|| (op instanceof Typeof)) {
-				result = getType(((TypeOperator) op).getTypeReference());
-			} else if (op instanceof NewArray) {
-				NewArray n = (NewArray) op;
-				TypeReference tr = n.getTypeReference();
-				result = getType(tr);
-				if (result != null) {
-					int[] d = tr.getDimensions();
-					for (int i = 0; i < d.length; i++) {
-						result = getNameInfo().createArrayType(result, d[i]);
-					}
-				}
-			} else if ((op instanceof Positive) || (op instanceof Negative)
-					|| (op instanceof PreIncrement)
-					|| (op instanceof PostIncrement)
-					|| (op instanceof PreDecrement)
-					|| (op instanceof PostDecrement)
-					|| (op instanceof ShiftLeft) || (op instanceof ShiftRight)
-					|| (op instanceof ParenthesizedExpression)
-					|| (op instanceof OutOperator)
-					|| (op instanceof RefOperator) || (op instanceof Checked)
-					|| (op instanceof Unchecked)) {
-				result = getType(args.getExpression(0));
-			} else if ((op instanceof Plus) || (op instanceof Minus)
-					|| (op instanceof Times) || (op instanceof Divide)
-					|| (op instanceof Modulo)) {
-				Type t1 = getType(args.getExpression(0));
-				Type t2 = getType(args.getExpression(1));
-				if ((op instanceof Plus)
-						&& ((t1 == getNameInfo().getSystemString())
-								|| (t2 == getNameInfo().getSystemString())
-								|| (t1 == null) || (t2 == null))) {
-					// all primitive types are known -
-					// one of these must be a class type
-					result = getNameInfo().getSystemString();
-					// any object-plus-operation must result in a string type
-				} else if ((t1 instanceof PrimitiveType)
-						&& (t2 instanceof PrimitiveType)) {
-					result = getPromotedType((PrimitiveType) t1,
-							(PrimitiveType) t2);
-					if (result == null) {
-						getErrorHandler().reportError(
-								new TypingException(
-										"Types could not be promoted in " + op,
-										op));
-						result = getNameInfo().getUnknownType();
-					}
-				} else {
-					if ((t1 != null) && (t2 != null)) {
-						getErrorHandler().reportError(
-								new TypingException(
-										"Illegal operand types for plus " + t1
-												+ " + " + t2
-												+ " in expression " + op, op));
-						result = getNameInfo().getUnknownType();
-					}
-				}
-			} else if ((op instanceof ShiftRight) || (op instanceof ShiftLeft)
-					|| (op instanceof BinaryAnd) || (op instanceof BinaryOr)
-					|| (op instanceof BinaryNot) || (op instanceof BinaryXOr)) {
-				result = getType(args.getExpression(0));
-			} else if ((op instanceof ComparativeOperator)
-					|| (op instanceof LogicalAnd) || (op instanceof LogicalOr)
-					|| (op instanceof LogicalNot) || (op instanceof Instanceof)) {
-				result = getNameInfo().getBooleanType();
-			} else if (op instanceof Conditional) {
-				Expression e1 = args.getExpression(1);
-				Expression e2 = args.getExpression(2);
-				Type t1 = getType(e1);
-				Type t2 = getType(e2);
-				if (t1 == t2) {
-					result = t1;
-				} else if (t1 instanceof PrimitiveType
-						&& t2 instanceof PrimitiveType) {
-					NameInfo ni = getNameInfo();
-					if ((t1 == ni.getShortType() && t2 == ni.getByteType())
-							|| (t2 == ni.getShortType() && t1 == ni
-									.getByteType())) {
-						result = ni.getShortType();
-					} else {
-						result = serviceConfiguration.getConstantEvaluator()
-								.getCompileTimeConstantType(op);
-						if (result == null) {
-							if (isNarrowingTo(e1, (PrimitiveType) t2)) {
-								return t2;
-							}
-							if (isNarrowingTo(e2, (PrimitiveType) t1)) {
-								return t1;
-							}
-							result = getPromotedType((PrimitiveType) t1,
-									(PrimitiveType) t2);
+		try {
+			if (expr instanceof Operator) { // /////////////// Operators
+				Operator op = (Operator) expr;
+				ExpressionList args = op.getArguments();
+				if (op instanceof Assignment) {
+					result = getType(args.getExpression(0));
+				} else if ((op instanceof TypeCast) || (op instanceof New)
+						|| (op instanceof Typeof)) {
+					result = getType(((TypeOperator) op).getTypeReference());
+				} else if (op instanceof NewArray) {
+					NewArray n = (NewArray) op;
+					TypeReference tr = n.getTypeReference();
+					result = getType(tr);
+					if (result != null) {
+						int[] d = tr.getDimensions();
+						for (int i = 0; i < d.length; i++) {
+							result = getNameInfo().createArrayType(result, d[i]);
 						}
 					}
-				} else if (t1 instanceof PrimitiveType
-						|| t2 instanceof PrimitiveType) {
-					getErrorHandler().reportError(
-							new TypingException(
-									"Incompatible types in conditional", op));
-					result = getNameInfo().getUnknownType();
-				} else { // two reference types
-					if (t1 == getNameInfo().getNullType()) {
-						result = t2; // null x T --> T
-					} else if (t2 == getNameInfo().getNullType()) {
-						result = t1; // T x null --> T
+				} else if ((op instanceof Positive) || (op instanceof Negative)
+						|| (op instanceof PreIncrement)
+						|| (op instanceof PostIncrement)
+						|| (op instanceof PreDecrement)
+						|| (op instanceof PostDecrement)
+						|| (op instanceof ShiftLeft) || (op instanceof ShiftRight)
+						|| (op instanceof ParenthesizedExpression)
+						|| (op instanceof OutOperator)
+						|| (op instanceof RefOperator) || (op instanceof Checked)
+						|| (op instanceof Unchecked)) {
+					result = getType(args.getExpression(0));
+				} else if ((op instanceof Plus) || (op instanceof Minus)
+						|| (op instanceof Times) || (op instanceof Divide)
+						|| (op instanceof Modulo)) {
+					Type t1 = getType(args.getExpression(0));
+					Type t2 = getType(args.getExpression(1));
+					if ((op instanceof Plus)
+							&& ((t1 == getNameInfo().getSystemString())
+									|| (t2 == getNameInfo().getSystemString())
+									|| (t1 == null) || (t2 == null))) {
+						// all primitive types are known -
+						// one of these must be a class type
+						result = getNameInfo().getSystemString();
+						// any object-plus-operation must result in a string type
+					} else if ((t1 instanceof PrimitiveType)
+							&& (t2 instanceof PrimitiveType)) {
+						result = getPromotedType((PrimitiveType) t1,
+								(PrimitiveType) t2);
+						if (result == null) {
+							getErrorHandler().reportError(
+									new TypingException(
+											"Types could not be promoted in " + op,
+											op));
+							result = getNameInfo().getUnknownType();
+						}
 					} else {
-						if (isWidening(t1, t2)) {
-							result = t2;
-						} else if (isWidening(t2, t1)) {
-							result = t1;
-						} else {
-							getErrorHandler()
-									.reportError(
-											new TypingException(
-													"Incompatible types in conditional",
-													op));
+						if ((t1 != null) && (t2 != null)) {
+							getErrorHandler().reportError(
+									new TypingException(
+											"Illegal operand types for plus " + t1
+													+ " + " + t2
+													+ " in expression " + op, op));
 							result = getNameInfo().getUnknownType();
 						}
 					}
-				}
-			} else {
-				Debug.error("Type resolution not implemented for operation "
-						+ op.getClass().getName());
-			}
-		} else if (expr instanceof Literal) { // /////////////// Literals
-			if (expr instanceof NullLiteral) {
-				result = getNameInfo().getNullType();
-			} else if (expr instanceof BooleanLiteral) {
-				result = getNameInfo().getBooleanType();
-			} else if (expr instanceof LongLiteral) {
-				result = getNameInfo().getLongType();
-			} else if (expr instanceof IntLiteral) {
-				result = getNameInfo().getIntType();
-			} else if (expr instanceof FloatLiteral) {
-				result = getNameInfo().getFloatType();
-			} else if (expr instanceof DoubleLiteral) {
-				result = getNameInfo().getDoubleType();
-			} else if (expr instanceof CharLiteral) {
-				result = getNameInfo().getCharType();
-			} else if (expr instanceof StringLiteral) {
-				result = getNameInfo().getSystemString();
-			}
-		} else if (expr instanceof Reference) { // /////////////// References
-			if (expr instanceof UncollatedReferenceQualifier) {
-				result = getType((UncollatedReferenceQualifier) expr);
-			} else if (expr instanceof MetaClassReference) {
-				// TODO: We don't have the same metaclass reference as in Java.
-				// What should we do?
-				result = getNameInfo().getSystemType();
-			} else if (expr instanceof VariableReference) {
-				// look for the variable declaration
-				Variable v = getVariable((VariableReference) expr);
-				if (v != null) {
-					result = v.getType();
-				} else {
-					getErrorHandler().reportError(
-							new UnresolvedReferenceException(Format.toString(
-									"Could not resolve " + ELEMENT_LONG, expr)
-									+ " (01)", (VariableReference) expr));
-					v = getNameInfo().getUnknownField();
-				}
-			} else if (expr instanceof MethodReference) {
-				// look for the return type of the method
-				Method m = getMethod((MethodReference) expr);
-				if (m != null) {
-					result = m.getReturnType();
-				}
-			} else if (expr instanceof ArrayLengthReference) {
-				result = getNameInfo().getIntType();
-			} else if (expr instanceof ArrayReference) {
-				ArrayReference aref = (ArrayReference) expr;
-				// Get the base type of the arrayreference.
-				ReferencePrefix rp = aref.getReferencePrefix();
-				Type ht = getType(rp);
-				if (ht != null) {
-					// DISABLED: Written in an other way
-					// ExpressionList dimExprs = aref.getDimensionExpressions();
-					// int dims = dimExprs.size();
-					// for (int i = 0; i < dims; i++) {
-					// ht = ((ArrayType) ht).getBaseType();
-					// }
-					// TODO: Testing
-					while (rp instanceof ArrayReference) {
-						rp = ((ArrayReference) rp).getReferencePrefix();
-						ht = ((ArrayType) ht).getBaseType();
+				} else if ((op instanceof ShiftRight) || (op instanceof ShiftLeft)
+						|| (op instanceof BinaryAnd) || (op instanceof BinaryOr)
+						|| (op instanceof BinaryNot) || (op instanceof BinaryXOr)) {
+					result = getType(args.getExpression(0));
+				} else if ((op instanceof ComparativeOperator)
+						|| (op instanceof LogicalAnd) || (op instanceof LogicalOr)
+						|| (op instanceof LogicalNot) || (op instanceof Instanceof)) {
+					result = getNameInfo().getBooleanType();
+				} else if (op instanceof Conditional) {
+					Expression e1 = args.getExpression(1);
+					Expression e2 = args.getExpression(2);
+					Type t1 = getType(e1);
+					Type t2 = getType(e2);
+					if (t1 == t2) {
+						result = t1;
+					} else if (t1 instanceof PrimitiveType
+							&& t2 instanceof PrimitiveType) {
+						NameInfo ni = getNameInfo();
+						if ((t1 == ni.getShortType() && t2 == ni.getByteType())
+								|| (t2 == ni.getShortType() && t1 == ni
+										.getByteType())) {
+							result = ni.getShortType();
+						} else {
+							result = serviceConfiguration.getConstantEvaluator()
+									.getCompileTimeConstantType(op);
+							if (result == null) {
+								if (isNarrowingTo(e1, (PrimitiveType) t2)) {
+									return t2;
+								}
+								if (isNarrowingTo(e2, (PrimitiveType) t1)) {
+									return t1;
+								}
+								result = getPromotedType((PrimitiveType) t1,
+										(PrimitiveType) t2);
+							}
+						}
+					} else if (t1 instanceof PrimitiveType
+							|| t2 instanceof PrimitiveType) {
+						getErrorHandler().reportError(
+								new TypingException(
+										"Incompatible types in conditional", op));
+						result = getNameInfo().getUnknownType();
+					} else { // two reference types
+						if (t1 == getNameInfo().getNullType()) {
+							result = t2; // null x T --> T
+						} else if (t2 == getNameInfo().getNullType()) {
+							result = t1; // T x null --> T
+						} else {
+							if (isWidening(t1, t2)) {
+								result = t2;
+							} else if (isWidening(t2, t1)) {
+								result = t1;
+							} else {
+								getErrorHandler()
+										.reportError(
+												new TypingException(
+														"Incompatible types in conditional",
+														op));
+								result = getNameInfo().getUnknownType();
+							}
+						}
 					}
-
-					if (ht != null) {
-						result = ht;
+				} else {
+					Debug.error("Type resolution not implemented for operation "
+							+ op.getClass().getName());
+				}
+			} else if (expr instanceof Literal) { // /////////////// Literals
+				if (expr instanceof NullLiteral) {
+					result = getNameInfo().getNullType();
+				} else if (expr instanceof BooleanLiteral) {
+					result = getNameInfo().getBooleanType();
+				} else if (expr instanceof LongLiteral) {
+					result = getNameInfo().getLongType();
+				} else if (expr instanceof IntLiteral) {
+					result = getNameInfo().getIntType();
+				} else if (expr instanceof FloatLiteral) {
+					result = getNameInfo().getFloatType();
+				} else if (expr instanceof DoubleLiteral) {
+					result = getNameInfo().getDoubleType();
+				} else if (expr instanceof CharLiteral) {
+					result = getNameInfo().getCharType();
+				} else if (expr instanceof StringLiteral) {
+					result = getNameInfo().getSystemString();
+				}
+			} else if (expr instanceof Reference) { // /////////////// References
+				if (expr instanceof UncollatedReferenceQualifier) {
+					result = getType((UncollatedReferenceQualifier) expr);
+				} else if (expr instanceof MetaClassReference) {
+					// TODO: We don't have the same metaclass reference as in Java.
+					// What should we do?
+					result = getNameInfo().getSystemType();
+				} else if (expr instanceof VariableReference) {
+					// look for the variable declaration
+					Variable v = getVariable((VariableReference) expr);
+					if (v != null) {
+						result = v.getType();
 					} else {
 						getErrorHandler().reportError(
-								new TypingException("Not an array type: " + ht
-										+ " in expression " + expr, expr));
-						result = getNameInfo().getUnknownType();
+								new UnresolvedReferenceException(Format.toString(
+										"Could not resolve " + ELEMENT_LONG, expr)
+										+ " (01)", (VariableReference) expr));
+						v = getNameInfo().getUnknownField();
+					}
+				} else if (expr instanceof MethodReference) {
+					// look for the return type of the method
+					Method m = getMethod((MethodReference) expr);
+					if (m != null) {
+						result = m.getReturnType();
+					}
+				} else if (expr instanceof ArrayLengthReference) {
+					result = getNameInfo().getIntType();
+				} else if (expr instanceof ArrayReference) {
+					ArrayReference aref = (ArrayReference) expr;
+					// Get the base type of the arrayreference.
+					ReferencePrefix rp = aref.getReferencePrefix();
+					Type ht = getType(rp);
+					if (ht != null) {
+						// DISABLED: Written in an other way
+						// ExpressionList dimExprs = aref.getDimensionExpressions();
+						// int dims = dimExprs.size();
+						// for (int i = 0; i < dims; i++) {
+						// ht = ((ArrayType) ht).getBaseType();
+						// }
+						// TODO: Testing
+						while (rp instanceof ArrayReference) {
+							rp = ((ArrayReference) rp).getReferencePrefix();
+							ht = ((ArrayType) ht).getBaseType();
+						}
+
+						if (ht != null) {
+							result = ht;
+						} else {
+							getErrorHandler().reportError(
+									new TypingException("Not an array type: " + ht
+											+ " in expression " + expr, expr));
+							result = getNameInfo().getUnknownType();
+						}
+					}
+				} else if (expr instanceof ThisReference) {
+					ReferencePrefix rp = ((ThisReference) expr)
+							.getReferencePrefix();
+					if (rp == null) {
+						result = getContainingClassType(expr);
+					} else {
+						// the prefix "points" to the required type...
+						result = getType(rp);
+					}
+				} else if (expr instanceof SuperReference) {
+					ReferencePrefix rp = ((SuperReference) expr)
+							.getReferencePrefix();
+					ClassType thisType;
+					if (rp == null) {
+						thisType = getContainingClassType(expr);
+					} else {
+						thisType = (ClassType) getType(rp);
+					}
+					ClassTypeList supers = thisType.getSupertypes();
+					if ((supers != null) && (!supers.isEmpty())) {
+						result = supers.getClassType(0);
 					}
 				}
-			} else if (expr instanceof ThisReference) {
-				ReferencePrefix rp = ((ThisReference) expr)
-						.getReferencePrefix();
-				if (rp == null) {
-					result = getContainingClassType(expr);
-				} else {
-					// the prefix "points" to the required type...
-					result = getType(rp);
+			} else if (expr instanceof ArrayInitializer) { // // ArrayInitializer
+				ProgramElement pe = expr;
+				while ((pe != null) && !(pe instanceof VariableSpecification)) {
+					pe = pe.getASTParent();
 				}
-			} else if (expr instanceof SuperReference) {
-				ReferencePrefix rp = ((SuperReference) expr)
-						.getReferencePrefix();
-				ClassType thisType;
-				if (rp == null) {
-					thisType = getContainingClassType(expr);
-				} else {
-					thisType = (ClassType) getType(rp);
-				}
-				ClassTypeList supers = thisType.getSupertypes();
-				if ((supers != null) && (!supers.isEmpty())) {
-					result = supers.getClassType(0);
-				}
+				result = getType(pe);
+			} else {
+				Debug
+						.error("Type analysis for general expressions is currently not implemented: "
+								+ expr + " <" + expr.getClass().getName() + ">");
 			}
-		} else if (expr instanceof ArrayInitializer) { // // ArrayInitializer
-			ProgramElement pe = expr;
-			while ((pe != null) && !(pe instanceof VariableSpecification)) {
-				pe = pe.getASTParent();
-			}
-			result = getType(pe);
-		} else {
-			Debug
-					.error("Type analysis for general expressions is currently not implemented: "
-							+ expr + " <" + expr.getClass().getName() + ">");
+		} catch (NullPointerException e) {
+			getErrorHandler().reportError(new TypingException("Prevented Typing Exception", expr));
+			result = getNameInfo().getUnknownType();
 		}
 		return result;
 	}
@@ -2193,21 +2198,30 @@ public class DefaultSourceInfo extends DefaultProgramModelInfo implements
 					}
 				}
 			} else if (rp instanceof NamespaceReference) {
-				String fullRefName = Naming.toPathName(urq);
-				// is the URQ a reference to an already known package?
-				Namespace pkg = ni.getNamespace(fullRefName);
-				if (pkg != null) {
-					result = urq.toNamespaceReference();
-					reference2element.put(result, pkg);
-				} else {
-					// is it a type?
-					Type t = ni.getClassType(fullRefName);
-					if (t != null) {
-						result = urq.toTypeReference();
-						reference2element.put(result, t);
-					} else {
+				try {
+					String fullRefName = Naming.toPathName(urq);
+					// is the URQ a reference to an already known package?
+					Namespace pkg = ni.getNamespace(fullRefName);
+					if (pkg != null) {
 						result = urq.toNamespaceReference();
+						reference2element.put(result, pkg);
+					} else {
+						// is it a type?
+						Type t = ni.getClassType(fullRefName);
+						if (t != null) {
+							result = urq.toTypeReference();
+							reference2element.put(result, t);
+						} else {
+							result = urq.toNamespaceReference();
+						}
 					}
+				} catch (ArrayIndexOutOfBoundsException e) {
+					// If we don't have this reference, we are lost...
+					getErrorHandler().reportError(
+							new UnresolvedReferenceException(Format.toString(
+									"Caught ArrayIndexOutOfBoundsException!\nCould not resolve " + ELEMENT_LONG
+											+ " (EnumMember)", urq), urq));
+					//e.printStackTrace();
 				}
 			} else if ((rp instanceof TypeReference)
 					|| (rp instanceof Expression)) {

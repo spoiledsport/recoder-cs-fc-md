@@ -1,18 +1,34 @@
 package metrics;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.supercsv.io.CsvListWriter;
+import org.supercsv.io.ICsvListWriter;
+import org.supercsv.io.ICsvMapWriter;
+import org.supercsv.io.CsvMapWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import metrics.metrics.ATFD;
 import metrics.metrics.CC;
+import metrics.metrics.CM;
+import metrics.metrics.CYCLO;
 import metrics.metrics.DSMetricCalculator;
 import metrics.metrics.LOCC;
 import metrics.metrics.LOCM;
+import metrics.metrics.MAXNESTING;
+import metrics.metrics.NOAM;
+import metrics.metrics.NOAV;
+import metrics.metrics.NOPA;
 import metrics.metrics.TCC;
 import metrics.metrics.WMC;
+import metrics.metrics.WOC;
 import metrics.util.MetricUtils;
 import metricsdata.AbstractMetricAttribute;
 import recoder.CrossReferenceServiceConfiguration;
@@ -51,7 +67,8 @@ public class MetricsFramework {
 			if (inputPath.equals(""))
 				inputPath = inputPath + arg;
 			else
-				inputPath = inputPath + System.getProperty("path.separator")  + arg;
+				inputPath = inputPath + System.getProperty("path.separator")
+						+ arg;
 		}
 
 		// make sure input-path is not empty
@@ -78,18 +95,27 @@ public class MetricsFramework {
 	public static void main(String[] args) throws IOException, ParserException,
 			Exception {
 
-		String[] myArgs = new String[] { "test/minicorlib",
-				"test/personExp" };
+		String[] myArgs = new String[] { "test\\minicorlib",
+				"C:\\Users\\jschumacher\\Documents\\My Dropbox\\WORK\\fc-md\\wsp\\keymind\\ana" };
+
+		//String[] myArgs = new String[] { "test\\personExp", "test\\minicorlib" };
 
 		ArrayList<DSMetricCalculator> myMetrics = new ArrayList<DSMetricCalculator>();
 
 		// create metrics to be calculated
-		myMetrics.add(new LOCC());
-		myMetrics.add(new LOCM());
-		myMetrics.add(new WMC());
-		myMetrics.add(new ATFD());
-		myMetrics.add(new TCC());
-		myMetrics.add(new CC());
+		//myMetrics.add(new LOCC());
+		// myMetrics.add(new LOCM());
+		// myMetrics.add(new WMC());
+		//myMetrics.add(new ATFD());
+		// myMetrics.add(new TCC());
+		// myMetrics.add(new CC());
+		// myMetrics.add(new CM());
+		// myMetrics.add(new CYCLO());
+		// myMetrics.add(new MAXNESTING());
+		// myMetrics.add(new NOAM());
+		// myMetrics.add(new NOAV());
+		// myMetrics.add(new NOPA());
+		// myMetrics.add(new WOC());
 
 		MetricsFramework rt = new MetricsFramework(myMetrics, myArgs);
 		rt.applyMetric();
@@ -123,7 +149,16 @@ public class MetricsFramework {
 			// put metric results for current CU in resultSet
 			resultSet.put(cu.getName(), cuRes);
 		}
-		log.debug(metrics.util.MetricUtils.debugOutput(resultSet));
+		// log.debug(metrics.util.MetricUtils.debugOutput(resultSet));
+
+		File csfFile = new File("C:\\Users\\jschumacher\\Desktop\\metrics.csv");
+		try {
+			MetricUtils.csvOutput(resultSet, csfFile, false);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return resultSet;
 	}
 

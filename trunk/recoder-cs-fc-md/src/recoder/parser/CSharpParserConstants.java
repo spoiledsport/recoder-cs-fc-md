@@ -13,157 +13,155 @@ public interface CSharpParserConstants {
   /** RegularExpression Id. */
   int PPDECLA = 6;
   /** RegularExpression Id. */
-  int SINGLE_LINE_COMMENT = 11;
+  int SINGLE_LINE_COMMENT = 12;
   /** RegularExpression Id. */
-  int FORMAL_COMMENT = 12;
+  int FORMAL_COMMENT = 13;
   /** RegularExpression Id. */
-  int MULTI_LINE_COMMENT = 13;
+  int MULTI_LINE_COMMENT = 14;
   /** RegularExpression Id. */
-  int CSHARP_DOCCOMMENT = 24;
+  int CSHARP_DOCCOMMENT = 25;
   /** RegularExpression Id. */
-  int ABSTRACT = 25;
+  int ABSTRACT = 26;
   /** RegularExpression Id. */
-  int AS = 26;
+  int AS = 27;
   /** RegularExpression Id. */
-  int BASE = 27;
+  int BASE = 28;
   /** RegularExpression Id. */
-  int BOOL = 28;
+  int BOOL = 29;
   /** RegularExpression Id. */
-  int BREAK = 29;
+  int BREAK = 30;
   /** RegularExpression Id. */
-  int BYTE = 30;
+  int BYTE = 31;
   /** RegularExpression Id. */
-  int CASE = 31;
+  int CASE = 32;
   /** RegularExpression Id. */
-  int CATCH = 32;
+  int CATCH = 33;
   /** RegularExpression Id. */
-  int CHAR = 33;
+  int CHAR = 34;
   /** RegularExpression Id. */
-  int CHECKED = 34;
+  int CHECKED = 35;
   /** RegularExpression Id. */
-  int CLASS = 35;
+  int CLASS = 36;
   /** RegularExpression Id. */
-  int CONST = 36;
+  int CONST = 37;
   /** RegularExpression Id. */
-  int CONTINUE = 37;
+  int CONTINUE = 38;
   /** RegularExpression Id. */
-  int DECIMAL = 38;
+  int DECIMAL = 39;
   /** RegularExpression Id. */
-  int _DEFAULT = 39;
+  int _DEFAULT = 40;
   /** RegularExpression Id. */
-  int DELEGATE = 40;
+  int DELEGATE = 41;
   /** RegularExpression Id. */
-  int DO = 41;
+  int DO = 42;
   /** RegularExpression Id. */
-  int DOUBLE = 42;
+  int DOUBLE = 43;
   /** RegularExpression Id. */
-  int ELSE = 43;
+  int ELSE = 44;
   /** RegularExpression Id. */
-  int ENUM = 44;
+  int ENUM = 45;
   /** RegularExpression Id. */
-  int EVENT = 45;
+  int EVENT = 46;
   /** RegularExpression Id. */
-  int EXPLICIT = 46;
+  int EXPLICIT = 47;
   /** RegularExpression Id. */
-  int EXTERN = 47;
+  int EXTERN = 48;
   /** RegularExpression Id. */
-  int FALSE = 48;
+  int FALSE = 49;
   /** RegularExpression Id. */
-  int FINALLY = 49;
+  int FINALLY = 50;
   /** RegularExpression Id. */
-  int FIXED = 50;
+  int FIXED = 51;
   /** RegularExpression Id. */
-  int FLOAT = 51;
+  int FLOAT = 52;
   /** RegularExpression Id. */
-  int FOR = 52;
+  int FOR = 53;
   /** RegularExpression Id. */
-  int FOREACH = 53;
+  int FOREACH = 54;
   /** RegularExpression Id. */
-  int GOTO = 54;
+  int GOTO = 55;
   /** RegularExpression Id. */
-  int IF = 55;
+  int IF = 56;
   /** RegularExpression Id. */
-  int IMPLICIT = 56;
+  int IMPLICIT = 57;
   /** RegularExpression Id. */
-  int IN = 57;
+  int IN = 58;
   /** RegularExpression Id. */
-  int INT = 58;
+  int INT = 59;
   /** RegularExpression Id. */
-  int INTERFACE = 59;
+  int INTERFACE = 60;
   /** RegularExpression Id. */
-  int INTERNAL = 60;
+  int INTERNAL = 61;
   /** RegularExpression Id. */
-  int IS = 61;
+  int IS = 62;
   /** RegularExpression Id. */
-  int LOCK = 62;
+  int LOCK = 63;
   /** RegularExpression Id. */
-  int LONG = 63;
+  int LONG = 64;
   /** RegularExpression Id. */
-  int NAMESPACE = 64;
+  int NAMESPACE = 65;
   /** RegularExpression Id. */
-  int NEW = 65;
+  int NEW = 66;
   /** RegularExpression Id. */
-  int NULL = 66;
+  int NULL = 67;
   /** RegularExpression Id. */
-  int OBJECT = 67;
+  int OBJECT = 68;
   /** RegularExpression Id. */
-  int OPERATOR = 68;
+  int OPERATOR = 69;
   /** RegularExpression Id. */
-  int OUT = 69;
+  int OUT = 70;
   /** RegularExpression Id. */
-  int OVERRIDE = 70;
+  int OVERRIDE = 71;
   /** RegularExpression Id. */
-  int PARAMS = 71;
+  int PARAMS = 72;
   /** RegularExpression Id. */
-  int PARTIAL = 72;
+  int PARTIAL = 73;
   /** RegularExpression Id. */
-  int PRIVATE = 73;
+  int PRIVATE = 74;
   /** RegularExpression Id. */
-  int PROTECTED = 74;
+  int PROTECTED = 75;
   /** RegularExpression Id. */
-  int PUBLIC = 75;
+  int PUBLIC = 76;
   /** RegularExpression Id. */
-  int READONLY = 76;
+  int READONLY = 77;
   /** RegularExpression Id. */
-  int REF = 77;
+  int REF = 78;
   /** RegularExpression Id. */
-  int RETURN = 78;
+  int RETURN = 79;
   /** RegularExpression Id. */
-  int SBYTE = 79;
+  int SBYTE = 80;
   /** RegularExpression Id. */
-  int SEALED = 80;
+  int SEALED = 81;
   /** RegularExpression Id. */
-  int SHORT = 81;
+  int SHORT = 82;
   /** RegularExpression Id. */
-  int SIZEOF = 82;
+  int SIZEOF = 83;
   /** RegularExpression Id. */
-  int STACKALLOC = 83;
+  int STACKALLOC = 84;
   /** RegularExpression Id. */
-  int STATIC = 84;
+  int STATIC = 85;
   /** RegularExpression Id. */
-  int STRING = 85;
+  int STRING = 86;
   /** RegularExpression Id. */
-  int STRUCT = 86;
+  int STRUCT = 87;
   /** RegularExpression Id. */
-  int SWITCH = 87;
+  int SWITCH = 88;
   /** RegularExpression Id. */
-  int THIS = 88;
+  int THIS = 89;
   /** RegularExpression Id. */
-  int THROW = 89;
+  int THROW = 90;
   /** RegularExpression Id. */
-  int TRUE = 90;
+  int TRUE = 91;
   /** RegularExpression Id. */
-  int TRY = 91;
+  int TRY = 92;
   /** RegularExpression Id. */
-  int TYPEOF = 92;
+  int TYPEOF = 93;
   /** RegularExpression Id. */
-  int UINT = 93;
+  int UINT = 94;
   /** RegularExpression Id. */
-  int ULONG = 94;
+  int ULONG = 95;
   /** RegularExpression Id. */
-  int UNCHECKED = 95;
-  /** RegularExpression Id. */
-  int UNSAFE = 96;
+  int UNCHECKED = 96;
   /** RegularExpression Id. */
   int USHORT = 97;
   /** RegularExpression Id. */
@@ -343,21 +341,22 @@ public interface CSharpParserConstants {
     "\"\\r\"",
     "\"\\f\"",
     "<PPDECLA>",
+    "\"unsafe\"",
     "\"//\"",
-    "<token of kind 8>",
+    "<token of kind 9>",
     "\"/*\"",
     "\"///\"",
     "<SINGLE_LINE_COMMENT>",
     "\"*/\"",
     "\"*/\"",
-    "<token of kind 14>",
     "<token of kind 15>",
+    "<token of kind 16>",
     "\"\\r\\n\"",
     "\"///\"",
-    "<token of kind 18>",
+    "<token of kind 19>",
     "\"/\"",
     "\"//\"",
-    "<token of kind 21>",
+    "<token of kind 22>",
     "\"/\"",
     "\"//\"",
     "<CSHARP_DOCCOMMENT>",
@@ -432,7 +431,6 @@ public interface CSharpParserConstants {
     "\"uint\"",
     "\"ulong\"",
     "\"unchecked\"",
-    "\"unsafe\"",
     "\"ushort\"",
     "\"using\"",
     "\"virtual\"",

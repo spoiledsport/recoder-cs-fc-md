@@ -78,6 +78,8 @@ public class DefaultErrorHandler implements ErrorHandler {
 			if (isTemplateCode(unresolvedReference)) {
 				return true;
 			}
+		} else if (e instanceof TypingException) {
+			return true;
 		}
 		return false;
 	}

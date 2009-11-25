@@ -1,12 +1,21 @@
 package metrics.util;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import metricsdata.AbstractMetricAttribute;
 
 import org.apache.log4j.Logger;
+import org.supercsv.io.CsvListWriter;
+import org.supercsv.io.ICsvListWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import recoder.abstraction.ClassType;
 import recoder.abstraction.Field;
@@ -21,10 +30,15 @@ import recoder.csharp.declaration.MemberDeclaration;
 import recoder.csharp.declaration.MethodDeclaration;
 import recoder.csharp.declaration.TypeDeclaration;
 import recoder.csharp.expression.operator.Conditional;
+import recoder.csharp.expression.operator.New;
+import recoder.csharp.reference.ConstructorReference;
 import recoder.csharp.reference.FieldReference;
 import recoder.csharp.reference.MemberReference;
 import recoder.csharp.reference.MethodReference;
+import recoder.csharp.reference.SuperConstructorReference;
+import recoder.csharp.reference.ThisConstructorReference;
 import recoder.csharp.reference.ThisReference;
+import recoder.csharp.reference.TypeReference;
 import recoder.csharp.reference.VariableReference;
 import recoder.csharp.statement.Catch;
 import recoder.csharp.statement.Do;
@@ -35,15 +49,9 @@ import recoder.csharp.statement.Return;
 import recoder.csharp.statement.Switch;
 import recoder.csharp.statement.Try;
 import recoder.csharp.statement.While;
-import recoder.csharp.expression.operator.New;
-import recoder.csharp.reference.ConstructorReference;
-import recoder.csharp.reference.SuperConstructorReference;
-import recoder.csharp.reference.ThisConstructorReference;
-import recoder.csharp.reference.TypeReference;
 import recoder.list.FieldList;
 import recoder.list.MethodList;
 import recoder.service.CrossReferenceSourceInfo;
-import fcMDtests.metricTests.DS_WMC_Test;
 
 /**
  * This class holds methods that are commonly used throughout metrics framework
@@ -55,7 +63,7 @@ public final class MetricUtils {
 	/**
 	 * the log4j logger
 	 */
-	static Logger log = Logger.getLogger(DS_WMC_Test.class);
+	static Logger log = Logger.getLogger(MetricUtils.class);
 
 	/**
 	 * Walk CU and return all ClassTypes, ordinary classes only
@@ -624,7 +632,7 @@ public final class MetricUtils {
 
 			for (int i = 0; i < superTypeMethods.size(); i++) {
 				Method parentMethod = superTypeMethods.getMethod(i);
-				
+
 				if (foreign instanceof MethodReference) {
 
 					if (parentMethod.getName().equals(
@@ -639,5 +647,75 @@ public final class MetricUtils {
 			}
 		}
 		return puffer;
+	}
+
+	/**
+	 * Debug and Test Output of the metric results (mainly for stand-alone
+	 * usage)
+	 * @throws IOException 
+	 */
+	public static void csvOutput(
+			HashMap<String, HashMap<String, AbstractMetricAttribute>> metricResults, File outPutFile, Boolean classSums) throws IOException {
+		
+		// setup writer for csv file
+		ICsvListWriter writer = new CsvListWriter(new FileWriter(outPutFile), CsvPreference.EXCEL_PREFERENCE);
+
+
+		try {
+			// figure out how many columns we are going to need
+			Entry<String, HashMap<String, AbstractMetricAttribute>> firstResult = metricResults
+					.entrySet().iterator().next();
+			HashMap<String, AbstractMetricAttribute> firstMetricResult = firstResult
+					.getValue();
+
+			int columnsSize = firstMetricResult.size() + 1;
+
+			// the String[] with the names of the header
+			String[] header = new String[columnsSize];
+
+			// first column holds the file name
+			String firstColumn = "FILE";
+			header[0] = firstColumn;
+
+			// get the names of the metrics calculated
+			int headerPosition = 1;
+			Iterator<String> it = firstMetricResult.keySet().iterator();
+			while (it.hasNext()) {
+				header[headerPosition++] = it.next();
+			}
+
+			// write csv file header
+			writer.writeHeader(header);
+			
+			// loop over files calculated
+			Iterator<String> fileNameItr = metricResults.keySet().iterator();
+			while (fileNameItr.hasNext()) {
+				String[] row = new String[columnsSize];
+				int rowPosition = 0;
+				String fileName = fileNameItr.next();
+				row[rowPosition++] = fileName;
+
+				// get metrics for fileName
+				HashMap<String, AbstractMetricAttribute> metrics = metricResults
+						.get(fileName);
+				for (String metricName : header) {
+					if (!(metricName.equals(firstColumn))) {
+						if (classSums == false) {
+							row[rowPosition++] = metrics.get(metricName).toString();
+						} else {
+							row[rowPosition++] = metrics.get(metricName).getSumValue().toString();
+						}
+						
+					}
+					
+				}
+				// write row
+				writer.write(Arrays.asList(row));
+				
+			}
+		} finally {
+			writer.close();
+		}
+
 	}
 }

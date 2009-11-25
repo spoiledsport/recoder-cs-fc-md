@@ -22,7 +22,7 @@
   <property name="css.file" value="${doc.dir}/recoder.css"/>
   <property name="jar.file" value="${ant.project.name}.jar"/>
 
-  <property name="javacc.bin" value="/Applications/myApps/prog/javacc/bin/javacc"/>
+  <property name="javacc.bin" value="C:\javaSTuff\javacc-5.0\bin\javacc.bat"/>
   <property name="templates.parser" value="CSharpParser.jj"/>
   <property name="templates.dir" value="templates"/>
   <property name="parser.target.dir" value="${src.dir}/recoder/parser"/>

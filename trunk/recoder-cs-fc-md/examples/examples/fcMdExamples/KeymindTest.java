@@ -50,7 +50,7 @@ public class KeymindTest {
 	CompilationUnitList units;
 
 	protected KeymindTest(String[] args) {
-		System.getProperties().put("input.path","test/minicorlib:/Users/janschumacher/Dropbox/WORK/fc-md/wsp/keymind/ana");
+		System.getProperties().put("input.path","test/minicorlib;C:\\Users\\jschumacher\\Documents\\My Dropbox\\WORK\\fc-md\\wsp\\keymind\\ana");
 		//System.getProperties().put("input.path","test/NewMonoTests/failingTests:test/minicorlib");
 
 
@@ -97,13 +97,13 @@ public class KeymindTest {
 				ProgramElement e = johnnieWalker.getProgramElement();
 
 				if (e instanceof FieldReference) {
-					//this.fieldRefFound(e);
+					this.fieldRefFound(e);
 				} else if (e instanceof MethodReference) {
 					this.methodRefFound(e);
 				} else if (e instanceof ClassType) {
-					//this.classFound(e);
+					this.classFound(e);
 				} else if (e instanceof Method) {
-					//this.methodFound(e);
+					this.methodFound(e);
 				}
 			}
 
