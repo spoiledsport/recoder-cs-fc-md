@@ -1445,7 +1445,7 @@ public class DefaultSourceInfo extends DefaultProgramModelInfo implements
 			res = mlist.getMethod(0);
 			reference2element.put(mr, res);
 			return res;
-		} catch (ClassCastException e) {
+		} catch (Exception e) {
 			getErrorHandler().reportError(
 					new UnresolvedReferenceException(Format.toString(
 							"Caught ClassCastException.\nCould not resolve "

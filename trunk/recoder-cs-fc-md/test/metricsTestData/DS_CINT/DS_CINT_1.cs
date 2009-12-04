@@ -4,8 +4,6 @@ DS_CINT:[[4,0,0,0],[0,null],[3,0,0]]
 </EXPECTED_METRICS>
  */
 
-// DS_CDISP:[[0.5,0.0,0.0,0.0],[0.0,null],[0.3333333333333333,0.5,0.0]]
-
 using System;
 
 namespace metricTests

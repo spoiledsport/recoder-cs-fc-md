@@ -20,7 +20,7 @@ import recoder.csharp.reference.VariableReference;
 import recoder.service.CrossReferenceSourceInfo;
 
 /**
- * A metric that calculates the lines of code per class.
+ * A metric that calculates the number of variables accessed per operation
  */
 public class NOAV extends DSMetricCalculator {
 

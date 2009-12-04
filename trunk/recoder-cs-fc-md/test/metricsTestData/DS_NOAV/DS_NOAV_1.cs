@@ -1,6 +1,6 @@
 /*
 <EXPECTED_METRICS>
-DS_NOAV:[[2,1],[0,6]]
+DS_NOAV:[[2,1],[0,7]]
 </EXPECTED_METRICS>
  */
 using System;
@@ -37,7 +37,9 @@ namespace metricTests
 	
 			x=x*y;
 			ClassExamle test= new ClassExamle(42);
+			ClassExamleNF testNF= new ClassExamleNF();
 			int name = test.getName();
+			int name2 = testNF.getName();
 			//multiply result with z
 			z=x*z;
 	
