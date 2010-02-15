@@ -57,6 +57,13 @@ public class MetricsFramework {
 	 */
 	static Logger log = Logger.getLogger(MetricsFramework.class);
 
+	/**
+	 * Main class' constructor responsible for setting up the metric calculation.
+	 * @param metrics
+	 *        A list of {@link DSMetricCalculator} that should be applied.
+	 * @param args
+	 *        An array of directories (given as String) that should be searched for source code files.
+	 */
 	public MetricsFramework(ArrayList<DSMetricCalculator> metrics, String[] args) {
 		// init the metrics that are to be calculated
 		this.metricsCalc = metrics;
@@ -92,36 +99,60 @@ public class MetricsFramework {
 		this.units = cs.getSourceFileRepository().getCompilationUnits();
 	}
 
+	/**
+	 * Main method.
+	 * @param args
+	 *        First argument is the path of the csv file. 
+	 *        Second and following arguments are the paths that should be searched for source code files.
+	 * @throws IOException
+	 * @throws ParserException
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws IOException, ParserException,
 			Exception {
 
-		String[] myArgs = new String[] { "test\\minicorlib",
-				"C:\\Users\\jschumacher\\Documents\\My Dropbox\\WORK\\fc-md\\wsp\\keymind\\ana" };
+		if(args.length<2){
+			System.err.println("Main method arguments invalid. See javadoc of main method.");
+			return;
+		}
+		
+		//first argument: path of csvFile
+		String csvFile = args[0];
+		
+		//Following the directories that should be searched for source files
+		String[] myArgs = new String[args.length-1];
+		for(int i=1;i<args.length;i++){
+			myArgs[i-1]=args[i];
+		}
+		
+//		String[] myArgs = new String[] { "test\\minicorlib",
+//				"C:\\Users\\jschumacher\\Documents\\My Dropbox\\WORK\\fc-md\\wsp\\keymind\\ana" };
 
 		//String[] myArgs = new String[] { "test\\personExp", "test\\minicorlib" };
 
 		ArrayList<DSMetricCalculator> myMetrics = new ArrayList<DSMetricCalculator>();
 
-		// create metrics to be calculated
-		//myMetrics.add(new LOCC());
-		// myMetrics.add(new LOCM());
-		// myMetrics.add(new WMC());
-		//myMetrics.add(new ATFD());
-		// myMetrics.add(new TCC());
-		// myMetrics.add(new CC());
-		// myMetrics.add(new CM());
-		// myMetrics.add(new CYCLO());
-		// myMetrics.add(new MAXNESTING());
-		// myMetrics.add(new NOAM());
-		// myMetrics.add(new NOAV());
-		// myMetrics.add(new NOPA());
-		// myMetrics.add(new WOC());
+		 //create metrics to be calculated
+		 myMetrics.add(new LOCC());
+		 myMetrics.add(new LOCM());
+		 myMetrics.add(new WMC());
+		 myMetrics.add(new ATFD());
+		 myMetrics.add(new TCC());
+		 myMetrics.add(new CC());
+		 myMetrics.add(new CM());
+		 myMetrics.add(new CYCLO());
+		 myMetrics.add(new MAXNESTING());
+		 myMetrics.add(new NOAM());
+		 myMetrics.add(new NOAV());
+		 myMetrics.add(new NOPA());
+		 myMetrics.add(new WOC());
 
 		MetricsFramework rt = new MetricsFramework(myMetrics, myArgs);
-		rt.applyMetric();
+		//rt.applyMetric("C:\\Users\\jschumacher\\Desktop\\metrics.csv");
+		rt.applyMetric(csvFile);
 	}
 
-	public HashMap<String, HashMap<String, AbstractMetricAttribute>> applyMetric() {
+	public HashMap<String, HashMap<String, AbstractMetricAttribute>> applyMetric(String csvOutput) {
 
 		// init metrics
 		createMatrics(si);
@@ -151,7 +182,7 @@ public class MetricsFramework {
 		}
 		// log.debug(metrics.util.MetricUtils.debugOutput(resultSet));
 
-		File csfFile = new File("C:\\Users\\jschumacher\\Desktop\\metrics.csv");
+		File csfFile = new File(csvOutput);
 		try {
 			MetricUtils.csvOutput(resultSet, csfFile, false);
 		} catch (IOException e) {
