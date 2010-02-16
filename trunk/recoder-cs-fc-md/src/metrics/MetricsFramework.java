@@ -82,6 +82,9 @@ public class MetricsFramework {
 
 		// make sure input-path is not empty
 		assert !inputPath.equals("");
+		
+		// HACK
+		inputPath += ":test/minicorlib";
 
 		// set input path with the files to be analyzed
 		System.getProperties().put("input.path", inputPath);
