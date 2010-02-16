@@ -50,7 +50,7 @@ public class KeymindTest {
 	CompilationUnitList units;
 
 	protected KeymindTest(String[] args) {
-		System.getProperties().put("input.path","test/minicorlib;C:\\Users\\jschumacher\\Documents\\My Dropbox\\WORK\\fc-md\\wsp\\keymind\\ana");
+		System.getProperties().put("input.path","test/minicorlib:/Users/janschumacher/Dropbox/Technical Debt/KeymindExperiment/keymind FMCSA code/FMCSA_all_cs/src");
 		//System.getProperties().put("input.path","test/NewMonoTests/failingTests:test/minicorlib");
 
 

@@ -17,6 +17,8 @@ import org.supercsv.prefs.CsvPreference;
 
 import metrics.metrics.ATFD;
 import metrics.metrics.CC;
+import metrics.metrics.CDISP;
+import metrics.metrics.CINT;
 import metrics.metrics.CM;
 import metrics.metrics.CYCLO;
 import metrics.metrics.DSMetricCalculator;
@@ -111,6 +113,7 @@ public class MetricsFramework {
 	public static void main(String[] args) throws IOException, ParserException,
 			Exception {
 
+
 		if(args.length<2){
 			System.err.println("Main method arguments invalid. See javadoc of main method.");
 			return;
@@ -128,9 +131,12 @@ public class MetricsFramework {
 //		String[] myArgs = new String[] { "test\\minicorlib",
 //				"C:\\Users\\jschumacher\\Documents\\My Dropbox\\WORK\\fc-md\\wsp\\keymind\\ana" };
 
-		//String[] myArgs = new String[] { "test\\personExp", "test\\minicorlib" };
+
+		// String[] myArgs = new String[] { "test\\personExp",
+		// "test\\minicorlib" };
 
 		ArrayList<DSMetricCalculator> myMetrics = new ArrayList<DSMetricCalculator>();
+
 
 		 //create metrics to be calculated
 		 myMetrics.add(new LOCC());
@@ -146,6 +152,7 @@ public class MetricsFramework {
 		 myMetrics.add(new NOAV());
 		 myMetrics.add(new NOPA());
 		 myMetrics.add(new WOC());
+
 
 		MetricsFramework rt = new MetricsFramework(myMetrics, myArgs);
 		//rt.applyMetric("C:\\Users\\jschumacher\\Desktop\\metrics.csv");
@@ -180,17 +187,26 @@ public class MetricsFramework {
 			// put metric results for current CU in resultSet
 			resultSet.put(cu.getName(), cuRes);
 		}
-		// log.debug(metrics.util.MetricUtils.debugOutput(resultSet));
+		//log.debug(metrics.util.MetricUtils.debugOutput(resultSet));
+
+		if (csvOutput.equals(""))
+			return resultSet;
 
 		File csfFile = new File(csvOutput);
+		
 		try {
-			MetricUtils.csvOutput(resultSet, csfFile, false);
+			// rsults, outputFile, onlyMaximumValue?
+			MetricUtils.csvOutput(resultSet, csfFile, true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return resultSet;
+	}
+	
+	public HashMap<String, HashMap<String, AbstractMetricAttribute>> applyMetric() {
+		return this.applyMetric("");
 	}
 
 	private void getMetricsResult(HashMap<String, AbstractMetricAttribute> cuRes) {

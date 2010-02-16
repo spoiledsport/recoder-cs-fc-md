@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
 import metricsdata.AbstractMetricAttribute;
@@ -700,11 +701,9 @@ public final class MetricUtils {
 						.get(fileName);
 				for (String metricName : header) {
 					if (!(metricName.equals(firstColumn))) {
-						if (classSums == false) {
-							row[rowPosition++] = metrics.get(metricName).toString();
-						} else {
-							row[rowPosition++] = metrics.get(metricName).getSumValue().toString();
-						}
+						row[rowPosition++] = maxOfMetricString(metrics.get(metricName).toString()) + "";
+						//row[rowPosition++] = metrics.get(metricName).toString();
+
 						
 					}
 					
@@ -718,4 +717,41 @@ public final class MetricUtils {
 		}
 
 	}
+	
+	public static String maxOfMetricString(String metrics) {
+		
+		log.debug("Metrics: " + metrics);
+		
+			metrics = metrics.replace("[", "");
+			metrics = metrics.replace("]", "");
+
+
+		log.debug("Metrics replaced : " + metrics);
+		StringTokenizer tok = new StringTokenizer(metrics,",");
+		List<Double> maxor= new ArrayList<Double>();
+		
+		// add values
+		while (tok.hasMoreTokens()) {
+			String next = tok.nextToken();
+			if (!next.equals("Infinity") && !next.equals(null) && !next.equals("")) {
+				maxor.add(Double.parseDouble(next));
+			}
+			
+		}
+		
+		log.debug("Metrics List: " + maxor);
+		
+		// determin max
+		double currentMax = Double.MIN_VALUE;
+		for (Double d : maxor) {
+			if (d > currentMax)
+				currentMax = d;
+		}
+		
+		log.debug("MAX: " + currentMax);
+		
+		
+		return currentMax + "";
+	}
+	
 }

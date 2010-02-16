@@ -1,6 +1,6 @@
 /*
 <EXPECTED_METRICS>
-DS_CINT:[[4,0,0,0],[0,null],[3,0,0]]
+DS_CINT:[[6,0,0,0],[0,null],[3,0,0]]
 </EXPECTED_METRICS>
  */
 
@@ -30,16 +30,19 @@ public class DSCINTTest : DSCINTTestBase {
 	
 	public DSCINTTest(int i){
 		DSCINTTest2 foo = new DSCINTTest2(5);
+		DSCINTTest3 fooNA = new DSCINTTest3(5);
 		foo.toString();
 		foo.toString();
+		fooNAtoString();
 		DSCINTTest2.myStaticMethod();
+		DSCINTTest3.myStaticMethod();
 		m2();
 		Console.WriteLine();
 		m1();
 	}
 	
 	public void m2() {
-		//m1();
+		m1();
 	}
 	
 	public int getMember(){
