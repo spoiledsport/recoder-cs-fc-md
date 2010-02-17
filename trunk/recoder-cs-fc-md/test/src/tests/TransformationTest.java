@@ -3,12 +3,12 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import javax.transaction.TransactionRequiredException;
 
-import recoder.CrossReferenceServiceConfiguration;
-import recoder.csharp.CompilationUnit;
-import recoder.csharp.NonTerminalProgramElement;
-import recoder.csharp.declaration.ClassDeclaration;
-import recoder.kit.Transformation;
-import recoder.util.Debug;
+import recodercs.CrossReferenceServiceConfiguration;
+import recodercs.csharp.CompilationUnit;
+import recodercs.csharp.NonTerminalProgramElement;
+import recodercs.csharp.declaration.ClassDeclaration;
+import recodercs.kit.Transformation;
+import recodercs.util.Debug;
 import simpleExp.PlainAnalysisErrorHandler;
 
 

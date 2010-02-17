@@ -10,9 +10,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import recoder.ParserException;
-import recoder.io.DefaultSourceFileRepository;
-import recoder.util.FileCollector;
+import recodercs.ParserException;
+import recodercs.io.DefaultSourceFileRepository;
+import recodercs.util.FileCollector;
 import fcMDtests.util.FileSlurper;
 
 /**

@@ -7,12 +7,12 @@ import metricsdata.IntegerArrayValueMetric;
 
 import org.apache.log4j.Logger;
 
-import recoder.abstraction.ClassType;
-import recoder.abstraction.DefaultConstructor;
-import recoder.abstraction.Method;
-import recoder.convenience.TreeWalker;
-import recoder.csharp.ProgramElement;
-import recoder.service.CrossReferenceSourceInfo;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.DefaultConstructor;
+import recodercs.abstraction.Method;
+import recodercs.convenience.TreeWalker;
+import recodercs.csharp.ProgramElement;
+import recodercs.service.CrossReferenceSourceInfo;
 
 /**
  * A metric that calculates the weighted method count of a class

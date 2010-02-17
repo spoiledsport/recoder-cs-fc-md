@@ -3,20 +3,25 @@ package simpleExp;
 import java.io.PrintWriter;
 import java.util.*;
 
-import recoder.*;
-import recoder.list.*;
-import recoder.io.*;
-import recoder.service.*;
-import recoder.util.ProgressEvent;
-import recoder.util.ProgressListener;
-import recoder.abstraction.ClassType;
-import recoder.abstraction.DeclaredType;
-import recoder.abstraction.Field;
-import recoder.abstraction.Method;
-import recoder.abstraction.Namespace;
-import recoder.abstraction.ProgramModelElement;
-import recoder.abstraction.Type;
-import recoder.csharp.*;
+import recodercs.CrossReferenceServiceConfiguration;
+import recodercs.io.DefaultSourceFileRepository;
+import recodercs.service.CrossReferenceSourceInfo;
+import recodercs.service.DefaultCrossReferenceSourceInfo;
+import recodercs.service.DefaultNameInfo;
+import recodercs.*;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.DeclaredType;
+import recodercs.abstraction.Field;
+import recodercs.abstraction.Method;
+import recodercs.abstraction.Namespace;
+import recodercs.abstraction.ProgramModelElement;
+import recodercs.abstraction.Type;
+import recodercs.csharp.*;
+import recodercs.io.*;
+import recodercs.list.*;
+import recodercs.service.*;
+import recodercs.util.ProgressEvent;
+import recodercs.util.ProgressListener;
 
 public class PlainAnalysis {
     private static int level;
@@ -53,7 +58,7 @@ public class PlainAnalysis {
         }
 
         long totalMem = Runtime.getRuntime().totalMemory();
-        long usedMem = recoder.util.Debug.getUsedMemory();
+        long usedMem = recodercs.util.Debug.getUsedMemory();
         System.out.println(
             "Memory used: " + usedMem + " (total: " + totalMem + ")");
     }

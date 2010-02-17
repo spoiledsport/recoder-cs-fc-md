@@ -1,5 +1,5 @@
 package tests;
-import recoder.csharp.CSharpProgramFactory;
+import recodercs.csharp.CSharpProgramFactory;
 
 /**
  * @author joey

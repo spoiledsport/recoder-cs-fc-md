@@ -9,8 +9,8 @@ import metricsdata.AbstractMetricAttribute;
 
 import org.apache.log4j.Logger;
 
-import recoder.CrossReferenceServiceConfiguration;
-import recoder.service.CrossReferenceSourceInfo;
+import recodercs.CrossReferenceServiceConfiguration;
+import recodercs.service.CrossReferenceSourceInfo;
 
 /**
  * All testcases for metrics inherit from this class. It provides

@@ -1,9 +1,11 @@
 package simpleExp;
 import java.io.*;
 
-import recoder.*;
-import recoder.csharp.*;
-import recoder.convenience.*;
+import recodercs.DefaultServiceConfiguration;
+import recodercs.NamedModelElement;
+import recodercs.*;
+import recodercs.convenience.*;
+import recodercs.csharp.*;
 
 /**
  * @author orosz

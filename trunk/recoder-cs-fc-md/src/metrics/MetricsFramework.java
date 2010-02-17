@@ -33,12 +33,12 @@ import metrics.metrics.WMC;
 import metrics.metrics.WOC;
 import metrics.util.MetricUtils;
 import metricsdata.AbstractMetricAttribute;
-import recoder.CrossReferenceServiceConfiguration;
-import recoder.ParserException;
-import recoder.csharp.CompilationUnit;
-import recoder.csharp.ProgramElement;
-import recoder.list.CompilationUnitList;
-import recoder.service.CrossReferenceSourceInfo;
+import recodercs.CrossReferenceServiceConfiguration;
+import recodercs.ParserException;
+import recodercs.csharp.CompilationUnit;
+import recodercs.csharp.ProgramElement;
+import recodercs.list.CompilationUnitList;
+import recodercs.service.CrossReferenceSourceInfo;
 
 /**
  * @author AL

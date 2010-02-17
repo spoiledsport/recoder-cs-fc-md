@@ -9,15 +9,15 @@ import metricsdata.IntegerArray2ValueMetric;
 
 import org.apache.log4j.Logger;
 
-import recoder.abstraction.ClassType;
-import recoder.abstraction.Field;
-import recoder.abstraction.Method;
-import recoder.convenience.TreeWalker;
-import recoder.csharp.ProgramElement;
-import recoder.csharp.reference.FieldReference;
-import recoder.csharp.reference.MethodReference;
-import recoder.csharp.reference.VariableReference;
-import recoder.service.CrossReferenceSourceInfo;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.Field;
+import recodercs.abstraction.Method;
+import recodercs.convenience.TreeWalker;
+import recodercs.csharp.ProgramElement;
+import recodercs.csharp.reference.FieldReference;
+import recodercs.csharp.reference.MethodReference;
+import recodercs.csharp.reference.VariableReference;
+import recodercs.service.CrossReferenceSourceInfo;
 
 /**
  * A metric that calculates the number of variables accessed per operation

@@ -1,6 +1,6 @@
 package examples.fcMdExamples;
-import recoder.ModelElement;
-import recoder.service.DefaultErrorHandler;
+import recodercs.ModelElement;
+import recodercs.service.DefaultErrorHandler;
 
 /**
  * @author kis
@@ -25,7 +25,7 @@ public class ReferenceTestErrorHandler extends DefaultErrorHandler {
 	}
 
 	/**
-	 * @see recoder.service.DefaultErrorHandler#isReferingUnavailableCode(ModelElement)
+	 * @see recodercs.service.DefaultErrorHandler#isReferingUnavailableCode(ModelElement)
 	 */
 	protected boolean isReferingUnavailableCode(ModelElement me) {
 		return true;

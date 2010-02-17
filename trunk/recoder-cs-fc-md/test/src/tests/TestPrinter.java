@@ -3,8 +3,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Properties;
 
-import recoder.csharp.CompilationUnit;
-import recoder.csharp.PrettyPrinter;
+import recodercs.csharp.CompilationUnit;
+import recodercs.csharp.PrettyPrinter;
 
 /**
  * @author kis

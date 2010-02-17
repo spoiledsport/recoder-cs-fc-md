@@ -1,14 +1,14 @@
 package tests;
-import recoder.CrossReferenceServiceConfiguration;
-import recoder.abstraction.ClassType;
-import recoder.abstraction.Field;
-import recoder.csharp.declaration.ClassDeclaration;
-import recoder.csharp.declaration.MemberDeclaration;
-import recoder.csharp.declaration.MethodDeclaration;
-import recoder.kit.TwoPassTransformation;
-import recoder.kit.problem.ProblemReport;
-import recoder.list.MemberDeclarationArrayList;
-import recoder.list.MemberDeclarationMutableList;
+import recodercs.CrossReferenceServiceConfiguration;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.Field;
+import recodercs.csharp.declaration.ClassDeclaration;
+import recodercs.csharp.declaration.MemberDeclaration;
+import recodercs.csharp.declaration.MethodDeclaration;
+import recodercs.kit.TwoPassTransformation;
+import recodercs.kit.problem.ProblemReport;
+import recodercs.list.MemberDeclarationArrayList;
+import recodercs.list.MemberDeclarationMutableList;
 
 public class SimpleTransformation extends TwoPassTransformation {
 

@@ -1,6 +1,6 @@
 package metrics;
-import recoder.ModelElement;
-import recoder.service.DefaultErrorHandler;
+import recodercs.ModelElement;
+import recodercs.service.DefaultErrorHandler;
 
 /**
  *
@@ -24,7 +24,7 @@ public class PlainAnalysisErrorHandler extends DefaultErrorHandler {
 	}
 
 	/**
-	 * @see recoder.service.DefaultErrorHandler#isReferingUnavailableCode(ModelElement)
+	 * @see recodercs.service.DefaultErrorHandler#isReferingUnavailableCode(ModelElement)
 	 */
 	protected boolean isReferingUnavailableCode(ModelElement me) {
 		return true;

@@ -3,12 +3,12 @@ import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import recoder.DefaultServiceConfiguration;
-import recoder.ModelException;
-import recoder.csharp.CompilationUnit;
-import recoder.io.ProjectSettings;
-import recoder.io.TypeFinderVisitor;
-import recoder.list.CompilationUnitList;
+import recodercs.DefaultServiceConfiguration;
+import recodercs.ModelException;
+import recodercs.csharp.CompilationUnit;
+import recodercs.io.ProjectSettings;
+import recodercs.io.TypeFinderVisitor;
+import recodercs.list.CompilationUnitList;
 /**
  * @author kis
  *

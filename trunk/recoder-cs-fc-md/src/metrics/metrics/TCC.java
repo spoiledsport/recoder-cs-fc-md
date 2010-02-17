@@ -7,14 +7,14 @@ import metricsdata.DoubleArrayValueMetric;
 
 import org.apache.log4j.Logger;
 
-import recoder.abstraction.ClassType;
-import recoder.abstraction.Field;
-import recoder.abstraction.Method;
-import recoder.convenience.TreeWalker;
-import recoder.csharp.ProgramElement;
-import recoder.csharp.reference.FieldReference;
-import recoder.list.MethodList;
-import recoder.service.CrossReferenceSourceInfo;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.Field;
+import recodercs.abstraction.Method;
+import recodercs.convenience.TreeWalker;
+import recodercs.csharp.ProgramElement;
+import recodercs.csharp.reference.FieldReference;
+import recodercs.list.MethodList;
+import recodercs.service.CrossReferenceSourceInfo;
 
 /**
  * A metric that calculates Tight CLass Cohesion of a class

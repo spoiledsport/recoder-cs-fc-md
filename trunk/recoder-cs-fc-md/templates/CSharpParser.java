@@ -4,19 +4,19 @@ package recoder.parser;
 import java.io.*;
 import java.util.*;
 
-import recoder.*;
-import recoder.list.*;
-import recoder.csharp.*;
-import recoder.csharp.attributes.*;
-import recoder.csharp.attributes.targets.*;
-import recoder.csharp.declaration.*;
-import recoder.csharp.declaration.modifier.*;
-import recoder.csharp.expression.*;
-import recoder.csharp.expression.literal.*;
-import recoder.csharp.expression.operator.*;
-import recoder.csharp.reference.*;
-import recoder.csharp.statement.*;
-import recoder.io.*;
+import recodercs.*;
+import recodercs.list.*;
+import recodercs.csharp.*;
+import recodercs.csharp.attributes.*;
+import recodercs.csharp.attributes.targets.*;
+import recodercs.csharp.declaration.*;
+import recodercs.csharp.declaration.modifier.*;
+import recodercs.csharp.expression.*;
+import recodercs.csharp.expression.literal.*;
+import recodercs.csharp.expression.operator.*;
+import recodercs.csharp.reference.*;
+import recodercs.csharp.statement.*;
+import recodercs.io.*;
 
 
 /**

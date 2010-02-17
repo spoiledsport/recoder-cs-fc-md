@@ -1,7 +1,9 @@
 package tests;
 import junit.framework.TestCase;
-import recoder.*;
-import recoder.csharp.*;
+import recodercs.ServiceConfiguration;
+import recodercs.*;
+import recodercs.csharp.*;
+
 import java.io.*;
 /**
  * @author kis

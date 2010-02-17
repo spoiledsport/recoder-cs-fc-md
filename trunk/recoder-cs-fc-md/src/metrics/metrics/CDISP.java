@@ -10,17 +10,17 @@ import metricsdata.DoubleArray2ValueMetric;
 
 import org.apache.log4j.Logger;
 
-import recoder.abstraction.ClassType;
-import recoder.abstraction.Method;
-import recoder.convenience.TreeWalker;
-import recoder.csharp.ProgramElement;
-import recoder.csharp.Reference;
-import recoder.csharp.declaration.ClassDeclaration;
-import recoder.csharp.reference.MethodReference;
-import recoder.csharp.reference.TypeReference;
-import recoder.list.ClassTypeList;
-import recoder.list.MethodList;
-import recoder.service.CrossReferenceSourceInfo;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.Method;
+import recodercs.convenience.TreeWalker;
+import recodercs.csharp.ProgramElement;
+import recodercs.csharp.Reference;
+import recodercs.csharp.declaration.ClassDeclaration;
+import recodercs.csharp.reference.MethodReference;
+import recodercs.csharp.reference.TypeReference;
+import recodercs.list.ClassTypeList;
+import recodercs.list.MethodList;
+import recodercs.service.CrossReferenceSourceInfo;
 
 /**
  * A metric that calculates the coupling intensity of a method

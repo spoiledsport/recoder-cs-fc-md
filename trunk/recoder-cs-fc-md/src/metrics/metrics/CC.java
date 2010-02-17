@@ -9,18 +9,18 @@ import metricsdata.IntegerArray2ValueMetric;
 
 import org.apache.log4j.Logger;
 
-import recoder.abstraction.ClassType;
-import recoder.abstraction.Method;
-import recoder.convenience.TreeWalker;
-import recoder.csharp.ProgramElement;
-import recoder.csharp.declaration.ClassDeclaration;
-import recoder.csharp.declaration.TypeDeclaration;
-import recoder.csharp.expression.operator.New;
-import recoder.csharp.reference.ConstructorReference;
-import recoder.csharp.reference.MemberReference;
-import recoder.csharp.reference.MethodReference;
-import recoder.list.MemberReferenceList;
-import recoder.service.CrossReferenceSourceInfo;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.Method;
+import recodercs.convenience.TreeWalker;
+import recodercs.csharp.ProgramElement;
+import recodercs.csharp.declaration.ClassDeclaration;
+import recodercs.csharp.declaration.TypeDeclaration;
+import recodercs.csharp.expression.operator.New;
+import recodercs.csharp.reference.ConstructorReference;
+import recodercs.csharp.reference.MemberReference;
+import recodercs.csharp.reference.MethodReference;
+import recodercs.list.MemberReferenceList;
+import recodercs.service.CrossReferenceSourceInfo;
 
 /**
  * A metric that calculates the lines of code per class.

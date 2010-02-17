@@ -1,15 +1,15 @@
 package metrics.util;
 
-import recoder.ModelElement;
-import recoder.abstraction.ClassType;
-import recoder.abstraction.Constructor;
-import recoder.abstraction.Field;
-import recoder.abstraction.Method;
-import recoder.convenience.ModelElementFilter;
-import recoder.csharp.declaration.GetAccessor;
-import recoder.csharp.declaration.SetAccessor;
-import recoder.csharp.reference.FieldReference;
-import recoder.csharp.reference.MethodReference;
+import recodercs.ModelElement;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.Constructor;
+import recodercs.abstraction.Field;
+import recodercs.abstraction.Method;
+import recodercs.convenience.ModelElementFilter;
+import recodercs.csharp.declaration.GetAccessor;
+import recodercs.csharp.declaration.SetAccessor;
+import recodercs.csharp.reference.FieldReference;
+import recodercs.csharp.reference.MethodReference;
 
 /**
  * This class holds a variety of filters, that are used when walking a tree of

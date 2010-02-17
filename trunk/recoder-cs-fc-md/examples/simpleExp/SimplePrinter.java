@@ -7,12 +7,12 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-import recoder.DefaultServiceConfiguration;
-import recoder.ParserException;
-import recoder.csharp.CompilationUnit;
-import recoder.csharp.PrettyPrinter;
-import recoder.list.CompilationUnitList;
-import recoder.service.SourceInfo;
+import recodercs.DefaultServiceConfiguration;
+import recodercs.ParserException;
+import recodercs.csharp.CompilationUnit;
+import recodercs.csharp.PrettyPrinter;
+import recodercs.list.CompilationUnitList;
+import recodercs.service.SourceInfo;
 
 /**
    @author AL

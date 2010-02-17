@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import recoder.ParserException;
+import recodercs.ParserException;
 import fcMDtests.util.FileSlurper;
 
 /**

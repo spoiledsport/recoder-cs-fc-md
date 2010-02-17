@@ -3,26 +3,26 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import recoder.ParserException;
-import recoder.ServiceConfiguration;
-import recoder.convenience.Format;
-import recoder.csharp.CompilationUnit;
-import recoder.csharp.ProgramElement;
-import recoder.io.DefaultSourceFileRepository;
-import recoder.io.SourceFileRepository;
-import recoder.kit.Transformation;
-import recoder.kit.problem.Problem;
-import recoder.kit.problem.ProblemReport;
-import recoder.list.CompilationUnitList;
-import recoder.list.StringArrayList;
-import recoder.list.StringMutableList;
-import recoder.list.TreeChangeList;
-import recoder.service.ChangeHistoryEvent;
-import recoder.service.ChangeHistoryListener;
-import recoder.service.ModelUpdateListener;
-import recoder.util.FileCollector;
-import recoder.util.ProgressEvent;
-import recoder.util.ProgressListener;
+import recodercs.ParserException;
+import recodercs.ServiceConfiguration;
+import recodercs.convenience.Format;
+import recodercs.csharp.CompilationUnit;
+import recodercs.csharp.ProgramElement;
+import recodercs.io.DefaultSourceFileRepository;
+import recodercs.io.SourceFileRepository;
+import recodercs.kit.Transformation;
+import recodercs.kit.problem.Problem;
+import recodercs.kit.problem.ProblemReport;
+import recodercs.list.CompilationUnitList;
+import recodercs.list.StringArrayList;
+import recodercs.list.StringMutableList;
+import recodercs.list.TreeChangeList;
+import recodercs.service.ChangeHistoryEvent;
+import recodercs.service.ChangeHistoryListener;
+import recodercs.service.ModelUpdateListener;
+import recodercs.util.FileCollector;
+import recodercs.util.ProgressEvent;
+import recodercs.util.ProgressListener;
 
 /**
    Auxiliary class for RECODER applications.

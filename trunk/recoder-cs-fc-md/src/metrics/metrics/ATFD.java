@@ -8,14 +8,14 @@ import metricsdata.IntegerArrayValueMetric;
 
 import org.apache.log4j.Logger;
 
-import recoder.abstraction.ClassType;
-import recoder.abstraction.Field;
-import recoder.abstraction.Method;
-import recoder.convenience.TreeWalker;
-import recoder.csharp.ProgramElement;
-import recoder.csharp.reference.FieldReference;
-import recoder.csharp.reference.MethodReference;
-import recoder.service.CrossReferenceSourceInfo;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.Field;
+import recodercs.abstraction.Method;
+import recodercs.convenience.TreeWalker;
+import recodercs.csharp.ProgramElement;
+import recodercs.csharp.reference.FieldReference;
+import recodercs.csharp.reference.MethodReference;
+import recodercs.service.CrossReferenceSourceInfo;
 
 /**
  * A metric that calculates the access to foreign data of a class.

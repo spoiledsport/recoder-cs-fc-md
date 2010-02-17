@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import metricsdata.AbstractMetricAttribute;
 
-import recoder.csharp.ProgramElement;
-import recoder.service.CrossReferenceSourceInfo;
-import recoder.service.SourceInfo;
+import recodercs.csharp.ProgramElement;
+import recodercs.service.CrossReferenceSourceInfo;
+import recodercs.service.SourceInfo;
 
 public abstract class DSMetricCalculator {
 	

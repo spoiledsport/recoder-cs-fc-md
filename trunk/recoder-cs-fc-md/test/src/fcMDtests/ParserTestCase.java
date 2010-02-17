@@ -2,8 +2,8 @@ package fcMDtests;
 
 import org.junit.Before;
 
-import recoder.ServiceConfiguration;
-import recoder.csharp.CompilationUnit;
+import recodercs.ServiceConfiguration;
+import recodercs.csharp.CompilationUnit;
 import fcMDtests.util.ParserTestServiceConfiguration;
 
 public abstract class ParserTestCase {

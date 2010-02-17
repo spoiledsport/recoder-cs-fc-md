@@ -1,8 +1,10 @@
 package tests;
 import junit.framework.*;
-import recoder.*;
-import recoder.csharp.*;
-import recoder.parser.*;
+import recodercs.ParserException;
+import recodercs.*;
+import recodercs.csharp.*;
+import recodercs.parser.*;
+
 import java.io.*;
 
 /**

@@ -7,21 +7,21 @@ import metricsdata.IntegerArray2ValueMetric;
 
 import org.apache.log4j.Logger;
 
-import recoder.abstraction.ClassType;
-import recoder.abstraction.Method;
-import recoder.convenience.TreeWalker;
-import recoder.csharp.ProgramElement;
-import recoder.csharp.StatementBlock;
-import recoder.csharp.declaration.MethodDeclaration;
-import recoder.csharp.expression.operator.Conditional;
-import recoder.csharp.statement.Do;
-import recoder.csharp.statement.For;
-import recoder.csharp.statement.Foreach;
-import recoder.csharp.statement.If;
-import recoder.csharp.statement.Switch;
-import recoder.csharp.statement.Then;
-import recoder.csharp.statement.While;
-import recoder.service.CrossReferenceSourceInfo;
+import recodercs.abstraction.ClassType;
+import recodercs.abstraction.Method;
+import recodercs.convenience.TreeWalker;
+import recodercs.csharp.ProgramElement;
+import recodercs.csharp.StatementBlock;
+import recodercs.csharp.declaration.MethodDeclaration;
+import recodercs.csharp.expression.operator.Conditional;
+import recodercs.csharp.statement.Do;
+import recodercs.csharp.statement.For;
+import recodercs.csharp.statement.Foreach;
+import recodercs.csharp.statement.If;
+import recodercs.csharp.statement.Switch;
+import recodercs.csharp.statement.Then;
+import recodercs.csharp.statement.While;
+import recodercs.service.CrossReferenceSourceInfo;
 
 /**
  * A metric that calculates MAXNESTING

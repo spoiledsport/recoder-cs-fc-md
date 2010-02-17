@@ -1,10 +1,19 @@
 package tests;
 // This file is part of the RECODER library and protected by the LGPL.
 
-import recoder.io.*;
-import recoder.service.*;
-import recoder.csharp.CSharpProgramFactory;
-import recoder.*;
+import recodercs.io.ProjectSettings;
+import recodercs.io.SourceFileRepository;
+import recodercs.service.ChangeHistory;
+import recodercs.service.ConstantEvaluator;
+import recodercs.service.ImplicitElementInfo;
+import recodercs.service.NameInfo;
+import recodercs.service.SourceInfo;
+import recodercs.*;
+import recodercs.csharp.CSharpProgramFactory;
+import recodercs.io.*;
+import recodercs.service.*;
+import recodercs.ProgramFactory;
+import recodercs.ServiceConfiguration;
 
 public class ParserTestServiceConfiguration extends ServiceConfiguration {
 
@@ -21,7 +30,7 @@ public class ParserTestServiceConfiguration extends ServiceConfiguration {
     }
 
     /**
-     * @see recoder.ServiceConfiguration#initServices()
+     * @see recodercs.ServiceConfiguration#initServices()
      */
     protected void initServices() throws InitializationException {
         programFactory.initialize(this);
@@ -29,7 +38,7 @@ public class ParserTestServiceConfiguration extends ServiceConfiguration {
     }
 
     /**
-     * @see recoder.ServiceConfiguration#makeServices()
+     * @see recodercs.ServiceConfiguration#makeServices()
      */
     protected void makeServices() {
         programFactory = makeProgramFactory();
@@ -37,42 +46,42 @@ public class ParserTestServiceConfiguration extends ServiceConfiguration {
     }
 
     /**
-     * @see recoder.ServiceConfiguration#makeChangeHistory()
+     * @see recodercs.ServiceConfiguration#makeChangeHistory()
      */
     protected ChangeHistory makeChangeHistory() {
         return null;
     }
 
     /**
-     * @see recoder.ServiceConfiguration#makeConstantEvaluator()
+     * @see recodercs.ServiceConfiguration#makeConstantEvaluator()
      */
     protected ConstantEvaluator makeConstantEvaluator() {
         return null;
     }
 
     /**
-     * @see recoder.ServiceConfiguration#makeImplicitElementInfo()
+     * @see recodercs.ServiceConfiguration#makeImplicitElementInfo()
      */
     protected ImplicitElementInfo makeImplicitElementInfo() {
         return null;
     }
 
     /**
-     * @see recoder.ServiceConfiguration#makeNameInfo()
+     * @see recodercs.ServiceConfiguration#makeNameInfo()
      */
     protected NameInfo makeNameInfo() {
         return null;
     }
 
     /**
-     * @see recoder.ServiceConfiguration#makeSourceFileRepository()
+     * @see recodercs.ServiceConfiguration#makeSourceFileRepository()
      */
     protected SourceFileRepository makeSourceFileRepository() {
         return null;
     }
 
     /**
-     * @see recoder.ServiceConfiguration#makeSourceInfo()
+     * @see recodercs.ServiceConfiguration#makeSourceInfo()
      */
     protected SourceInfo makeSourceInfo() {
         return null;

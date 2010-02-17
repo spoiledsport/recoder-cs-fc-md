@@ -1,16 +1,27 @@
 package simpleExp;
 import java.io.*;
 
-import recoder.*;
-import recoder.csharp.*;
-import recoder.list.*;
-import recoder.io.*;
-import recoder.service.*;
-import recoder.convenience.*;
-import recoder.kit.*;
-import recoder.kit.Transformation.*;
-import recoder.kit.problem.*;
-import recoder.util.*;
+import recodercs.ParserException;
+import recodercs.ServiceConfiguration;
+import recodercs.io.DefaultSourceFileRepository;
+import recodercs.io.SourceFileRepository;
+import recodercs.service.ChangeHistoryEvent;
+import recodercs.service.ChangeHistoryListener;
+import recodercs.service.ModelUpdateListener;
+import recodercs.convenience.Format;
+import recodercs.util.FileCollector;
+import recodercs.util.ProgressEvent;
+import recodercs.util.ProgressListener;
+import recodercs.*;
+import recodercs.convenience.*;
+import recodercs.csharp.*;
+import recodercs.io.*;
+import recodercs.kit.*;
+import recodercs.kit.Transformation.*;
+import recodercs.kit.problem.*;
+import recodercs.list.*;
+import recodercs.service.*;
+import recodercs.util.*;
 
 /**
    Auxiliary class for RECODER applications.
