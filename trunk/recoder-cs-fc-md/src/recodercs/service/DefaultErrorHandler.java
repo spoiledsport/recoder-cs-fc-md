@@ -94,9 +94,9 @@ public class DefaultErrorHandler implements ErrorHandler {
 	protected void warningMessage(Exception e) {
 		String className = e.getClass().getName();
 		className = className.substring(className.lastIndexOf('.') + 1);
-		System.err.println("+++ Warning: " + className);
-		System.err.println(e.getMessage());
-		System.err.println();
+		//System.err.println("+++ Warning: " + className);
+		//System.err.println(e.getMessage());
+		//System.err.println();
 	}
 
 	/**
