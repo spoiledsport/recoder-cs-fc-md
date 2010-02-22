@@ -439,7 +439,7 @@ public class DefaultSourceFileRepository
             try{
             	suckUpCompilationUnitFromLocation(locations[i]);
             }
-            catch(ParserException e){
+            catch(Throwable e){
             	System.out.println("DefaultSourceFileRepository.suckUp(): ParserException in "+locations[i]+":\n");
             	System.out.println(e.getMessage());
             	System.out.println("continue with next file, skipping: "+ locations[i]);
