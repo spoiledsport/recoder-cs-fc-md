@@ -54,9 +54,9 @@ public class RecoderProgram {
 				ProgramElement pe = news.getTreeChange(i).getChangeRoot();
 				if (pe instanceof CompilationUnit) {
 					count += 1;
-					out.println(
-						"[" + count + "] " + ((CompilationUnit) pe).getName());
-					out.flush();
+					//out.println(
+					//	"[" + count + "] " + ((CompilationUnit) pe).getName());
+					//out.flush();
 				}
 			}
 		}
@@ -64,15 +64,15 @@ public class RecoderProgram {
 		private long updateBeginTime;
 
 		public void modelUpdating(java.util.EventObject event) {
-			out.println("Model Update Starts...");
-			out.flush();
-			updateBeginTime = System.currentTimeMillis();
+			//out.println("Model Update Starts...");
+			//out.flush();
+			//updateBeginTime = System.currentTimeMillis();
 		}
 
 		public void modelUpdated(java.util.EventObject event) {
-			long updateTime = System.currentTimeMillis() - updateBeginTime;
-			out.println("...Model Updated in " + updateTime + "ms");
-			out.flush();
+			//long updateTime = System.currentTimeMillis() - updateBeginTime;
+			//out.println("...Model Updated in " + updateTime + "ms");
+			//out.flush();
 		}
 
 		private int oldpercentage = -1;
@@ -94,8 +94,8 @@ public class RecoderProgram {
 				for (int i = output.length(); i < MAX_LINE_WIDTH; i++) {
 					output.append(' ');
 				}
-				out.println(output);
-				out.flush();
+				//out.println(output);
+				//out.flush();
 				// no need to reset lastDisplayTime
 				return;
 			}
@@ -146,12 +146,12 @@ public class RecoderProgram {
 		new ConsoleReports(new PrintWriter(System.out));
 
 	private static void warn(String message) {
-		System.err.println(message);
+		//System.err.println(message);
 	}
 
 	private static void fail(String message) {
 		System.err.println(message);
-		System.exit(1);
+		//System.exit(1);
 	}
 
 	private static void usage(String progname) {

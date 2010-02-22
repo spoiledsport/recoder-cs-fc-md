@@ -46,7 +46,7 @@ import java.util.Enumeration;
 public class ChangeHistory extends AbstractService {
 
 	// set to false ignore the warnings for property style getters/setters
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = false;
 
 	/**
 	   Creates a new change history for the given configuration.
@@ -265,11 +265,11 @@ public class ChangeHistory extends AbstractService {
 			}
 			ProgramElement orphan = MiscKit.checkParentLinks(root);
 			if (orphan != null) {
-				Debug.log(
-					"### Orphan detected: "
-						+ Format.toString(Formats.ELEMENT_LONG, orphan)
-						+ " in call from \n"
-						+ Debug.makeStackTrace());
+//				Debug.log(
+//					"### Orphan detected: "
+//						+ Format.toString(Formats.ELEMENT_LONG, orphan)
+//						+ " in call from \n"
+//						+ Debug.makeStackTrace());
 			}
 		}
 	}
@@ -334,11 +334,11 @@ public class ChangeHistory extends AbstractService {
 		if (DEBUG) {
 			ProgramElement orphan = MiscKit.checkParentLinks(parent);
 			if (orphan != null) {
-				Debug.log(
-					"### Orphan detected: "
-						+ Format.toString(Formats.ELEMENT_LONG, orphan)
-						+ " in call from \n"
-						+ Debug.makeStackTrace());
+//				Debug.log(
+//					"### Orphan detected: "
+//						+ Format.toString(Formats.ELEMENT_LONG, orphan)
+//						+ " in call from \n"
+//						+ Debug.makeStackTrace());
 			}
 		}
 	}

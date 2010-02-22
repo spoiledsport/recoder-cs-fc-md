@@ -66,7 +66,8 @@ import java.util.Enumeration;
 public class DefaultSourceInfo extends DefaultProgramModelInfo implements
 		SourceInfo, ChangeHistoryListener, Formats {
 
-	private final static boolean DEBUG = true;
+	
+	private final static boolean DEBUG = false;
 
 	/**
 	 * Cache mapping (package|type|variable|method|constructor)references to

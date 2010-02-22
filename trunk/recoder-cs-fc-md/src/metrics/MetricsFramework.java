@@ -84,7 +84,7 @@ public class MetricsFramework {
 		assert !inputPath.equals("");
 		
 		// HACK
-		inputPath += System.getProperty("path.separator")+"test"+System.getProperty("file.separator")+"minicorlib";
+		inputPath += System.getProperty("path.separator")+"../recoder-cs-fc-md/test"+System.getProperty("file.separator")+"minicorlib";
 
 		// set input path with the files to be analyzed
 		System.getProperties().put("input.path", inputPath);
@@ -95,7 +95,7 @@ public class MetricsFramework {
 
 		// set custom error handler
 		this.cs.getProjectSettings().setErrorHandler(
-				new PlainAnalysisErrorHandler(3));
+				new PlainAnalysisErrorHandler(6666));
 
 		// run recoder program
 		RecoderProgram.setup(cs, MetricsFramework.class, args);
