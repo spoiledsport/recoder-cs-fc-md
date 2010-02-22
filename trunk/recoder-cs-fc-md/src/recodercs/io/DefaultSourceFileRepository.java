@@ -322,7 +322,18 @@ public class DefaultSourceFileRepository
             listeners.fireProgressEvent(
                 i,
                 new StringBuffer("Parsing ").append(filenames[i]).toString());
-            CompilationUnit cu = getCompilationUnitFromFile(filenames[i]);
+            CompilationUnit cu = null;
+            try{
+            	 cu = getCompilationUnitFromFile(filenames[i]);
+            }
+            catch(Throwable e){
+            	System.out.println("DefaultSourceFileRepository.getCompilationUnitsFrom Files(): ParserException in "+filenames[i]+":\n");
+            	System.out.println(e.getMessage());
+            	//e.printStackTrace();
+            	System.out.println("continue with next file, skipping: "+ filenames[i]);
+            	continue;
+            }
+            
             if (cu != null) {
                 res.add(cu);
             }
@@ -442,6 +453,7 @@ public class DefaultSourceFileRepository
             catch(Throwable e){
             	System.out.println("DefaultSourceFileRepository.suckUp(): ParserException in "+locations[i]+":\n");
             	System.out.println(e.getMessage());
+            	e.printStackTrace();
             	System.out.println("continue with next file, skipping: "+ locations[i]);
             	continue;
             }
