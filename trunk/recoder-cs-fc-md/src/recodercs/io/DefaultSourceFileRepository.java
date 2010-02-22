@@ -436,7 +436,15 @@ public class DefaultSourceFileRepository
             "Importing Source Files From Path");
         for (int i = 0; i < locations.length; i++) {
             listeners.fireProgressEvent(i, "Parsing " + locations[i]);
-            suckUpCompilationUnitFromLocation(locations[i]);
+            try{
+            	suckUpCompilationUnitFromLocation(locations[i]);
+            }
+            catch(ParserException e){
+            	System.out.println("DefaultSourceFileRepository.suckUp(): ParserException in "+locations[i]+":\n");
+            	System.out.println(e.getMessage());
+            	System.out.println("continue with next file, skipping: "+ locations[i]);
+            	continue;
+            }
         }
     }
 
