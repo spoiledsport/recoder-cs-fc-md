@@ -283,6 +283,8 @@ public class RecoderProgram {
 				}
 			}
 		} catch (ParserException pe) {
+			System.err.println("Foo:");
+			pe.printStackTrace();
 			fail("A Parse Error has occured: " + pe);
 		}
 	}

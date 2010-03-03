@@ -78,9 +78,9 @@ public class ATFD extends DSMetricCalculator {
 			assert clazz instanceof ClassType;
 			ClassType myClazz = (ClassType) clazz;
 
-			log
-					.debug("Looking for ATFD in ClassType: "
-							+ myClazz.getFullName());
+//			log
+//					.debug("Looking for ATFD in ClassType: "
+//							+ myClazz.getFullName());
 
 			TreeWalker luke = new TreeWalker(clazz);
 

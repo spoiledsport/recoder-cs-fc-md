@@ -111,6 +111,7 @@ public class DefaultSourceFileRepository
         outputPath = new File(settings.getProperty(PropertyNames.OUTPUT_PATH));
         try {
             suckUp();
+        	//getCompilationUnitFromLocation(loc)
         } catch (ParserException pe) {
             throw new InitializationException(pe);
         }
@@ -477,12 +478,28 @@ public class DefaultSourceFileRepository
                     in);
             in.close();
             loc.readerClosed();
-            result.setDataLocation(loc);
-            unattached_location2cu.put(loc, result);
-            //let this be done by the history
+            if (result == null) {
+                // Check the unattached sources 
+                result = (CompilationUnit) unattached_location2cu.get(loc); 
+            }
+            if (result != null) {
+            	// Attach the unattached CU to the model
+            	result.setDataLocation(loc);
+            	location2cu.put(loc,result);
+            	changeHistory.attached(result);
+            	changeHistory.updateModel();
+                return result;
+            }
+//            result.setDataLocation(loc);
+//            unattached_location2cu.put(loc, result);
+//            //let this be done by the history
+//            location2cu.put(loc, result); //let this be done by the history
+//            changeHistory.attached(result);
+//            changeHistory.updateModel();
         } catch (IOException e) {
             Debug.error("Exception while reading from input stream: " + e);
         } catch (ParserException pe) {
+        	
             Debug.error("Exception while parsing unit " + loc);
             throw pe;
         }

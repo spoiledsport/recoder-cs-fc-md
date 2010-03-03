@@ -36,6 +36,8 @@ public class PlainAnalysis {
         
         sc.getChangeHistory().updateModel();
         
+        
+        
         System.out.println("\nFiles...");
         System.out.println(
             ((DefaultSourceFileRepository) sc.getSourceFileRepository())

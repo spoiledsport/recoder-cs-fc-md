@@ -91,6 +91,7 @@ public class MetricsFramework {
 
 		// setup cross reference service configuration and source info
 		this.cs = new CrossReferenceServiceConfiguration();
+		//cs.getChangeHistory().updateModel();
 		this.si = cs.getCrossReferenceSourceInfo();
 
 		// set custom error handler
@@ -181,14 +182,21 @@ public class MetricsFramework {
 			// set CUs in metrics
 			setMetricCu(cuTypes);
 
-			// calculate metrics
-			calculateMetrics();
+			try{
+				// calculate metrics
+				calculateMetrics();
 
-			// add metric results for current CU
-			getMetricsResult(cuRes);
+				// add metric results for current CU
+				getMetricsResult(cuRes);
 
-			// put metric results for current CU in resultSet
-			resultSet.put(cu.getName(), cuRes);
+				// put metric results for current CU in resultSet
+				resultSet.put(cu.getName(), cuRes);
+			}
+			catch(NullPointerException e){
+				System.out.println("Null Pointer occured while computing metrics for: "+ cu.getName());
+				continue;
+			}
+			
 		}
 		//log.debug(metrics.util.MetricUtils.debugOutput(resultSet));
 
