@@ -1,0 +1,12 @@
+# Files #
+  * /trunk/recoder-cs-fc-md/src/recoder/service/ChangeHistory.java
+    * where: line: 38, set DEBUG = false
+    * why: to avoid exception for property style getters/setters due the lack of KW value in grammar
+  * CshaprParser.jj
+    * line 1280: reading over partial classes
+    * added "yield" to return and break statements with huuuuge lookahead
+
+  * csharpor.jj
+    * right now ignoring all TypeParameterList() in void PrimaryNoArrayCreationExpression() line 744
+  * DefaultSourceInfo.java
+    * 1540 check for type != null

@@ -1,0 +1,17 @@
+  * how should WMC be defined, based on CYCLO
+    * i followed the definition of it in the code wizard testcase for it
+    * do we count the cases/default in a switch or just the switch
+    * adapt test case?
+
+  * WMC, how should we wight stuff? LOC?
+    * currently nothing is wweighted.
+
+  * really, what classes do we consider, when calculating metrics?
+    * if the measured entity is method, do i consider abstract classes?
+    * I always filter out interfaces, now matter what.
+
+```
+if(!typeDeclaration.isOrdinaryClass() && !typeDeclaration.isAbstract()) {
+				res.add(null);
+				continue;
+```
